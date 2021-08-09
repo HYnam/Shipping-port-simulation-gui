@@ -24,4 +24,16 @@ public class BulkCargo
     {
         return weight_cargo;
     }
+
+    public BulkCargoType getType()
+    // Method: Returns the type of this bulk cargo.
+    {
+        return type_cargo;
+    }
+
+    public String toString()
+    // Method: Returns the human-readable string representation of this BulkCargo.
+    {
+
+    }
 }
