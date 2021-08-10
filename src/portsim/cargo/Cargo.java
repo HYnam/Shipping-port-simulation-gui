@@ -3,13 +3,16 @@ package portsim.cargo;
 
 public abstract class Cargo
 {
+    public int cargo_id;
+    public String dest_port;
+
     public Cargo(int id, String destination)
     // Constructor: Creates a new Cargo with the given ID and destination port.
     {
-        int Cargo_id = id;
+        int cargo_id = id;
         String dest_port = destination;
 
-        if(Cargo_id < 0)
+        if(cargo_id < 0)
         {
             throw new IllegalArgumentException ("id out of range");
         }
@@ -18,7 +21,7 @@ public abstract class Cargo
     public int getID()
     // Method: Retrieve the ID of this piece of cargo.
     {
-        return Cargo_id;
+        return cargo_id;
     }
 
     public String getDestination()
@@ -27,9 +30,10 @@ public abstract class Cargo
         return dest_port;
     }
 
+    @Override
     public String toString()
     // Method: Returns the human-readable string representation of this cargo.
     {
-
+        return super.toString() + Cargo + cargo_id + "to" + dest_port;
     }
 }
