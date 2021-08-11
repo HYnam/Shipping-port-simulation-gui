@@ -5,6 +5,11 @@ public abstract class Cargo
 {
     public int cargo_id;
     public String dest_port;
+    public static final ContainerType STANDARD = new ContainerType();
+
+    public Cargo(){
+
+    }
 
     public Cargo(int id, String destination)
     // Constructor: Creates a new Cargo with the given ID and destination port.
@@ -34,6 +39,6 @@ public abstract class Cargo
     public String toString()
     // Method: Returns the human-readable string representation of this cargo.
     {
-        return super.toString() + Cargo + cargo_id + "to" + dest_port;
+        return super.toString() + CargoClass + cargo_id + "to" + dest_port;
     }
 }

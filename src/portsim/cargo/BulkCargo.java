@@ -1,21 +1,21 @@
 package portsim.cargo;
 
-public class BulkCargo
+public class BulkCargo extends Cargo
 // Bulk cargo is commodity cargo that is transported unpacked in large quantities.
 {
-    public int cargo_id;
-    public String dest_port;
+    public int cargoId;
+    public String destPort;
     public int weight;
-    public BulkCargoType type_of_cargo;
+    public BulkCargoType typeOfCargo;
 
     public BulkCargo(int id, String destination, int tonnage, BulkCargoType type)
     // Constructor: Creates a new Bulk Cargo with the given ID, destination, tonnage and type.
     {
         // Initialise variables
-        cargo_id = id;
-        dest_port = destination;
-        weight = tonnage;
-        type_of_cargo = type;
+        this.cargoId = id;
+        this.destPort = destination;
+        this.weight = tonnage;
+        this.typeOfCargo = type;
 
         if (id < 0 || tonnage < 0)
         {
@@ -26,19 +26,19 @@ public class BulkCargo
     public int getTonnage()
     // Method: Returns the tonnage of this bulk cargo.
     {
-        return cargo_id;
+        return this.weight;
     }
 
     public BulkCargoType getType()
     // Method: Returns the type of this bulk cargo.
     {
-        return type_of_cargo;
+        return this.typeOfCargo;
     }
 
     @Override
     public String toString()
     // Method: Returns the human-readable string representation of this BulkCargo.
     {
-        return super.toString() + "BulkCargo" + cargo_id + "to" + dest_port + '[' + type_of_cargo + '-' + weight + ']';
+        return super.toString() + "BulkCargo" + this.cargoId + "to" + this.destPort + '[' + this.typeOfCargo + '-' + this.weight + ']';
     }
 }
