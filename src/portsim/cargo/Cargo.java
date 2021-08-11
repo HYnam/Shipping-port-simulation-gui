@@ -1,10 +1,10 @@
 package portsim.cargo;
 
 
-public abstract class Cargo
+public abstract class Cargo extends Object
 {
-    public int cargo_id;
-    public String dest_port;
+    public int cargoId;
+    public String destPort;
     public static final ContainerType STANDARD = new ContainerType();
 
     public Cargo(){
@@ -14,10 +14,10 @@ public abstract class Cargo
     public Cargo(int id, String destination)
     // Constructor: Creates a new Cargo with the given ID and destination port.
     {
-        int cargo_id = id;
-        String dest_port = destination;
+        this.cargoId = id;
+        this.destPort = destination;
 
-        if(cargo_id < 0)
+        if(id < 0)
         {
             throw new IllegalArgumentException ("id out of range");
         }
@@ -26,19 +26,19 @@ public abstract class Cargo
     public int getID()
     // Method: Retrieve the ID of this piece of cargo.
     {
-        return cargo_id;
+        return this.cargoId;
     }
 
     public String getDestination()
     // Method: Retrieve the destination of this piece of cargo
     {
-        return dest_port;
+        return this.destPort;
     }
 
     @Override
     public String toString()
     // Method: Returns the human-readable string representation of this cargo.
     {
-        return super.toString() + CargoClass + cargo_id + "to" + dest_port;
+        return super.toString() + CargoClass + this.cargoId + "to" + this.destPort;
     }
 }
