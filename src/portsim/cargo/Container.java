@@ -10,6 +10,7 @@ public class Container extends Cargo
     public Container(int id, String destination, ContainerType type)
     {
         // Creates a new Container of the specified ContainerType, with the given ID and destination.
+        super.
         this.cargo_id = id;
         this.dest_port = destination;
         this.type = type;

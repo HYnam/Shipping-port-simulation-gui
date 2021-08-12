@@ -37,6 +37,6 @@ public abstract class Cargo extends Object
        e.g:  CargoClass id to destination
      */
     {
-        return super.toString() + CargoClass + this.cargoId + "to" + this.destPort;
+        return super.toString() + Cargo.class + this.cargoId + "to" + this.destPort;
     }
 }
