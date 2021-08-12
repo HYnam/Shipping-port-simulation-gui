@@ -37,7 +37,9 @@ public class BulkCargo extends Cargo
 
     @Override
     public String toString()
-    // Method: Returns the human-readable string representation of this BulkCargo.
+    /* Method: Returns the human-readable string representation of this BulkCargo.
+        e.g.: BulkCargo id to destination [type - tonnage]
+     */
     {
         return super.toString() + "BulkCargo" + this.cargoId + "to" + this.destPort + '[' + this.typeOfCargo + '-' + this.weight + ']';
     }
