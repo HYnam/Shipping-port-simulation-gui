@@ -22,4 +22,24 @@ public class CargoMovement extends Movement
             throw new IllegalArgumentException ("Must have time");
         }
     }
+
+    public List<Cargo> getCargo()
+    /*
+        Returns the cargo that will be moved.
+        Adding or removing elements from the returned list should not affect the original list
+     */
+    {
+        return this.cargoToMove;
+    }
+
+    @Override
+    public String toString()
+    /*
+        Returns the human-readable string representation of this CargoMovement.
+    The format of the string to return is
+        DIRECTION CargoMovement to occur at time involving num piece(s) of cargo
+     */
+    {
+        return super.toString() + this.directionOfMovement + "CargoMovement to occur at " + this.timeMovement + "involving" + this.cargoToMove + "piece(s) of cargo ";
+    }
 }
