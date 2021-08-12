@@ -1,15 +1,17 @@
 package portsim.cargo;
 
-public class Container
+public class Container extends Cargo
 {
+    // Represents a shipping container, used for holding or transporting something
     public int cargo_id;
     public String dest_port;
     public ContainerType type;
 
     public Container(int id, String destination, ContainerType type)
     {
-        cargo_id = id;
-        dest_port = destination;
+        // Creates a new Container of the specified ContainerType, with the given ID and destination.
+        this.cargo_id = id;
+        this.dest_port = destination;
         this.type = type;
 
         if (id < 0)
@@ -20,12 +22,16 @@ public class Container
 
     public ContainerType getType()
     {
-        return type;
+        // Returns the type of this container.
+        return this.type;
     }
 
     @Override
     public String toString()
     {
-        return super.toString() + "Container" + cargo_id + "to" + dest_port + "[" + type + "]";
+        /* Returns the human-readable string representation of this Container.
+            e.g: Container id to destination [type]
+         */
+        return super.toString() + "Container" + this.cargo_id + "to" + this.dest_port + "[" + this.type + "]";
     }
 }
