@@ -8,4 +8,14 @@ public class NoSuchCargoException extends Exception
     {
         throw new NoSuchCargoException();
     }
+
+    public NoSuchCargoException(String message)
+    // Constructs a NoSuchCargoException that contains a helpful detail message explaining why the exception occurred
+    {
+        try{
+            throw new NoSuchCargoException();
+        } catch (NoSuchCargoException e) {
+            e.printStackTrace();
+        }
+    }
 }
