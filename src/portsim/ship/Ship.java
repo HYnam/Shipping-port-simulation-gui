@@ -18,6 +18,12 @@ public abstract class Ship extends Object
         this.PortOfOrigin = originFlag;
         this.FlagShipFlying = flag;
 
-        if(imoNumber < 0 || imoNumber.length())
+        // Change long type to String type
+        String longAsString = Long.toString(imoNumber);
+
+        if(imoNumber < 0 || longAsString.length() != 7)
+        {
+            throw new IllegalArgumentException ("unique identifier out of range");
+        }
     }
 }
