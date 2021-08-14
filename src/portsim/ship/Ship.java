@@ -10,6 +10,7 @@ public abstract class Ship extends Object
     String NameOfShip;
     String PortOfOrigin;
     NauticalFlag FlagShipFlying;
+
     public Ship(long imoNumber, String name, String originFlag, NauticalFlag flag)
     // Creates a new ship with the given IMO number, name, origin port flag and nautical flag
     {
@@ -25,5 +26,23 @@ public abstract class Ship extends Object
         {
             throw new IllegalArgumentException ("unique identifier out of range");
         }
+    }
+
+    public abstract boolean canDock(Quay quay)
+    // Check if this ship can dock with the specified quay according to the conditions determined by the ships type
+    {
+        if ()
+    }
+
+    public abstract boolean canLoad(Cargo cargo)
+    // Checks if the specified cargo can be loaded onto the ship according to the conditions determined by the ships type
+    {
+
+    }
+
+    public abstract void loadCargo(Cargo cargo)
+    // Loads the specified cargo onto the ship
+    {
+
     }
 }
