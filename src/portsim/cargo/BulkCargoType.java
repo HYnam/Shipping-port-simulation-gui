@@ -6,5 +6,5 @@ public enum BulkCargoType
     GRAIN,
     MINERALS,
     OIL,
-    OTHER;
+    OTHER
 }

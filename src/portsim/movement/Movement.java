@@ -6,7 +6,7 @@ public abstract class Movement extends Object
     long timeOfMoveOccur;
     MovementDirection directionToMove;
 
-    public Movement(MovementDirection time, MovementDirection direction)
+    public Movement(long time, MovementDirection direction)
     // Creates a new movement with the given action time and direction
     {
         this.timeOfMoveOccur = time;
@@ -38,6 +38,6 @@ public abstract class Movement extends Object
         DIRECTION MovementClass to occur at time
      */
     {
-        return super.toString() + this.directionToMove + Movement.class + "to occur at " + this.timeOfMoveOccur;
+        return super.toString() + this.directionToMove + this.getClass().getName() + "to occur at " + this.timeOfMoveOccur;
     }
 }

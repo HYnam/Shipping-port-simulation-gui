@@ -7,5 +7,5 @@ public enum ContainerType
     OTHER,
     REEFER,
     STANDARD,
-    TANKER;
+    TANKER
 }

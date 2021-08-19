@@ -6,16 +6,12 @@ import java.util.List;
 public class CargoMovement extends Movement
 // The movement of cargo coming into or out of the port.
 {
-    long timeMovement;
-    // MovementDirection directionOfMovement;
     List<Cargo> cargoToMove;
 
     public CargoMovement(long time, MovementDirection direction, List<Cargo> cargo)
     // Creates a new cargo movement with the given action time and direction to be undertaken with the given cargo.
     {
-        super(MovementDirection.INBOUND, MovementDirection.OUTBOUND);
-        this.timeMovement = time;
-        // this.directionOfMovement = direction;
+        super(time, direction);
         this.cargoToMove = cargo;
 
         if(time < 0)
@@ -41,6 +37,6 @@ public class CargoMovement extends Movement
         DIRECTION CargoMovement to occur at time involving num piece(s) of cargo
      */
     {
-        return super.toString() + this.(MovementDirection) + "CargoMovement to occur at " + this.timeMovement + "involving" + this.cargoToMove + "piece(s) of cargo ";
+        return super.toString() + this.getDirection() + "CargoMovement to occur at " + this.getTime() + "involving" + this.cargoToMove + "piece(s) of cargo ";
     }
 }
