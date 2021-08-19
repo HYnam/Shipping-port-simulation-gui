@@ -41,6 +41,6 @@ public class CargoMovement extends Movement
         DIRECTION CargoMovement to occur at time involving num piece(s) of cargo
      */
     {
-        return super.toString() + super.(MovementDirection) + "CargoMovement to occur at " + this.timeMovement + "involving" + this.cargoToMove + "piece(s) of cargo ";
+        return super.toString() + this.(MovementDirection) + "CargoMovement to occur at " + this.timeMovement + "involving" + this.cargoToMove + "piece(s) of cargo ";
     }
 }
