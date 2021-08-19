@@ -19,4 +19,21 @@ public class ShipMovement extends Movement
         }
     }
 
+    public Ship getShip()
+    // Returns the ship undertaking the movement.
+    {
+        return this.ShipWaitToMove;
+    }
+
+    @Override
+    public String toString()
+    /*
+        Returns the human-readable string representation of this ShipMovement.
+    The format of the string to return is
+        DIRECTION ShipMovement to occur at time involving the ship name
+     */
+    {
+        return super.toString() + this.getDirection() + this.getClass().getName() + "to occur at" + this.getTime() + "involving the ship " + this.getShip();
+    }
+
 }
