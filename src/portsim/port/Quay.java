@@ -27,7 +27,7 @@ public abstract class Quay extends Object
     public void shipArrives(Ship ship)
     // Docks the given ship at the Quay so that the quay becomes occupied.
     {
-        return;
+
     }
 
     public Ship shipDeparts()

@@ -31,21 +31,48 @@ public abstract class Ship extends Object
         }
     }
 
-    public abstract boolean canDock(Quay quay)
+    public abstract boolean canDock(Quay quay);
     // Check if this ship can dock with the specified quay according to the conditions determined by the ships type
-    {
-        if ()
-    }
 
-    public abstract boolean canLoad(Cargo cargo)
+    public abstract boolean canLoad(Cargo cargo);
     // Checks if the specified cargo can be loaded onto the ship according to the conditions determined by the ships type
-    {
 
+    public abstract void loadCargo(Cargo cargo);
+    // Loads the specified cargo onto the ship
+
+    public String getName()
+    // Return this ship's name.
+    {
+        return this.NameOfShip;
     }
 
-    public abstract void loadCargo(Cargo cargo)
-    // Loads the specified cargo onto the ship
+    public long getImoNumber()
+    // Return this ship's IMO number
     {
+        return this.Identifier;
+    }
 
+    public String getOriginalFlag()
+    // Returns this ship's flag denoting its origin.
+    {
+        return this.PortOfOrigin;
+    }
+
+    public NauticalFlag getFlag()
+    // Returns the nautical flag the ship is flying
+    {
+        return this.FlagShipFlying;
+    }
+
+    @Override
+    public String toString()
+    /*
+    Returns the human-readable string representation of this Ship.
+    The format of the string to return is
+
+        ShipClass name from origin [flag]
+     */
+    {
+        return super.toString() + this.getClass().getName() + this.getName() + "from " + this.getOriginalFlag() + "[" + this.FlagShipFlying + "]";
     }
 }
