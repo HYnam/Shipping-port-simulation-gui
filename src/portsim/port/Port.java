@@ -1,7 +1,6 @@
 package portsim.port;
 
 import portsim.cargo.Cargo;
-
 import java.util.List;
 
 public class Port extends Object
