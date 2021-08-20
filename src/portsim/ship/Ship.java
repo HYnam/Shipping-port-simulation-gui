@@ -1,5 +1,8 @@
 package portsim.ship;
 
+import portsim.cargo.Cargo;
+import portsim.port.Quay;
+
 public abstract class Ship extends Object
 /*
     Represents a ship whose movement is managed by the system
