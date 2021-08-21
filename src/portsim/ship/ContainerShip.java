@@ -1,7 +1,10 @@
 package portsim.ship;
 
 import portsim.cargo.Cargo;
+import portsim.cargo.Container;
 import portsim.port.Quay;
+import portsim.util.NoSuchCargoException;
+import java.util.List;
 
 public class ContainerShip extends Ship
 // Represents a ship capable of carrying shipping containers.
@@ -49,5 +52,40 @@ public class ContainerShip extends Ship
      */
     {
 
+    }
+
+    public void loadCargo(Cargo cargo)
+    // Loads the specified cargo onto the ship.
+    {
+
+    }
+
+    public List<Container> unloadCargo() throws NoSuchCargoException
+    // Unloads the cargo from the ship.
+    // The ship's cargo should be set to an empty list.
+    {
+
+    }
+
+    public List<Container> getCargo()
+    /*
+    Returns the current cargo onboard this vessel
+    Adding or removing elements from the returned list should be not affect the original list.
+     */
+    {
+
+    }
+
+    @Override
+    public String toString()
+    /*
+       Returns the human-readable string representation of this ContainerShip.
+        The format of the string to return is
+
+        ContainerShip name from origin [flag] carrying num containers
+     */
+    {
+        return super.toString() + this.getClass().getName() + this.NameOfShip + "from" + this.PortOfOrigin + "[" + this.FlagShipFlying + "]" + "carrying"
+                +"containers";
     }
 }
