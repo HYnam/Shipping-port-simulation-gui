@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.junit.rules.Timeout;
 import portsim.ship.ContainerShip;
 import portsim.ship.NauticalFlag;
-import portsim.ship.Ship;
 
 
 import static org.junit.Assert.*;
@@ -16,7 +15,7 @@ public class BulkQuayTest {
 
     BulkQuay quay1;
     BulkQuay quay2;
-    Ship containerShip;
+    String containerShip;
 
     @Before
     public void setUp() throws Exception {

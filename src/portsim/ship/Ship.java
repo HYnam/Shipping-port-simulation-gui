@@ -9,10 +9,10 @@ public abstract class Ship extends Object
     Ships store various types of cargo which can be loaded and unloaded at a port
  */
 {
-    long Identifier;
-    String NameOfShip;
-    String PortOfOrigin;
-    NauticalFlag FlagShipFlying;
+    public long Identifier;
+    public String NameOfShip;
+    public String PortOfOrigin;
+    public NauticalFlag FlagShipFlying;
 
     public Ship(long imoNumber, String name, String originFlag, NauticalFlag flag)
     // Creates a new ship with the given IMO number, name, origin port flag and nautical flag
@@ -27,7 +27,7 @@ public abstract class Ship extends Object
 
         if(imoNumber < 0 || longAsString.length() != 7)
         {
-            throw new IllegalArgumentException ("unique identifier out of range");
+            throw new IllegalArgumentException ();
         }
     }
 
