@@ -30,8 +30,9 @@ public abstract class Quay extends Object
 
     }
 
+
     public Ship shipDeparts()
-    /** Removes the current ship docked at the quay. The current ship should be set to null.*/
+     /**Removes the current ship docked at the quay. The current ship should be set to null.*/
     {
         if(this.QuayId == 0)
         {
@@ -43,19 +44,24 @@ public abstract class Quay extends Object
         }
     }
 
+
     public boolean isEmpty()
-    /** Returns whether a ship is currently docked at this quay.*/
+     /**Returns whether a ship is currently docked at this quay.*/
     {
         if(getShip().getImoNumber() == this.QuayId){
             return
         }
     }
 
+
+
     public Ship getShip()
-    /** Returns the ship currently docked at the quay.*/
+     /**Returns the ship currently docked at the quay.*/
     {
         return Ship;
     }
+
+
 
     @Override
     public String toString()
@@ -68,4 +74,5 @@ public abstract class Quay extends Object
     {
         return super.toString() + this.getClass().getName() + this.QuayId + "[Ship: " + getShip().getImoNumber() +"]";
     }
+
 }

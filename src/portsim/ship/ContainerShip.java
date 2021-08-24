@@ -26,6 +26,7 @@ public class ContainerShip extends Ship
         }
     }
 
+
     public boolean canDock(Quay quay)
     /*
          Checks if this ship can dock with the specified quay.
@@ -68,7 +69,7 @@ public class ContainerShip extends Ship
     }
 
     public List<Container> getCargo()
-    /*
+    /**
     Returns the current cargo onboard this vessel
     Adding or removing elements from the returned list should be not affect the original list.
      */

@@ -14,18 +14,6 @@ public class CargoTest {
     private DummyCargo dummyCargo2;
     private DummyCargo dummyCargo3;
 
-    @Test
-    public void getID() {
-    }
-
-    @Test
-    public void getDestination() {
-    }
-
-    @Test
-    public void testToString() {
-    }
-
     /*
      * Dummy Cargo don't extend BulkCargo or Container, useful
      * for testing methods overridden in Cargo subclasses
@@ -51,6 +39,19 @@ public class CargoTest {
 
     @Rule
     public Timeout timeout = Timeout.seconds(1);
+
+    @Test
+    public void getIDCargo1() {
+        assertEquals("The id was incorrect.", 1, dummyCargo1.getID());
+    }
+
+    @Test
+    public void getDestination() {
+    }
+
+    @Test
+    public void testToString() {
+    }
 
     @Test
     //
