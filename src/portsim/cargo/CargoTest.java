@@ -14,6 +14,18 @@ public class CargoTest {
     private DummyCargo dummyCargo2;
     private DummyCargo dummyCargo3;
 
+    @Test
+    public void getID() {
+    }
+
+    @Test
+    public void getDestination() {
+    }
+
+    @Test
+    public void testToString() {
+    }
+
     /*
      * Dummy Cargo don't extend BulkCargo or Container, useful
      * for testing methods overridden in Cargo subclasses
