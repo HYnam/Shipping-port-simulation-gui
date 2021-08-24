@@ -46,7 +46,28 @@ public class CargoTest {
     }
 
     @Test
-    public void getDestination() {
+    public void getIDCargo2(){
+        assertEquals("The id was incorrect.", 2, dummyCargo2.getID());
+    }
+
+    @Test
+    public void getIDCargo3(){
+        assertEquals("The id was incorrect", 3, dummyCargo3.getID());
+    }
+
+    @Test
+    public void getDestinationCargo1() {
+        assertEquals("The distinction is incorrect", "Australia", dummyCargo1.getDestination());
+    }
+
+    @Test
+    public void getDestinationCargo2() {
+        assertEquals("The distinction is incorrect", "Australia", dummyCargo2.getDestination());
+    }
+
+    @Test
+    public void getDestinationCargo3() {
+        assertEquals("The distinction is incorrect", "New Zealand", dummyCargo3.getDestination());
     }
 
     @Test
