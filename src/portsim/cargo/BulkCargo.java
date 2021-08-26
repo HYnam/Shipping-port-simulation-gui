@@ -21,6 +21,7 @@ public class BulkCargo extends Cargo
      * */
     public BulkCargo(int id, String destination, int tonnage, BulkCargoType type)
     {
+
         // Initialise variables
         super(id, destination);
         this.weight = tonnage;
