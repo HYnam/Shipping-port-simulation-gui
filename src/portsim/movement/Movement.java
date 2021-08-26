@@ -1,13 +1,22 @@
 package portsim.movement;
 
-public abstract class Movement extends Object
 /** The movement of ships or cargo coming into or out of the port from land or sea.*/
+public abstract class Movement extends Object
 {
-    long timeOfMoveOccur;
-    MovementDirection directionToMove;
+    /** the time the movement should occur */
+    private long timeOfMoveOccur;
 
+    /** the direction of the movement */
+    private MovementDirection directionToMove;
+
+    /** Creates a new movement with the given action time and direction
+     * Parameters:
+     * time - the time the movement should occur
+     * direction - the direction of the movement
+     * Throws:
+     * IllegalArgumentException - if time < 0
+     * */
     public Movement(long time, MovementDirection direction)
-    /** Creates a new movement with the given action time and direction*/
     {
         this.timeOfMoveOccur = time;
         this.directionToMove = direction;
@@ -18,25 +27,37 @@ public abstract class Movement extends Object
         }
     }
 
+    /** Returns the time the movement should be actioned
+     * Returns:
+     * movement time
+     * */
     public long getTime()
-    /** Returns the time the movement should be actioned*/
     {
         return this.timeOfMoveOccur;
     }
 
+    /** Returns the direction of the movement.
+     * Returns:
+     * movement direction
+     * */
     public MovementDirection getDirection()
-    /** Returns the direction of the movement.*/
     {
         return this.directionToMove;
     }
 
+    /** Returns the human-readable string representation of this Movement.
+     * The format of the string to return is
+     *
+     * DIRECTION MovementClass to occur at time
+     * Where:
+     * DIRECTION is the direction of the movement
+     * MovementClass is the Movement class name
+     * time is the time the movement is meant to occur
+     * For example:
+     * INBOUND Movement to occur at 120
+     * */
     @Override
     public String toString()
-    /**
-        Returns the human-readable string representation of this Movement.
-    The format of the string to return is
-        DIRECTION MovementClass to occur at time
-     */
     {
         return super.toString() + getDirection() + this.getClass().getName() + "to occur at " + getTime();
     }

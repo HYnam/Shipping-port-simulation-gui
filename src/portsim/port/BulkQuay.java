@@ -4,7 +4,7 @@ package portsim.port;
 public class BulkQuay extends Quay
 {
     /** maximum tonnage the quay can handle */
-    public int MaxTonnageCanHandle;
+    private int MaxTonnageCanHandle;
 
     /** Creates a new Bulk Quay with the given ID and max tonnage.*/
     public BulkQuay(int id, int maxTonnage)
@@ -41,6 +41,6 @@ public class BulkQuay extends Quay
     @Override
     public String toString()
     {
-        return super.toString() + "BulkQuay " + this.QuayId + "[Ship: " + this.getShip() + "] - " + this.getMaxTonnage();
+        return super.toString() + "BulkQuay " + getId() + "[Ship: " + this.getShip() + "] - " + this.getMaxTonnage();
     }
 }

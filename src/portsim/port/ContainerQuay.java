@@ -4,7 +4,7 @@ package portsim.port;
 public class ContainerQuay extends Quay
 {
     /** maximum number of containers the quay can handle */
-    public int MaxContainerQuayHandle;
+    private int MaxContainerQuayHandle;
 
     /** Creates a new Container Quay with the given ID and maximum number of containers.
      * Parameters:
@@ -15,7 +15,7 @@ public class ContainerQuay extends Quay
      * */
     public ContainerQuay(int id, int maxContainers)
     {
-        super(id);
+        super(id); // Get the value id in Quay class
         this.MaxContainerQuayHandle = maxContainers;
 
         if(id < 0 || maxContainers < 0)
@@ -32,15 +32,21 @@ public class ContainerQuay extends Quay
         return this.MaxContainerQuayHandle;
     }
 
+    /** Returns the human-readable string representation of this ContainerQuay.
+     * The format of the string to return is
+     *
+     * ContainerQuay id [Ship: imoNumber] - maxContainers
+     * Where:
+     * id is the ID of this quay
+     * imoNumber is the IMO number of the ship docked at this quay, or None if the quay is unoccupied.
+     * maxContainers is the number of containers this quay can take.
+     * For example:
+     *
+     * ContainerQuay 3 [Ship: 22] - 32
+     * */
     @Override
     public String toString()
-    /*
-    Returns the human-readable string representation of this ContainerQuay.
-    The format of the string to return is
-
-        ContainerQuay id [Ship: imoNumber] - maxContainers
-     */
     {
-        return super.toString() + "ContainerQuay " + this.QuayId + "[Ship: " + this.getShip() + "] - " + this.getMaxContainers();
+        return super.toString() + "ContainerQuay " + getId() + "[Ship: " + this.getShip() + "] - " + this.getMaxContainers();
     }
 }
