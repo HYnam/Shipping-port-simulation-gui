@@ -20,7 +20,7 @@ public class ContainerQuay extends Quay
 
         if(id < 0 || maxContainers < 0)
         {
-            throw new IllegalArgumentException ("ID or maxContainers must be greater than zero");
+            throw new IllegalArgumentException();
         }
     }
 

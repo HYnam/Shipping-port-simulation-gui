@@ -14,7 +14,7 @@ public class BulkQuay extends Quay
 
         if(id < 0 || maxTonnage < 0)
         {
-            throw new IllegalArgumentException ("ID or maxTonnage must be greater than zero");
+            throw new IllegalArgumentException();
         }
     }
 
