@@ -45,7 +45,7 @@ public class Port extends Object
     {
         // Declare a list called quays to store all the quays
         List<Quay> quays = new ArrayList<>();
-        quays =
+        quays.addAll();
     }
 
     /** Returns the cargo stored at this port.
