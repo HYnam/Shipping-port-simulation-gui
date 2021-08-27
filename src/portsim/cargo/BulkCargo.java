@@ -67,6 +67,6 @@ public class BulkCargo extends Cargo
     @Override
     public String toString()
     {
-        return super.toString() + "BulkCargo" + getID() + "to" + getDestination() + '[' + getType() + '-' + getTonnage() + ']';
+        return super.toString() + "BulkCargo" + getID() + "to" + getDestination() + '[' + getType() + " - " + getTonnage() + ']';
     }
 }
