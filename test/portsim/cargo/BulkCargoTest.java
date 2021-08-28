@@ -23,6 +23,21 @@ public class BulkCargoTest {
     public void tearDown() throws Exception {
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void ConstructorException1(){
+        BulkCargo bulkCargoId = new BulkCargo(-1, "Germany", 10, BulkCargoType.OTHER);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ConstructorException2(){
+        BulkCargo bulkCargoTonnage = new BulkCargo(4, "US", -1, BulkCargoType.GRAIN);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ConstructorExceptionBoth(){
+        BulkCargo bulkCargoBoth = new BulkCargo(-1, "TaiWan", -1, BulkCargoType.OIL);
+    }
+
     @Test
     public void getTonnageBulkCargo1() {
         assertEquals("This is no correct", 1000, bulkCargo1.getTonnage());
