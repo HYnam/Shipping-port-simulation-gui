@@ -50,7 +50,7 @@ public class BulkCargoTest {
 
     @Test
     public void getTypeBulkCargo3() {
-        assertEquals("This is not correct", BulkCargoType.GRAIN, bulkCargo2.getType());
+        assertEquals("This is not correct", BulkCargoType.GRAIN, bulkCargo3.getType());
     }
 
     @Test
