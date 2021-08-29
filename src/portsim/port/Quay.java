@@ -8,8 +8,6 @@ public abstract class Quay extends Object
     /** quay ID */
     private int QuayId;
 
-
-
     /** Creates a new Quay with the given ID, with no ship docked at the quay.
      * Parameters:
      * id - quay ID
@@ -41,7 +39,7 @@ public abstract class Quay extends Object
      * */
     public void shipArrives(Ship ship)
     {
-
+        this.QuayId = getShip().getImoNumber();
     }
 
 
