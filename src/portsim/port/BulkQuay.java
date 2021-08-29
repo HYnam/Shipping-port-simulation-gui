@@ -43,6 +43,6 @@ public class BulkQuay extends Quay
     @Override
     public String toString()
     {
-        return super.toString() + "BulkQuay " + getId() + "[Ship: " + Ship.getImoNumber() + "] - " + this.getMaxTonnage();
+        return super.toString() + "BulkQuay " + getId() + "[Ship: " + getShip().getImoNumber() + "] - " + this.getMaxTonnage();
     }
 }
