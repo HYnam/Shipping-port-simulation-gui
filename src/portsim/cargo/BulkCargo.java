@@ -5,7 +5,7 @@ public class BulkCargo extends Cargo
 {
 
     /** the weight of the cargo */
-    private int weight;
+    private int Weight;
 
     /** the type of cargo */
     private BulkCargoType TypeOfCargo;
@@ -24,7 +24,7 @@ public class BulkCargo extends Cargo
 
         // Initialise variables
         super(id, destination);
-        this.weight = tonnage;
+        this.Weight = tonnage;
         this.TypeOfCargo = type;
 
         // throw exception
@@ -40,7 +40,7 @@ public class BulkCargo extends Cargo
      * */
     public int getTonnage()
     {
-        return this.weight;
+        return this.Weight;
     }
 
     /** Method: Returns the type of this bulk cargo.
