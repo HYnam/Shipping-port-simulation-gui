@@ -2,7 +2,6 @@ package portsim.port;
 
 import portsim.cargo.Cargo;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
