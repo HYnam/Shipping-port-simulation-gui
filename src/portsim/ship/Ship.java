@@ -112,6 +112,6 @@ public abstract class Ship extends Object
     @Override
     public String toString()
     {
-        return super.toString() + this.getClass().getName() + this.getName() + "from " + this.getOriginalFlag() + "[" + this.FlagShipFlying + "]";
+        return super.toString() + this.getClass().getName() + this.getName() + "from " + this.getOriginalFlag() + "[" + this.getFlag() + "]";
     }
 }

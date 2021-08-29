@@ -3,6 +3,7 @@ package portsim.port;
 import portsim.cargo.Cargo;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /** A place where ships can come and dock with Quays to load / unload their cargo.
@@ -12,6 +13,9 @@ public class Port extends Object
 {
     /** name of the port */
     private String NameOfPort;
+
+    /** Quay to be added*/
+    private List<Quay> QuayAdded;
 
     /** Creates a new port with the given name.
      * The list of quays in the port and stored cargo should be initialised as empty lists.
@@ -44,8 +48,9 @@ public class Port extends Object
     public List<Quay> getQuays()
     {
         // Declare a list called quays to store all the quays
-        List<Quay> quays = new ArrayList<>();
-        quays.addAll();
+        List<Quay> result = new LinkedList<>();
+        result.addAll(this.QuayAdded); //Thus creating a deep copy.
+        return result;
     }
 
     /** Returns the cargo stored at this port.
@@ -64,6 +69,6 @@ public class Port extends Object
      * */
     public void addQuay (Quay quay)
     {
-
+        this.QuayAdded.add(quay);
     }
 }
