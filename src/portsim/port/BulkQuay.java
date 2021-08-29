@@ -1,14 +1,18 @@
 package portsim.port;
 
-import portsim.ship.Ship;
-
 /** A Bulk Quay is a type of quay specifically designed for the unloading of Bulk Carrier vessels. */
 public class BulkQuay extends Quay
 {
     /** maximum tonnage the quay can handle */
     private int MaxTonnageCanHandle;
 
-    /** Creates a new Bulk Quay with the given ID and max tonnage.*/
+    /** Creates a new Bulk Quay with the given ID and max tonnage.
+     * Parameters:
+     * id - quay ID
+     * maxTonnage - maximum tonnage the quay can handle
+     * Throws:
+     * IllegalArgumentException - if ID or maxTonnage < 0
+     * */
     public BulkQuay(int id, int maxTonnage)
     {
         super(id);
