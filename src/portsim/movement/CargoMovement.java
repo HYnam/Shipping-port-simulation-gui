@@ -1,6 +1,8 @@
 package portsim.movement;
 
 import portsim.cargo.Cargo;
+
+import java.util.LinkedList;
 import java.util.List;
 
 /** The movement of cargo coming into or out of the port.*/
@@ -36,7 +38,9 @@ public class CargoMovement extends Movement
      * */
     public List<Cargo> getCargo()
     {
-        return this.cargoToMove;
+        List<Cargo> result = new LinkedList<>();
+        result.addAll(this.cargoToMove);
+        return result;
     }
 
     /** Returns the human-readable string representation of this CargoMovement.
@@ -54,6 +58,6 @@ public class CargoMovement extends Movement
     @Override
     public String toString()
     {
-        return super.toString() + this.getDirection() + "CargoMovement to occur at " + this.getTime() + "involving" + getCargo() + "piece(s) of cargo ";
+        return super.toString() + this.getDirection() + "CargoMovement to occur at " + this.getTime() + "involving" + getCargo().size() + "piece(s) of cargo ";
     }
 }
