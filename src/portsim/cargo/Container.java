@@ -7,12 +7,10 @@ public class Container extends Cargo
     private ContainerType TypeOfContainer;
 
     /** Creates a new Container of the specified ContainerType, with the given ID and destination.
-     * Parameters:
-     * id - cargo ID
-     * destination - destination port
-     * type - type of container
-     * Throws:
-     * IllegalArgumentException - if ID < 0
+     * @param id - cargo ID, int type
+     * @param destination - destination port, String type
+     * @param type - type of container, ContainerType
+     * @throws IllegalArgumentException - if ID < 0
      * */
     public Container(int id, String destination, ContainerType type)
     {
