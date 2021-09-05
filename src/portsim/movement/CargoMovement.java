@@ -12,12 +12,10 @@ public class CargoMovement extends Movement
     private List<Cargo> cargoToMove;
 
     /** Creates a new cargo movement with the given action time and direction to be undertaken with the given cargo.
-     * Parameters:
-     * time - the time the movement should occur
-     * direction - the direction of the movement
-     * cargo - the cargo to be moved
-     * Throws:
-     * IllegalArgumentException - if time < 0
+     * @param time - the time the movement should occur, long type
+     * @param direction - the direction of the movement, MovementDirection
+     * @param cargo - the cargo to be moved, List type
+     * @throws IllegalArgumentException - if time < 0
      * */
     public CargoMovement(long time, MovementDirection direction, List<Cargo> cargo)
     {
@@ -33,8 +31,7 @@ public class CargoMovement extends Movement
     /** Returns the cargo that will be moved.
      * Adding or removing elements from the returned list should not affect the original list.
      *
-     * Returns:
-     * all cargo in the movement
+     * @return all cargo in the movement, List type
      * */
     public List<Cargo> getCargo()
     {
