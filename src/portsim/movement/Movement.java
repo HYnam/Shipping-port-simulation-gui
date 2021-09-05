@@ -10,11 +10,9 @@ public abstract class Movement extends Object
     private MovementDirection directionToMove;
 
     /** Creates a new movement with the given action time and direction
-     * Parameters:
-     * time - the time the movement should occur
-     * direction - the direction of the movement
-     * Throws:
-     * IllegalArgumentException - if time < 0
+     * @param time - the time the movement should occur, long type
+     * @param direction - the direction of the movement, MovementDirection
+     * @throws IllegalArgumentException - if time < 0
      * */
     public Movement(long time, MovementDirection direction)
     {
@@ -28,8 +26,7 @@ public abstract class Movement extends Object
     }
 
     /** Returns the time the movement should be actioned
-     * Returns:
-     * movement time
+     * @return movement time, long type
      * */
     public long getTime()
     {
@@ -37,8 +34,7 @@ public abstract class Movement extends Object
     }
 
     /** Returns the direction of the movement.
-     * Returns:
-     * movement direction
+     * @return movement direction, MovementDirection
      * */
     public MovementDirection getDirection()
     {
