@@ -11,11 +11,9 @@ public abstract class Cargo extends Object
     private String destPort;
 
     /** Constructor: Creates a new Cargo with the given ID and destination port.
-     * Parameters:
-     * id - cargo ID
-     * destination - destination port
-     * Throws:
-     * IllegalArgumentException - if ID < 0
+     * @param id - cargo ID, int type
+     * @param destination - destination port, string type
+     * @throws IllegalArgumentException - if ID < 0
      * */
     public Cargo(int id, String destination)
     {
@@ -29,8 +27,7 @@ public abstract class Cargo extends Object
     }
 
     /** Method: Retrieve the ID of this piece of cargo.
-     * Returns:
-     * the cargo's ID
+     * @return the cargo's ID, int type
      * */
     public int getID()
     {
@@ -38,8 +35,7 @@ public abstract class Cargo extends Object
     }
 
     /** Method: Retrieve the destination of this piece of cargo
-     * Returns:
-     * the cargo's destination
+     * @return the cargo's destination, String type
      * */
     public String getDestination()
     {
