@@ -3,8 +3,10 @@ package portsim.ship;
 import portsim.cargo.BulkCargo;
 import portsim.cargo.BulkCargoType;
 import portsim.cargo.Cargo;
+import portsim.port.BulkQuay;
 import portsim.port.Quay;
 import portsim.util.NoSuchCargoException;
+import java.lang.*;
 
 /** Represents a ship capable of carrying bulk cargo.*/
 public class BulkCarrier extends Ship
@@ -53,7 +55,11 @@ public class BulkCarrier extends Ship
      * */
     public boolean canDock(Quay quay)
     {
-
+        if(quay isinstance(BulkQuay bulkQuay) && Quay.getTonnage() >= Ship.getTonnage()){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /** Checks whether the specified cargo can be loaded onto the ship.
