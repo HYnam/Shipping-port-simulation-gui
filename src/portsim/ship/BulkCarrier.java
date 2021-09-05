@@ -55,7 +55,7 @@ public class BulkCarrier extends Ship
      * */
     public boolean canDock(Quay quay)
     {
-        if(quay isinstance(BulkQuay bulkQuay) && Quay.getTonnage() >= Ship.getTonnage()){
+        if(quay instanceof BulkQuay && Quay.getTonnage() >= Ship.getTonnage()){
             return true;
         }else{
             return false;
