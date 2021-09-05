@@ -30,7 +30,6 @@ public class CargoMovement extends Movement
 
     /** Returns the cargo that will be moved.
      * Adding or removing elements from the returned list should not affect the original list.
-     *
      * @return all cargo in the movement, List type
      * */
     public List<Cargo> getCargo()
