@@ -2,6 +2,7 @@ package portsim.port;
 
 import portsim.cargo.Cargo;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,6 +17,9 @@ public class Port extends Object
     /** Quay to be added*/
     private List<Quay> QuayAdded;
 
+    /** Cargo in port is an empty list */
+    private List<Cargo> CargoInPort;
+
     /** Creates a new port with the given name.
      * The list of quays in the port and stored cargo should be initialised as empty lists.
      *
@@ -25,6 +29,8 @@ public class Port extends Object
     public Port(String name)
     {
         this.NameOfPort = name;
+        List<Quay> QuayAdded = Collections.emptyList();
+        List<Cargo> CargoInPort = Collections.emptyList();
     }
 
     /** Returns the name of this port.
@@ -59,7 +65,9 @@ public class Port extends Object
      * */
     public List<Cargo> getCargo()
     {
-
+        List<Cargo> cargoList = new LinkedList<>();
+        cargoList.addAll(Cargo.getDestination());
+        return cargoList;
     }
 
     /** Adds a quay to the ports control
