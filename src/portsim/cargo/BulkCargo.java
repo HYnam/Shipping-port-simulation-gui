@@ -11,13 +11,11 @@ public class BulkCargo extends Cargo
     private BulkCargoType TypeOfCargo;
 
     /** Constructor: Creates a new Bulk Cargo with the given ID, destination, tonnage and type.
-     * Parameters:
-     * id - cargo ID
-     * destination - destination port
-     * tonnage - the weight of the cargo
-     * type - the type of cargo
-     * Throws:
-     * IllegalArgumentException - if ID < 0 or tonnage < 0
+     * @param id - cargo ID, int type
+     * @param destination - destination port, string type
+     * @param tonnage - the weight of the cargo, int type
+     * @param type - the type of cargo, BulkCargoType
+     * @Throws IllegalArgumentException - if ID < 0 or tonnage < 0
      * */
     public BulkCargo(int id, String destination, int tonnage, BulkCargoType type)
     {
@@ -35,8 +33,7 @@ public class BulkCargo extends Cargo
     }
 
     /** Method: Returns the tonnage of this bulk cargo.
-     * Returns:
-     * cargo tonnage
+     * @return cargo tonnage, int type
      * */
     public int getTonnage()
     {
@@ -44,8 +41,7 @@ public class BulkCargo extends Cargo
     }
 
     /** Method: Returns the type of this bulk cargo.
-     * Returns:
-     * cargo type
+     * @returns: cargo type, BulkCargoType
      * */
     public BulkCargoType getType()
     {
