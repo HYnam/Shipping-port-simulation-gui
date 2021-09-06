@@ -14,6 +14,7 @@ public class BulkCarrier extends Ship
     /**  the tonnage capacity of this ship */
     private int tonnageCapacityShip;
 
+    /**  the cargo on this ship */
     private BulkCargo cargoOnBoard;
 
     /**  */
@@ -94,7 +95,7 @@ public class BulkCarrier extends Ship
      * */
     public void loadCargo(Cargo cargo)
     {
-
+        this.cargoOnBoard = (BulkCargo) cargo;
     }
 
     /** Unloads the cargo from the ship.
@@ -102,9 +103,14 @@ public class BulkCarrier extends Ship
      *  @return the ships cargo
      * @throws NoSuchCargoException - if the ship has already been unloaded
      * */
-    public BulkCargo unloadCargo() throws NoSuchCargoException
-    {
-
+    public BulkCargo unloadCargo() throws NoSuchCargoException {
+        if (this.cargoOnBoard != null) {
+            BulkCargo cargoForReturn = this.cargoOnBoard;
+            this.cargoOnBoard = null;
+            return cargoForReturn;
+        } else {
+            throw new NoSuchCargoException("the ship has already been unloaded");
+        }
     }
 
     /** Return the current cargo onboard this vessel.
