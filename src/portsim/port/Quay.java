@@ -8,6 +8,9 @@ public abstract class Quay extends Object
     /** quay ID */
     private int quayId;
 
+    /** the ship that docked to the quay */
+    private Ship dockedShip;
+
     /** Creates a new Quay with the given ID, with no ship docked at the quay.
      * @param id - quay ID, int type
      * @throws IllegalArgumentException - if ID < 0
@@ -15,6 +18,7 @@ public abstract class Quay extends Object
     public Quay(int id)
     {
         this.quayId = id;
+        this.dockedShip = null;
 
         if (id < 0)
         {
@@ -35,7 +39,9 @@ public abstract class Quay extends Object
      * */
     public void shipArrives(Ship ship)
     {
-        this.quayId = getShip().getImoNumber(ship);
+        if(this.dockedShip != null) {
+            this.dockedShip = ship;
+        }
     }
 
 
@@ -44,14 +50,9 @@ public abstract class Quay extends Object
      * */
     public Ship shipDeparts()
     {
-        if(this.quayId == 0)
-        {
-            return null;
-        }
-        else
-        {
-            return;
-        }
+        Ship shipToReturn = this.dockedShip;
+        this.dockedShip = null;
+        return shipToReturn;
     }
 
 
@@ -60,11 +61,8 @@ public abstract class Quay extends Object
      * */
     public boolean isEmpty()
     {
-        if(getShip().getImoNumber() == this.quayId){
-            return
-        }
+        return this.dockedShip == null;
     }
-
 
 
     /**Returns the ship currently docked at the quay.
@@ -72,7 +70,7 @@ public abstract class Quay extends Object
      * */
     public Ship getShip()
     {
-        return shipArrives().getShip();
+        return this.dockedShip;
     }
 
 
