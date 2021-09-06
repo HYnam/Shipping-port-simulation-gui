@@ -12,34 +12,31 @@ import java.util.List;
 public class Port extends Object
 {
     /** name of the port */
-    private String NameOfPort;
+    private String nameOfPort;
 
     /** Quay to be added*/
-    private List<Quay> QuayAdded;
+    private List<Quay> quayAdded;
 
     /** Cargo in port is an empty list */
-    private List<Cargo> CargoInPort;
+    private List<Cargo> cargoInPort;
 
     /** Creates a new port with the given name.
      * The list of quays in the port and stored cargo should be initialised as empty lists.
-     *
-     * Parameters:
-     * name - name of the port
+     * @param name - name of the port, String type
      * */
     public Port(String name)
     {
-        this.NameOfPort = name;
-        List<Quay> QuayAdded = Collections.emptyList();
-        List<Cargo> CargoInPort = Collections.emptyList();
+        this.nameOfPort = name;
+        List<Quay> quayAdded = Collections.emptyList();
+        List<Cargo> cargoInPort = Collections.emptyList();
     }
 
     /** Returns the name of this port.
-     * Returns:
-     * port's name
+     * @return port's name, String type
      * */
     public String getName()
     {
-        return this.NameOfPort;
+        return this.nameOfPort;
     }
 
     /** Returns a list of all quays associated with this port.
@@ -47,21 +44,19 @@ public class Port extends Object
      *
      * The order in which quays appear in this list should be the same as the order in which they were added by calling addQuay(Quay).
      *
-     * Returns:
-     * all quays
+     * @return all quays, List type
      * */
     public List<Quay> getQuays()
     {
         // Declare a list called quays to store all the quays
         List<Quay> result = new LinkedList<>();
-        result.addAll(this.QuayAdded); //Thus creating a deep copy.
+        result.addAll(this.quayAdded); //Thus creating a deep copy.
         return result;
     }
 
     /** Returns the cargo stored at this port.
      *  Adding or removing elements from the returned list should not affect the original list.
-     *  Returns:
-     * port cargo
+     *  @return port cargo, List type
      * */
     public List<Cargo> getCargo()
     {
@@ -71,11 +66,10 @@ public class Port extends Object
     }
 
     /** Adds a quay to the ports control
-     * Parameters:
-     * quay - the quay to add
+     * @param quay - the quay to add
      * */
     public void addQuay (Quay quay)
     {
-        this.QuayAdded.add(quay);
+        this.quayAdded.add(quay);
     }
 }

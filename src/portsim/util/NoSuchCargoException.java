@@ -12,8 +12,7 @@ public class NoSuchCargoException extends Exception
     }
 
     /** Constructs a NoSuchCargoException that contains a helpful detail message explaining why the exception occurred
-     * Parameters:
-     * message - detail message
+     * @param message - detail message
      * See Also:
      * Exception(String)
      * */

@@ -6,20 +6,18 @@ import portsim.ship.Ship;
 public class ShipMovement extends Movement
 {
     /** the ship which that is waiting to move */
-    private Ship ShipWaitToMove;
+    private Ship shipWaitToMove;
 
     /** Creates a new ship movement with the given action time and direction to be undertaken with the given ship.
-     * Parameters:
-     * time - the time the movement should occur
-     * direction - the direction of the movement
-     * ship - the ship which that is waiting to move
-     * Throws:
-     * IllegalArgumentException - if time < 0
+     * @param time - the time the movement should occur, long type
+     * @param direction - the direction of the movement, MovementDirection
+     * @param ship - the ship which that is waiting to move, Ship type
+     * @throws IllegalArgumentException - if time < 0
      * */
     public ShipMovement(long time, MovementDirection direction, Ship ship)
     {
         super(time, direction);
-        this.ShipWaitToMove = ship;
+        this.shipWaitToMove = ship;
 
         if(time < 0)
         {
@@ -28,12 +26,11 @@ public class ShipMovement extends Movement
     }
 
     /** Returns the ship undertaking the movement.
-     * Returns:
-     * movements ship
+     * @return movements ship
      * */
     public Ship getShip()
     {
-        return this.ShipWaitToMove;
+        return this.shipWaitToMove;
     }
 
     /** Returns the human-readable string representation of this ShipMovement.

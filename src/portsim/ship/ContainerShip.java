@@ -2,6 +2,7 @@ package portsim.ship;
 
 import portsim.cargo.Cargo;
 import portsim.cargo.Container;
+import portsim.port.ContainerQuay;
 import portsim.port.Quay;
 import portsim.util.NoSuchCargoException;
 import java.util.List;
@@ -10,22 +11,20 @@ import java.util.List;
 public class ContainerShip extends Ship
 {
     /** the container capacity of this ship */
-    private int ContainerCapacityOfShip;
+    private int containerCapacityOfShip;
 
     /** Creates a new container ship with the given IMO number, name and origin port, nautical flag and cargo capacity.
-     * Parameters:
-     * imoNumber - unique identifier
-     * name - name of the ship
-     * originFlag - port of origin
-     * flag - the nautical flag this ship is flying
-     * capacity - the container capacity of this ship
-     * Throws:
-     * IllegalArgumentException - if imoNumber < 0, imoNumber is not 7 digits long or if the container capacity is < than 0
+     * @param imoNumber - unique identifier, long type
+     * @param name - name of the ship, String type
+     * @param originFlag - port of origin, String type
+     * @param flag - the nautical flag this ship is flying, NauticalFlag
+     * @param capacity - the container capacity of this ship, int type
+     * @throws IllegalArgumentException - if imoNumber < 0, imoNumber is not 7 digits long or if the container capacity is < than 0
      * */
     public ContainerShip(long imoNumber, String name, String originFlag, NauticalFlag flag, int capacity)
     {
         super(imoNumber, name, originFlag, flag);
-        this.ContainerCapacityOfShip = capacity;
+        this.containerCapacityOfShip = capacity;
 
         // Change long type to String type
         String longAsString = Long.toString(imoNumber);
@@ -42,14 +41,12 @@ public class ContainerShip extends Ship
      * The quays maximum number of containers must be ≥ the number of containers on board.
      * Specified by:
      * canDock in class Ship
-     * Parameters:
-     * quay - quay to be checked
-     * Returns:
-     * true if the Quay satisfies the conditions else false
+     * @param quay - quay to be checked
+     * @return true if the Quay satisfies the conditions else false
      * */
     public boolean canDock(Quay quay)
     {
-        if(quay.isEmpty() == false && )
+        if(quay instanceof ContainerQuay && )
             return true;
         else
             return false;
@@ -63,10 +60,8 @@ public class ContainerShip extends Ship
      *         The cargo's destination is the same as the ships origin country
      * Specified by:
      * canLoad in class Ship
-     * Parameters:
-     * cargo - cargo to be loaded
-     * Returns:
-     * true if the Cargo satisfies the conditions else false
+     * @param cargo - cargo to be loaded
+     * @return true if the Cargo satisfies the conditions else false
      * */
     public boolean canLoad(Cargo cargo)
     {
@@ -76,8 +71,7 @@ public class ContainerShip extends Ship
     /** Loads the specified cargo onto the ship.
      * Specified by:
      * loadCargo in class Ship
-     * Parameters:
-     * cargo - cargo to be loaded
+     * @param cargo - cargo to be loaded
      * Requires:
      * Cargo given is able to be loaded onto this ship according to canLoad(Cargo)
      * */
@@ -88,11 +82,8 @@ public class ContainerShip extends Ship
 
     /**Unloads the cargo from the ship.
      * The ship's cargo should be set to an empty list.
-     *
-     * Returns:
-     * the ship's cargo before it was unloaded
-     * Throws:
-     * NoSuchCargoException - if the ship has already been unloaded (i.e. the ship has no cargo onboard)
+     * @return the ship's cargo before it was unloaded
+     * @throws NoSuchCargoException - if the ship has already been unloaded (i.e. the ship has no cargo onboard)
      * */
     public List<Container> unloadCargo() throws NoSuchCargoException
     {
@@ -101,8 +92,7 @@ public class ContainerShip extends Ship
 
     /** Returns the current cargo onboard this vessel
      * Adding or removing elements from the returned list should be not affect the original list.
-     * Returns:
-     * containers on the vessel
+     * @return containers on the vessel
      * */
     public List<Container> getCargo()
     {

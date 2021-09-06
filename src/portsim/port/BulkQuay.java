@@ -4,19 +4,17 @@ package portsim.port;
 public class BulkQuay extends Quay
 {
     /** maximum tonnage the quay can handle */
-    private int MaxTonnageCanHandle;
+    private int maxTonnageCanHandle;
 
     /** Creates a new Bulk Quay with the given ID and max tonnage.
-     * Parameters:
-     * id - quay ID
-     * maxTonnage - maximum tonnage the quay can handle
-     * Throws:
-     * IllegalArgumentException - if ID or maxTonnage < 0
+     * @param id - quay ID, int type
+     * @param maxTonnage - maximum tonnage the quay can handle, int type
+     * @throws IllegalArgumentException - if ID or maxTonnage < 0
      * */
     public BulkQuay(int id, int maxTonnage)
     {
         super(id);
-        this.MaxTonnageCanHandle = maxTonnage;
+        this.maxTonnageCanHandle = maxTonnage;
 
         if(id < 0 || maxTonnage < 0)
         {
@@ -25,11 +23,11 @@ public class BulkQuay extends Quay
     }
 
     /** Returns the maximum number of tonnes of cargo this quay can handle.
-     * Return: maxTonnage
+     * @return maxTonnage, int type
      * */
     public int getMaxTonnage()
     {
-        return this.MaxTonnageCanHandle;
+        return this.maxTonnageCanHandle;
     }
 
     /** Returns the human-readable string representation of this BulkQuay.

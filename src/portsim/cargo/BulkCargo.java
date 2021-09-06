@@ -5,10 +5,10 @@ public class BulkCargo extends Cargo
 {
 
     /** the weight of the cargo */
-    private int Weight;
+    private int weight;
 
     /** the type of cargo */
-    private BulkCargoType TypeOfCargo;
+    private BulkCargoType typeOfCargo;
 
     /** Constructor: Creates a new Bulk Cargo with the given ID, destination, tonnage and type.
      * @param id - cargo ID, int type
@@ -22,8 +22,8 @@ public class BulkCargo extends Cargo
 
         // Initialise variables
         super(id, destination);
-        this.Weight = tonnage;
-        this.TypeOfCargo = type;
+        this.weight = tonnage;
+        this.typeOfCargo = type;
 
         // throw exception
         if (id < 0 || tonnage < 0)
@@ -37,7 +37,7 @@ public class BulkCargo extends Cargo
      * */
     public int getTonnage()
     {
-        return this.Weight;
+        return this.weight;
     }
 
     /** Method: Returns the type of this bulk cargo.
@@ -45,7 +45,7 @@ public class BulkCargo extends Cargo
      * */
     public BulkCargoType getType()
     {
-        return this.TypeOfCargo;
+        return this.typeOfCargo;
     }
 
     /** Returns the human-readable string representation of this BulkCargo.

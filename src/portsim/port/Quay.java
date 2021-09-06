@@ -6,17 +6,15 @@ import portsim.ship.Ship;
 public abstract class Quay extends Object
 {
     /** quay ID */
-    private int QuayId;
+    private int quayId;
 
     /** Creates a new Quay with the given ID, with no ship docked at the quay.
-     * Parameters:
-     * id - quay ID
-     * Throws:
-     * IllegalArgumentException - if ID < 0
+     * @param id - quay ID, int type
+     * @throws IllegalArgumentException - if ID < 0
      * */
     public Quay(int id)
     {
-        this.QuayId = id;
+        this.quayId = id;
 
         if (id < 0)
         {
@@ -25,48 +23,44 @@ public abstract class Quay extends Object
     }
 
     /** Get the id of this quay
-     * Returns:
-     * quay id
+     * @return quay id, int type
      * */
     public int getId()
     {
-        return this.QuayId;
+        return this.quayId;
     }
 
     /** Docks the given ship at the Quay so that the quay becomes occupied.
-     * Parameters:
-     * ship - ship to dock to the quay
+     * @param ship - ship to dock to the quay
      * */
     public void shipArrives(Ship ship)
     {
-        this.QuayId = getShip().getImoNumber();
+        this.quayId = getShip().getImoNumber(ship);
     }
 
 
     /**Removes the current ship docked at the quay. The current ship should be set to null.
-     * Returns:
-     * the current ship or null if quay is empty.
+     * @return the current ship or null if quay is empty.
      * */
     public Ship shipDeparts()
     {
-        if(this.QuayId == 0)
+        if(this.quayId == 0)
         {
             return null;
         }
         else
         {
-            return Ship;
+            return;
         }
     }
 
 
     /**Returns whether a ship is currently docked at this quay.
-     * Returns:
-     * true if there is no ship docked else false
+     * @return true if there is no ship docked else false
      * */
     public boolean isEmpty()
     {
-        if(getShip().getImoNumber() == this.QuayId){
+        if(getShip().getImoNumber() == this.quayId){
             return
         }
     }
@@ -74,12 +68,11 @@ public abstract class Quay extends Object
 
 
     /**Returns the ship currently docked at the quay.
-     * Returns:
-     * ship at quay or null if no ship is docked
+     * @return ship at quay or null if no ship is docked
      * */
     public Ship getShip()
     {
-        return Ship;
+        return shipArrives().getShip();
     }
 
 

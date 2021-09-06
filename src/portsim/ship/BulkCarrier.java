@@ -18,14 +18,12 @@ public class BulkCarrier extends Ship
     private BulkCargoType typeOfCargoOnBoard;
 
     /** Creates a new bulk carrier with the given IMO number, name, origin port, nautical flag and cargo capacity.
-     * Parameters:
-     * imoNumber - unique identifier
-     * name - name of the ship
-     * originFlag - port of origin
-     * flag - the nautical flag this ship is flying
-     * capacity - the tonnage capacity of this ship
-     * Throws:
-     * IllegalArgumentException - if imoNumber < 0, imoNumber is not 7 digits long or if the tonnage capacity is < than 0
+     * @param imoNumber - unique identifier, long type
+     * @param name - name of the ship, String type
+     * @param originFlag - port of origin, String type
+     * @param flag - the nautical flag this ship is flying, NauticalFlag
+     * @param capacity - the tonnage capacity of this ship, int type
+     * @throws IllegalArgumentException - if imoNumber < 0, imoNumber is not 7 digits long or if the tonnage capacity is < than 0
      * */
     public BulkCarrier(long imoNumber, String name, String originFlag, NauticalFlag flag, int capacity)
     {
@@ -48,10 +46,8 @@ public class BulkCarrier extends Ship
      * The quay's maximum cargo weight must be ≥ this ship's cargo weight in tonnes.
      * Specified by:
      * canDock in class Ship
-     * Parameters:
-     * quay - quay to be checked
-     * Returns:
-     * true if the Quay satisfies the conditions else false
+     * @param quay - quay to be checked
+     * @return true if the Quay satisfies the conditions else false
      * */
     public boolean canDock(Quay quay)
     {
@@ -68,13 +64,11 @@ public class BulkCarrier extends Ship
      *             The ship does not have any cargo on board
      *             The cargo given is a BulkCargo
      *             The cargo tonnage is less than or equal to the ship's tonnage capacity
-     *             The cargo's destination is the same as the ships origin country
+     *             The cargo's destination is the same as the ship origin country
      * Specified by:
      * canLoad in class Ship
-     * Parameters:
-     * cargo - cargo to be loaded
-     * Returns:
-     * true if the Cargo satisfies the conditions else false
+     * @param cargo - cargo to be loaded
+     * @return true if the Cargo satisfies the conditions else false
      * */
     public boolean canLoad(Cargo cargo)
     {
@@ -84,8 +78,7 @@ public class BulkCarrier extends Ship
     /** Loads the specified cargo onto the ship.
      * Specified by:
      * loadCargo in class Ship
-     * Parameters:
-     * cargo - cargo to be loaded
+     * @param cargo - cargo to be loaded
      * Requires:
      * Cargo given is able to be loaded onto this ship according to canLoad(Cargo)
      * */
@@ -96,19 +89,16 @@ public class BulkCarrier extends Ship
 
     /** Unloads the cargo from the ship.
      *  The ship's cargo should be set to null at the end of the operation.
-     *  Returns:
-     * the ships cargo
-     * Throws:
-     * NoSuchCargoException - if the ship has already been unloaded
+     *  @return the ships cargo
+     * @throws NoSuchCargoException - if the ship has already been unloaded
      * */
     public BulkCargo unloadCargo() throws NoSuchCargoException
     {
 
     }
 
-    /** Return the current cargo onboard this vessel.\
-     * Returns:
-     * bulk cargo on the vessel
+    /** Return the current cargo onboard this vessel.
+     * @return bulk cargo on the vessel
      * */
     public BulkCargo getCargo()
     {

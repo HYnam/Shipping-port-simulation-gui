@@ -4,7 +4,7 @@ package portsim.cargo;
 public class Container extends Cargo
 {
     /** type of container */
-    private ContainerType TypeOfContainer;
+    private ContainerType typeOfContainer;
 
     /** Creates a new Container of the specified ContainerType, with the given ID and destination.
      * @param id - cargo ID, int type
@@ -15,7 +15,7 @@ public class Container extends Cargo
     public Container(int id, String destination, ContainerType type)
     {
         super(id, destination);
-        this.TypeOfContainer = type;
+        this.typeOfContainer = type;
 
         if (id < 0)
         {
@@ -24,12 +24,11 @@ public class Container extends Cargo
     }
 
     /** Returns the type of this container.
-     * Returns:
-     * container type
+     * @return container type
      * */
     public ContainerType getType()
     {
-        return this.TypeOfContainer;
+        return this.typeOfContainer;
     }
 
     /** Returns the human-readable string representation of this Container.

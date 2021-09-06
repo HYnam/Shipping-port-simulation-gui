@@ -4,19 +4,17 @@ package portsim.port;
 public class ContainerQuay extends Quay
 {
     /** maximum number of containers the quay can handle */
-    private int MaxContainerQuayHandle;
+    private int maxContainerQuayHandle;
 
     /** Creates a new Container Quay with the given ID and maximum number of containers.
-     * Parameters:
-     * id - quay ID
-     * maxContainers - maximum number of containers the quay can handle
-     * Throws:
-     * IllegalArgumentException - if ID or maxContainers < 0
+     * @param id - quay ID, int type
+     * @param maxContainers - maximum number of containers the quay can handle, int type
+     * @throws IllegalArgumentException - if ID or maxContainers < 0
      * */
     public ContainerQuay(int id, int maxContainers)
     {
         super(id); // Get the value id in Quay class
-        this.MaxContainerQuayHandle = maxContainers;
+        this.maxContainerQuayHandle = maxContainers;
 
         if(id < 0 || maxContainers < 0)
         {
@@ -25,11 +23,11 @@ public class ContainerQuay extends Quay
     }
 
     /** Returns the maximum number of containers of this quay can process at once.
-     * Return: maxContainers
+     * @return  maxContainers, int type
      * */
     public int getMaxContainers()
     {
-        return this.MaxContainerQuayHandle;
+        return this.maxContainerQuayHandle;
     }
 
     /** Returns the human-readable string representation of this ContainerQuay.
