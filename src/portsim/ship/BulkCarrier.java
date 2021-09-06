@@ -14,6 +14,8 @@ public class BulkCarrier extends Ship
     /**  the tonnage capacity of this ship */
     private int tonnageCapacityShip;
 
+    private BulkCargo cargoOnBoard;
+
     /**  */
     private BulkCargoType typeOfCargoOnBoard;
 
@@ -29,6 +31,7 @@ public class BulkCarrier extends Ship
     {
         super(imoNumber, name, originFlag, flag);
         this.tonnageCapacityShip = capacity;
+        this.cargoOnBoard = null;
 
         // Change long type to String type
         String longAsString = Long.toString(imoNumber);
@@ -72,12 +75,12 @@ public class BulkCarrier extends Ship
      * */
     public boolean canLoad(Cargo cargo)
     {
-        if(ContainerShip(getCargo().isEmpty())
-            && cargo instanceof BulkCargo == true
+        if(this.cargoOnBoard == null
+            && cargo instanceof BulkCargo
             && ((BulkCargo) cargo).getTonnage() <= this.tonnageCapacityShip
-            && cargo.getDestination() == getOriginalFlag()){
+            && cargo.getDestination() == getOriginalFlag()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -109,7 +112,7 @@ public class BulkCarrier extends Ship
      * */
     public BulkCargo getCargo()
     {
-
+        return this.cargoOnBoard;
     }
 
     /** Returns the human-readable string representation of this BulkCarrier.
