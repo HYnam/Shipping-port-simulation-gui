@@ -51,7 +51,7 @@ public class BulkCarrier extends Ship
      * */
     public boolean canDock(Quay quay)
     {
-        if(quay instanceof BulkQuay && Quay.getTonnage() >= Ship.getTonnage()){
+        if(quay instanceof BulkQuay && ((BulkQuay) quay).getMaxTonnage() >= this.tonnageCapacityShip){
             return true;
         }else{
             return false;
@@ -73,7 +73,7 @@ public class BulkCarrier extends Ship
     public boolean canLoad(Cargo cargo)
     {
         if( && cargo instanceof BulkCargo
-            && ((BulkCargo) cargo).getTonnage() <=
+            && ((BulkCargo) cargo).getTonnage() <= this.tonnageCapacityShip
             && cargo.getDestination() == getOriginalFlag()){
             return true;
         }else{
