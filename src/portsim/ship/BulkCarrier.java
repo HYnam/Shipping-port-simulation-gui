@@ -72,7 +72,8 @@ public class BulkCarrier extends Ship
      * */
     public boolean canLoad(Cargo cargo)
     {
-        if( && cargo instanceof BulkCargo
+        if(ContainerShip(getCargo().isEmpty())
+            && cargo instanceof BulkCargo == true
             && ((BulkCargo) cargo).getTonnage() <= this.tonnageCapacityShip
             && cargo.getDestination() == getOriginalFlag()){
             return true;
