@@ -133,7 +133,7 @@ public class BulkCarrier extends Ship
     @Override
     public String toString()
     {
-        return super.toString() + this.getClass().getName() + getName()+ "from " + getOriginalFlag() + "["
-                + getFlag() + "]" + "carrying" + this.cargoOnBoard.getType();
+        return "BulkCarrier " + super.getName() + " from " + super.getOriginalFlag() + " ["
+                + super.getFlag() + "] carrying " + this.cargoOnBoard.getType();
     }
 }
