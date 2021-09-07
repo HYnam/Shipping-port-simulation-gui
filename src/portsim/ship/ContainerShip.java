@@ -65,7 +65,7 @@ public class ContainerShip extends Ship
      * */
     public boolean canLoad(Cargo cargo)
     {
-
+        if(cargo = Container)
     }
 
     /** Loads the specified cargo onto the ship.
