@@ -48,5 +48,24 @@ public class BulkCarrierTest {
         BulkCarrier bulkCarrier = new BulkCarrier(7, "Jackson", "London", NauticalFlag.HOTEL, -1);
     }
 
+    @Test
+    public void testToStringBulkCarrier1(){
+        String expected = "BulkCarrier Peter from Hong Kong [BRAVO] carrying MINERALS";
 
+        assertEquals("The message toString does not match", expected, bulkCarrier1.toString());
+    }
+
+    @Test
+    public void testToStringBulkCarrier2(){
+        String expected = "BulkCarrier Johnson from London [HOTEL] carrying OIL";
+
+        assertEquals("The message toString does not match", expected, bulkCarrier2.toString());
+    }
+
+    @Test
+    public void testToStringBulkCarrier3(){
+        String expected = "BulkCarrier Jackson from New York [NOVEMBER] carrying COAL";
+
+        assertEquals("The message toString does not match", expected, bulkCarrier3.toString());
+    }
 }
