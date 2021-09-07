@@ -5,6 +5,8 @@ import portsim.cargo.Container;
 import portsim.port.ContainerQuay;
 import portsim.port.Quay;
 import portsim.util.NoSuchCargoException;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /** Represents a ship capable of carrying shipping containers.*/
@@ -12,6 +14,9 @@ public class ContainerShip extends Ship
 {
     /** the container capacity of this ship */
     private int containerCapacityOfShip;
+
+    /** list of containers on board */
+    private List<Container> containersOnBoard = new ArrayList<>();
 
     /** Creates a new container ship with the given IMO number, name and origin port, nautical flag and cargo capacity.
      * @param imoNumber - unique identifier, long type
@@ -46,7 +51,7 @@ public class ContainerShip extends Ship
      * */
     public boolean canDock(Quay quay)
     {
-        if(quay instanceof ContainerQuay && )
+        if (quay instanceof ContainerQuay && quay.getShip() == null)
             return true;
         else
             return false;
@@ -65,7 +70,13 @@ public class ContainerShip extends Ship
      * */
     public boolean canLoad(Cargo cargo)
     {
-        if(cargo = Container)
+        if (cargo instanceof Container
+            && containersOnBoard.size() < containerCapacityOfShip
+            && cargo.getDestination().equals(getOriginalFlag())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /** Loads the specified cargo onto the ship.
@@ -77,7 +88,7 @@ public class ContainerShip extends Ship
      * */
     public void loadCargo(Cargo cargo)
     {
-
+        containersOnBoard.add((Container) cargo);
     }
 
     /**Unloads the cargo from the ship.
@@ -87,7 +98,13 @@ public class ContainerShip extends Ship
      * */
     public List<Container> unloadCargo() throws NoSuchCargoException
     {
-
+        if (this.containersOnBoard.size() > 0) {
+            List<Container> listForReturn = new ArrayList<>(this.containersOnBoard);
+            this.containersOnBoard.clear();
+            return listForReturn;
+        } else {
+            throw new NoSuchCargoException("the ship has no cargo onboard");
+        }
     }
 
     /** Returns the current cargo onboard this vessel
@@ -96,7 +113,8 @@ public class ContainerShip extends Ship
      * */
     public List<Container> getCargo()
     {
-
+        List<Container> listForReturn = new ArrayList<>(this.containersOnBoard);
+        return listForReturn;
     }
 
     /**Returns the human-readable string representation of this ContainerShip.
