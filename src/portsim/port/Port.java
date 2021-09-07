@@ -2,6 +2,8 @@ package portsim.port;
 
 import portsim.cargo.Cargo;
 
+import java.awt.image.AreaAveragingScaleFilter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,10 +17,10 @@ public class Port extends Object
     private String nameOfPort;
 
     /** Quay to be added*/
-    private List<Quay> quayAdded;
+    private List<Quay> quaysList;
 
     /** Cargo in port is an empty list */
-    private List<Cargo> cargoInPort;
+    private List<Cargo> cargosInPort;
 
     /** Creates a new port with the given name.
      * The list of quays in the port and stored cargo should be initialised as empty lists.
@@ -27,8 +29,8 @@ public class Port extends Object
     public Port(String name)
     {
         this.nameOfPort = name;
-        List<Quay> quayAdded = Collections.emptyList();
-        List<Cargo> cargoInPort = Collections.emptyList();
+        List<Quay> quaysList = new ArrayList<Quay>();
+        List<Cargo> cargosInPort = new ArrayList<Cargo>();
     }
 
     /** Returns the name of this port.
@@ -49,8 +51,7 @@ public class Port extends Object
     public List<Quay> getQuays()
     {
         // Declare a list called quays to store all the quays
-        List<Quay> result = new LinkedList<>();
-        result.addAll(this.quayAdded); //Thus creating a deep copy.
+        List<Quay> result = new LinkedList<>(this.quaysList); //Thus creating a deep copy.
         return result;
     }
 
@@ -60,9 +61,8 @@ public class Port extends Object
      * */
     public List<Cargo> getCargo()
     {
-        List<Cargo> cargoList = new LinkedList<>();
-        cargoList.addAll(Cargo.getDestination());
-        return cargoList;
+        List<Cargo> cargosList = new LinkedList<>(this.cargosInPort);
+        return cargosList;
     }
 
     /** Adds a quay to the ports control
@@ -70,6 +70,6 @@ public class Port extends Object
      * */
     public void addQuay (Quay quay)
     {
-        this.quayAdded.add(quay);
+        this.quaysList.add(quay);
     }
 }
