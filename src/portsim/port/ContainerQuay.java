@@ -42,7 +42,7 @@ public class ContainerQuay extends Quay {
      * */
     @Override
     public String toString() {
-        return super.toString() + "ContainerQuay " + getId() +
-                "[Ship: " + getShip().getImoNumber() + "] - " + this.getMaxContainers();
+        return super.toString() + "ContainerQuay " + getId()
+                + "[Ship: " + getShip().getImoNumber() + "] - " + this.getMaxContainers();
     }
 }

@@ -2,7 +2,8 @@ package portsim.port;
 
 import portsim.ship.Ship;
 
-/** Quay is a platform lying alongside or projecting into the water where ships are moored for loading or unloading.*/
+/** Quay is a platform lying alongside or projecting into the
+ * water where ships are moored for loading or unloading.*/
 public abstract class Quay extends Object {
     /** quay ID */
     private int quayId;
@@ -19,7 +20,7 @@ public abstract class Quay extends Object {
         this.dockedShip = null;
 
         if (id < 0) {
-            throw new IllegalArgumentException ();
+            throw new IllegalArgumentException();
         }
     }
 
@@ -82,8 +83,8 @@ public abstract class Quay extends Object {
      * */
     @Override
     public String toString() {
-        return super.toString() + this.getClass().getName() + getId() +
-                "[Ship: " + getShip().getImoNumber() + "]";
+        return super.toString() + this.getClass().getName() + getId()
+                + "[Ship: " + getShip().getImoNumber() + "]";
     }
 
 }
