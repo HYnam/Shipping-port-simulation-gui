@@ -17,9 +17,6 @@ public class BulkCarrier extends Ship
     /**  the cargo on this ship */
     private BulkCargo cargoOnBoard;
 
-    /**  */
-    private BulkCargoType typeOfCargoOnBoard;
-
     /** Creates a new bulk carrier with the given IMO number, name, origin port, nautical flag and cargo capacity.
      * @param imoNumber - unique identifier, long type
      * @param name - name of the ship, String type
@@ -137,6 +134,6 @@ public class BulkCarrier extends Ship
     public String toString()
     {
         return super.toString() + this.getClass().getName() + getName()+ "from " + getOriginalFlag() + "["
-                + getFlag() + "]" + "carrying" + this.typeOfCargoOnBoard;
+                + getFlag() + "]" + "carrying" + this.cargoOnBoard.getType();
     }
 }
