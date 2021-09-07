@@ -43,9 +43,13 @@ public abstract class Quay extends Object {
      * @return the current ship or null if quay is empty.
      * */
     public Ship shipDeparts() {
-        Ship shipToReturn = this.dockedShip;
-        this.dockedShip = null;
-        return shipToReturn;
+        if (this.dockedShip == null) {
+            return null;
+        } else {
+            Ship shipToReturn = this.dockedShip;
+            this.dockedShip = null;
+            return shipToReturn;
+        }
     }
 
     /**Returns whether a ship is currently docked at this quay.
