@@ -44,7 +44,6 @@ public abstract class Quay extends Object
         }
     }
 
-
     /**Removes the current ship docked at the quay. The current ship should be set to null.
      * @return the current ship or null if quay is empty.
      * */
@@ -54,7 +53,6 @@ public abstract class Quay extends Object
         this.dockedShip = null;
         return shipToReturn;
     }
-
 
     /**Returns whether a ship is currently docked at this quay.
      * @return true if there is no ship docked else false
@@ -75,7 +73,6 @@ public abstract class Quay extends Object
     {
         return this.dockedShip;
     }
-
 
     /** Returns the human-readable string representation of this quay.
      * The format of the string to return is
