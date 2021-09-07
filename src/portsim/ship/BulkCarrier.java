@@ -28,6 +28,7 @@ public class BulkCarrier extends Ship {
                        NauticalFlag flag, int capacity) {
         super(imoNumber, name, originFlag, flag);
         this.tonnageCapacityShip = capacity;
+        //this.cargoOnBoard = new BulkCargo(0, null, 0, null);
         this.cargoOnBoard = null;
 
         // Change long type to String type
@@ -128,7 +129,12 @@ public class BulkCarrier extends Ship {
      *  */
     @Override
     public String toString() {
-        return "BulkCarrier " + super.getName() + " from " + super.getOriginFlag() + " ["
-                + super.getFlag() + "] carrying " + this.cargoOnBoard.getType();
+        if(cargoOnBoard == null) {
+            return "BulkCarrier " + super.getName() + " from " + super.getOriginFlag() + " ["
+                    + super.getFlag() + "]";
+        } else {
+            return "BulkCarrier " + super.getName() + " from " + super.getOriginFlag() + " ["
+                    + super.getFlag() + "] carrying " + this.cargoOnBoard.getType();
+        }
     }
 }

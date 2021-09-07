@@ -129,7 +129,7 @@ public class ContainerShip extends Ship {
      * */
     @Override
     public String toString() {
-        return super.toString() + this.getClass().getName() + getName() +
-                "from" + getOriginFlag() + "[" + getFlag() + "]" + "carrying" + "containers";
+        return this.getClass().getSimpleName() + " " + getName() +
+                " from " + getOriginFlag() + " [" + getFlag() + "] " + "carrying " + containersOnBoard.size() + " containers";
     }
 }
