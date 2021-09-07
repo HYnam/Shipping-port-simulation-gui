@@ -43,8 +43,8 @@ public class ShipMovement extends Movement {
      *  */
     @Override
     public String toString() {
-        return super.toString() + getDirection() + this.getClass().getName() +
-                "to occur at" + getTime() + "involving the ship " + getShip();
+        return super.toString() + getDirection() + this.getClass().getName()
+                + "to occur at" + getTime() + "involving the ship " + getShip();
     }
 
 }

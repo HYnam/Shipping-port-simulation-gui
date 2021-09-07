@@ -35,8 +35,7 @@ public abstract class Ship extends Object {
         // Change long type to String type
         String longAsString = Long.toString(imoNumber);
 
-        if (imoNumber < 0 || longAsString.length() != 7)
-        {
+        if (imoNumber < 0 || longAsString.length() != 7) {
             throw new IllegalArgumentException();
         }
     }
@@ -107,7 +106,7 @@ public abstract class Ship extends Object {
      * */
     @Override
     public String toString() {
-        return super.toString() + this.getClass().getName() + this.getName() +
-                "from " + this.getOriginFlag() + "[" + this.getFlag() + "]";
+        return super.toString() + this.getClass().getName() + this.getName()
+                + "from " + this.getOriginFlag() + "[" + this.getFlag() + "]";
     }
 }

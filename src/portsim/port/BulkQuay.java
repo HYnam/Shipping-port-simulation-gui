@@ -1,7 +1,5 @@
 package portsim.port;
 
-import portsim.ship.BulkCarrier;
-
 /** A Bulk Quay is a type of quay specifically designed
  *  for the unloading of Bulk Carrier vessels. */
 public class BulkQuay extends Quay {
@@ -44,12 +42,7 @@ public class BulkQuay extends Quay {
      * */
     @Override
     public String toString() {
-        if(dockedShip == null) {
-            return this.getClass().getSimpleName() + " " + getId() +
-                    " [Ship: None] - " + this.getMaxTonnage();
-        } else {
-            return this.getClass().getSimpleName() + " " + getId() +
-                    " [Ship: " + getShip().getImoNumber() + "] - " + this.getMaxTonnage();
-        }
+        return super.toString() + "BulkQuay " + getId() +
+                "[Ship: " + getShip().getImoNumber() + "] - " + this.getMaxTonnage();
     }
 }

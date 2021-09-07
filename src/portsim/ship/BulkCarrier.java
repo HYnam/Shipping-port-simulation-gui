@@ -22,7 +22,8 @@ public class BulkCarrier extends Ship {
      * @param originFlag - port of origin, String type
      * @param flag - the nautical flag this ship is flying, NauticalFlag
      * @param capacity - the tonnage capacity of this ship, int type
-     * @throws IllegalArgumentException - if imoNumber < 0, imoNumber is not 7 digits long or if the tonnage capacity is < than 0
+     * @throws IllegalArgumentException - if imoNumber < 0,
+     * imoNumber is not 7 digits long or if the tonnage capacity is < than 0
      * */
     public BulkCarrier(long imoNumber, String name, String originFlag,
                        NauticalFlag flag, int capacity) {
@@ -35,7 +36,7 @@ public class BulkCarrier extends Ship {
         String longAsString = Long.toString(imoNumber);
 
         if (imoNumber < 0 || longAsString.length() != 7 || capacity < 0) {
-            throw new IllegalArgumentException ("unique identifier out of range");
+            throw new IllegalArgumentException("unique identifier out of range");
         }
     }
 
@@ -50,10 +51,10 @@ public class BulkCarrier extends Ship {
      * @return true if the Quay satisfies the conditions else false
      * */
     public boolean canDock(Quay quay) {
-        if(quay instanceof BulkQuay && ((BulkQuay) quay).getMaxTonnage()
-                >= this.tonnageCapacityShip){
+        if (quay instanceof BulkQuay && ((BulkQuay) quay).getMaxTonnage()
+                >= this.tonnageCapacityShip) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

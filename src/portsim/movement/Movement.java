@@ -49,7 +49,7 @@ public abstract class Movement extends Object {
      * */
     @Override
     public String toString() {
-        return super.toString() + getDirection() +
-                this.getClass().getName() + "to occur at " + getTime();
+        return super.toString() + getDirection()
+                + this.getClass().getName() + "to occur at " + getTime();
     }
 }

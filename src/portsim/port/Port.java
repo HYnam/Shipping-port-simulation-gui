@@ -2,9 +2,7 @@ package portsim.port;
 
 import portsim.cargo.Cargo;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,8 +32,7 @@ public class Port extends Object {
     /** Returns the name of this port.
      * @return port's name, String type
      * */
-    public String getName()
-    {
+    public String getName() {
         return this.nameOfPort;
     }
 
@@ -65,7 +62,7 @@ public class Port extends Object {
     /** Adds a quay to the ports control
      * @param quay - the quay to add
      * */
-    public void addQuay (Quay quay) {
+    public void addQuay(Quay quay) {
         this.quaysList.add(quay);
     }
 }

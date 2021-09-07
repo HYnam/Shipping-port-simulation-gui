@@ -50,7 +50,8 @@ public class CargoMovement extends Movement {
      *  */
     @Override
     public String toString() {
-        return super.toString() + this.getDirection() +
-                "CargoMovement to occur at " + this.getTime() + "involving" + getCargo().size() + "piece(s) of cargo ";
+        return super.toString() + this.getDirection()
+                + "CargoMovement to occur at " + this.getTime()
+                + "involving" + getCargo().size() + "piece(s) of cargo ";
     }
 }

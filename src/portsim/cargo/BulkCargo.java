@@ -37,7 +37,7 @@ public class BulkCargo extends Cargo {
     }
 
     /** Method: Returns the type of this bulk cargo.
-     * @returns: cargo type, BulkCargoType
+     * @return cargo type, BulkCargoType
      * */
     public BulkCargoType getType() {
         return this.typeOfCargo;
@@ -57,6 +57,7 @@ public class BulkCargo extends Cargo {
      * */
     @Override
     public String toString() {
-        return super.toString() + "BulkCargo" + getId() + "to" + getDestination() + '[' + getType() + " - " + getTonnage() + ']';
+        return super.toString() + "BulkCargo" + getId() + "to"
+               + getDestination() + '[' + getType() + " - " + getTonnage() + ']';
     }
 }
