@@ -1,8 +1,8 @@
 package portsim.port;
 
-/** A Container Quay is a type of quay specifically designed for the unloading of Container Ship vessels. */
-public class ContainerQuay extends Quay
-{
+/** A Container Quay is a type of quay specifically designed for
+ *  the unloading of Container Ship vessels. */
+public class ContainerQuay extends Quay {
     /** maximum number of containers the quay can handle */
     private int maxContainerQuayHandle;
 
@@ -11,13 +11,11 @@ public class ContainerQuay extends Quay
      * @param maxContainers - maximum number of containers the quay can handle, int type
      * @throws IllegalArgumentException - if ID or maxContainers < 0
      * */
-    public ContainerQuay(int id, int maxContainers)
-    {
+    public ContainerQuay(int id, int maxContainers) {
         super(id); // Get the value id in Quay class
         this.maxContainerQuayHandle = maxContainers;
 
-        if(id < 0 || maxContainers < 0)
-        {
+        if (id < 0 || maxContainers < 0) {
             throw new IllegalArgumentException();
         }
     }
@@ -25,8 +23,7 @@ public class ContainerQuay extends Quay
     /** Returns the maximum number of containers of this quay can process at once.
      * @return  maxContainers, int type
      * */
-    public int getMaxContainers()
-    {
+    public int getMaxContainers() {
         return this.maxContainerQuayHandle;
     }
 
@@ -36,15 +33,16 @@ public class ContainerQuay extends Quay
      * ContainerQuay id [Ship: imoNumber] - maxContainers
      * Where:
      * id is the ID of this quay
-     * imoNumber is the IMO number of the ship docked at this quay, or None if the quay is unoccupied.
+     * imoNumber is the IMO number of the ship docked at this
+     * quay, or None if the quay is unoccupied.
      * maxContainers is the number of containers this quay can take.
      * For example:
      *
      * ContainerQuay 3 [Ship: 22] - 32
      * */
     @Override
-    public String toString()
-    {
-        return super.toString() + "ContainerQuay " + getId() + "[Ship: " + getShip().getImoNumber() + "] - " + this.getMaxContainers();
+    public String toString() {
+        return super.toString() + "ContainerQuay " + getId() +
+                "[Ship: " + getShip().getImoNumber() + "] - " + this.getMaxContainers();
     }
 }

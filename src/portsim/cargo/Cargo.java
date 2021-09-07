@@ -2,8 +2,7 @@ package portsim.cargo;
 
 /** Denotes a cargo whose function is to be transported via a Ship or land transport.
  * Cargo is kept track of via its ID.*/
-public abstract class Cargo extends Object
-{
+public abstract class Cargo extends Object {
     /** Cargo ID */
     private int cargoId;
 
@@ -15,13 +14,11 @@ public abstract class Cargo extends Object
      * @param destination - destination port, string type
      * @throws IllegalArgumentException - if ID < 0
      * */
-    public Cargo(int id, String destination)
-    {
+    public Cargo(int id, String destination) {
         this.cargoId = id;
         this.destPort = destination;
 
-        if(id < 0)
-        {
+        if (id < 0) {
             throw new IllegalArgumentException();
         }
     }
@@ -29,16 +26,14 @@ public abstract class Cargo extends Object
     /** Method: Retrieve the ID of this piece of cargo.
      * @return the cargo's ID, int type
      * */
-    public int getID()
-    {
+    public int getId() {
         return this.cargoId;
     }
 
     /** Method: Retrieve the destination of this piece of cargo
      * @return the cargo's destination, String type
      * */
-    public String getDestination()
-    {
+    public String getDestination() {
         return this.destPort;
     }
 
@@ -57,8 +52,7 @@ public abstract class Cargo extends Object
      * Container 55 to New Zealand
      * */
     @Override
-    public String toString()
-    {
-        return super.toString() + this.getClass().getName() + getID()+ "to" + getDestination();
+    public String toString() {
+        return super.toString() + this.getClass().getName() + getId() + "to" + getDestination();
     }
 }

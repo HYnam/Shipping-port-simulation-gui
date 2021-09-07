@@ -10,33 +10,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** Represents a ship capable of carrying shipping containers.*/
-public class ContainerShip extends Ship
-{
+public class ContainerShip extends Ship {
     /** the container capacity of this ship */
     private int containerCapacityOfShip;
 
     /** list of containers on board */
     private List<Container> containersOnBoard = new ArrayList<>();
 
-    /** Creates a new container ship with the given IMO number, name and origin port, nautical flag and cargo capacity.
+    /** Creates a new container ship with the given IMO number,
+     * name and origin port, nautical flag and cargo capacity.
      * @param imoNumber - unique identifier, long type
      * @param name - name of the ship, String type
      * @param originFlag - port of origin, String type
      * @param flag - the nautical flag this ship is flying, NauticalFlag
      * @param capacity - the container capacity of this ship, int type
-     * @throws IllegalArgumentException - if imoNumber < 0, imoNumber is not 7 digits long or if the container capacity is < than 0
+     * @throws IllegalArgumentException - if imoNumber < 0,
+     * imoNumber is not 7 digits long or if the container capacity is < than 0
      * */
-    public ContainerShip(long imoNumber, String name, String originFlag, NauticalFlag flag, int capacity)
-    {
+    public ContainerShip(long imoNumber, String name,
+                         String originFlag, NauticalFlag flag, int capacity) {
         super(imoNumber, name, originFlag, flag);
         this.containerCapacityOfShip = capacity;
 
         // Change long type to String type
         String longAsString = Long.toString(imoNumber);
 
-        if(imoNumber < 0 || longAsString.length() != 7 || capacity < 0)
-        {
-            throw new IllegalArgumentException ("unique identifier out of range");
+        if (imoNumber < 0 || longAsString.length() != 7 || capacity < 0) {
+            throw new IllegalArgumentException("unique identifier out of range");
         }
     }
 
@@ -49,12 +49,12 @@ public class ContainerShip extends Ship
      * @param quay - quay to be checked
      * @return true if the Quay satisfies the conditions else false
      * */
-    public boolean canDock(Quay quay)
-    {
-        if (quay instanceof ContainerQuay && quay.getShip() == null)
+    public boolean canDock(Quay quay) {
+        if (quay instanceof ContainerQuay && quay.getShip() == null) {
             return true;
-        else
+        }else {
             return false;
+        }
     }
 
     /**Checks whether the specified cargo can be loaded onto the ship.
@@ -68,11 +68,10 @@ public class ContainerShip extends Ship
      * @param cargo - cargo to be loaded
      * @return true if the Cargo satisfies the conditions else false
      * */
-    public boolean canLoad(Cargo cargo)
-    {
+    public boolean canLoad(Cargo cargo) {
         if (cargo instanceof Container
             && containersOnBoard.size() < containerCapacityOfShip
-            && cargo.getDestination().equals(getOriginalFlag())) {
+            && cargo.getDestination().equals(getOriginFlag())) {
             return true;
         } else {
             return false;
@@ -94,10 +93,10 @@ public class ContainerShip extends Ship
     /**Unloads the cargo from the ship.
      * The ship's cargo should be set to an empty list.
      * @return the ship's cargo before it was unloaded
-     * @throws NoSuchCargoException - if the ship has already been unloaded (i.e. the ship has no cargo onboard)
+     * @throws NoSuchCargoException - if the ship has already been unloaded
+     * (i.e. the ship has no cargo onboard)
      * */
-    public List<Container> unloadCargo() throws NoSuchCargoException
-    {
+    public List<Container> unloadCargo() throws NoSuchCargoException {
         if (this.containersOnBoard.size() > 0) {
             List<Container> listForReturn = new ArrayList<>(this.containersOnBoard);
             this.containersOnBoard.clear();
@@ -111,8 +110,7 @@ public class ContainerShip extends Ship
      * Adding or removing elements from the returned list should be not affect the original list.
      * @return containers on the vessel
      * */
-    public List<Container> getCargo()
-    {
+    public List<Container> getCargo() {
         List<Container> listForReturn = new ArrayList<>(this.containersOnBoard);
         return listForReturn;
     }
@@ -130,9 +128,8 @@ public class ContainerShip extends Ship
      *  ContainerShip Evergreen from Australia [BRAVO] carrying 3 containers
      * */
     @Override
-    public String toString()
-    {
-        return super.toString() + this.getClass().getName() + getName() + "from" + getOriginalFlag() + "[" + getFlag() + "]" + "carrying"
-                +"containers";
+    public String toString() {
+        return super.toString() + this.getClass().getName() + getName() +
+                "from" + getOriginFlag() + "[" + getFlag() + "]" + "carrying" + "containers";
     }
 }

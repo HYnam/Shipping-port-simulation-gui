@@ -1,8 +1,7 @@
 package portsim.movement;
 
 /** The movement of ships or cargo coming into or out of the port from land or sea.*/
-public abstract class Movement extends Object
-{
+public abstract class Movement extends Object {
     /** the time the movement should occur */
     private long timeOfMoveOccur;
 
@@ -14,13 +13,11 @@ public abstract class Movement extends Object
      * @param direction - the direction of the movement, MovementDirection
      * @throws IllegalArgumentException - if time < 0
      * */
-    public Movement(long time, MovementDirection direction)
-    {
+    public Movement(long time, MovementDirection direction) {
         this.timeOfMoveOccur = time;
         this.directionToMove = direction;
 
-        if (time < 0)
-        {
+        if (time < 0) {
             throw new IllegalArgumentException();
         }
     }
@@ -28,16 +25,14 @@ public abstract class Movement extends Object
     /** Returns the time the movement should be actioned
      * @return movement time, long type
      * */
-    public long getTime()
-    {
+    public long getTime() {
         return this.timeOfMoveOccur;
     }
 
     /** Returns the direction of the movement.
      * @return movement direction, MovementDirection
      * */
-    public MovementDirection getDirection()
-    {
+    public MovementDirection getDirection() {
         return this.directionToMove;
     }
 
@@ -53,8 +48,8 @@ public abstract class Movement extends Object
      * INBOUND Movement to occur at 120
      * */
     @Override
-    public String toString()
-    {
-        return super.toString() + getDirection() + this.getClass().getName() + "to occur at " + getTime();
+    public String toString() {
+        return super.toString() + getDirection() +
+                this.getClass().getName() + "to occur at " + getTime();
     }
 }

@@ -11,8 +11,7 @@ import java.util.List;
 /** A place where ships can come and dock with Quays to load / unload their cargo.
  * Cargo is stored within the port.
  * */
-public class Port extends Object
-{
+public class Port extends Object {
     /** name of the port */
     private String nameOfPort;
 
@@ -26,8 +25,7 @@ public class Port extends Object
      * The list of quays in the port and stored cargo should be initialised as empty lists.
      * @param name - name of the port, String type
      * */
-    public Port(String name)
-    {
+    public Port(String name) {
         this.nameOfPort = name;
         List<Quay> quaysList = new ArrayList<Quay>();
         List<Cargo> cargosInPort = new ArrayList<Cargo>();
@@ -44,12 +42,12 @@ public class Port extends Object
     /** Returns a list of all quays associated with this port.
      * Adding or removing elements from the returned list should not affect the original list.
      *
-     * The order in which quays appear in this list should be the same as the order in which they were added by calling addQuay(Quay).
+     * The order in which quays appear in this list should be the
+     * same as the order in which they were added by calling addQuay(Quay).
      *
      * @return all quays, List type
      * */
-    public List<Quay> getQuays()
-    {
+    public List<Quay> getQuays() {
         // Declare a list called quays to store all the quays
         List<Quay> result = new LinkedList<>(this.quaysList); //Thus creating a deep copy.
         return result;
@@ -59,8 +57,7 @@ public class Port extends Object
      *  Adding or removing elements from the returned list should not affect the original list.
      *  @return port cargo, List type
      * */
-    public List<Cargo> getCargo()
-    {
+    public List<Cargo> getCargo() {
         List<Cargo> cargosList = new LinkedList<>(this.cargosInPort);
         return cargosList;
     }
@@ -68,8 +65,7 @@ public class Port extends Object
     /** Adds a quay to the ports control
      * @param quay - the quay to add
      * */
-    public void addQuay (Quay quay)
-    {
+    public void addQuay (Quay quay) {
         this.quaysList.add(quay);
     }
 }

@@ -3,8 +3,7 @@ package portsim.port;
 import portsim.ship.Ship;
 
 /** Quay is a platform lying alongside or projecting into the water where ships are moored for loading or unloading.*/
-public abstract class Quay extends Object
-{
+public abstract class Quay extends Object {
     /** quay ID */
     private int quayId;
 
@@ -15,13 +14,11 @@ public abstract class Quay extends Object
      * @param id - quay ID, int type
      * @throws IllegalArgumentException - if ID < 0
      * */
-    public Quay(int id)
-    {
+    public Quay(int id) {
         this.quayId = id;
         this.dockedShip = null;
 
-        if (id < 0)
-        {
+        if (id < 0) {
             throw new IllegalArgumentException ();
         }
     }
@@ -29,17 +26,15 @@ public abstract class Quay extends Object
     /** Get the id of this quay
      * @return quay id, int type
      * */
-    public int getId()
-    {
+    public int getId() {
         return this.quayId;
     }
 
     /** Docks the given ship at the Quay so that the quay becomes occupied.
      * @param ship - ship to dock to the quay
      * */
-    public void shipArrives(Ship ship)
-    {
-        if(this.dockedShip != null) {
+    public void shipArrives(Ship ship) {
+        if (this.dockedShip != null) {
             this.dockedShip = ship;
         }
     }
@@ -47,8 +42,7 @@ public abstract class Quay extends Object
     /**Removes the current ship docked at the quay. The current ship should be set to null.
      * @return the current ship or null if quay is empty.
      * */
-    public Ship shipDeparts()
-    {
+    public Ship shipDeparts() {
         Ship shipToReturn = this.dockedShip;
         this.dockedShip = null;
         return shipToReturn;
@@ -57,11 +51,10 @@ public abstract class Quay extends Object
     /**Returns whether a ship is currently docked at this quay.
      * @return true if there is no ship docked else false
      * */
-    public boolean isEmpty()
-    {
-        if(this.dockedShip == null){
+    public boolean isEmpty() {
+        if (this.dockedShip == null) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
@@ -69,8 +62,7 @@ public abstract class Quay extends Object
     /**Returns the ship currently docked at the quay.
      * @return ship at quay or null if no ship is docked
      * */
-    public Ship getShip()
-    {
+    public Ship getShip() {
         return this.dockedShip;
     }
 
@@ -80,7 +72,8 @@ public abstract class Quay extends Object
      * QuayClass id [Ship: imoNumber]
      * Where:
      * id is the ID of this quay
-     * imoNumber is the IMO number of the ship docked at this quay, or None if the quay is unoccupied.
+     * imoNumber is the IMO number of the ship docked at this
+     * quay, or None if the quay is unoccupied.
      * For example:
      *
      * BulkQuay 1 [Ship: 23]
@@ -88,9 +81,9 @@ public abstract class Quay extends Object
      * ContainerQuay 3 [Ship: None]
      * */
     @Override
-    public String toString()
-    {
-        return super.toString() + this.getClass().getName() + getId() + "[Ship: " + getShip().getImoNumber() +"]";
+    public String toString() {
+        return super.toString() + this.getClass().getName() + getId() +
+                "[Ship: " + getShip().getImoNumber() + "]";
     }
 
 }

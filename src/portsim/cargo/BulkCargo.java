@@ -1,8 +1,7 @@
 package portsim.cargo;
 
 /** Bulk cargo is commodity cargo that is transported unpacked in large quantities.*/
-public class BulkCargo extends Cargo
-{
+public class BulkCargo extends Cargo {
 
     /** the weight of the cargo */
     private int weight;
@@ -17,8 +16,7 @@ public class BulkCargo extends Cargo
      * @param type - the type of cargo, BulkCargoType
      * @Throws IllegalArgumentException - if ID < 0 or tonnage < 0
      * */
-    public BulkCargo(int id, String destination, int tonnage, BulkCargoType type)
-    {
+    public BulkCargo(int id, String destination, int tonnage, BulkCargoType type) {
 
         // Initialise variables
         super(id, destination);
@@ -26,8 +24,7 @@ public class BulkCargo extends Cargo
         this.typeOfCargo = type;
 
         // throw exception
-        if (id < 0 || tonnage < 0)
-        {
+        if (id < 0 || tonnage < 0) {
             throw new IllegalArgumentException();
         }
     }
@@ -35,16 +32,14 @@ public class BulkCargo extends Cargo
     /** Method: Returns the tonnage of this bulk cargo.
      * @return cargo tonnage, int type
      * */
-    public int getTonnage()
-    {
+    public int getTonnage() {
         return this.weight;
     }
 
     /** Method: Returns the type of this bulk cargo.
      * @returns: cargo type, BulkCargoType
      * */
-    public BulkCargoType getType()
-    {
+    public BulkCargoType getType() {
         return this.typeOfCargo;
     }
 
@@ -61,8 +56,7 @@ public class BulkCargo extends Cargo
      * BulkCargo 42 to Brazil [OIL - 420]
      * */
     @Override
-    public String toString()
-    {
-        return super.toString() + "BulkCargo" + getID() + "to" + getDestination() + '[' + getType() + " - " + getTonnage() + ']';
+    public String toString() {
+        return super.toString() + "BulkCargo" + getId() + "to" + getDestination() + '[' + getType() + " - " + getTonnage() + ']';
     }
 }

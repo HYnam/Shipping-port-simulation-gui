@@ -1,7 +1,6 @@
 package portsim.ship;
 
 import portsim.cargo.BulkCargo;
-import portsim.cargo.BulkCargoType;
 import portsim.cargo.Cargo;
 import portsim.port.BulkQuay;
 import portsim.port.Quay;
@@ -9,15 +8,15 @@ import portsim.util.NoSuchCargoException;
 import java.lang.*;
 
 /** Represents a ship capable of carrying bulk cargo.*/
-public class BulkCarrier extends Ship
-{
+public class BulkCarrier extends Ship {
     /**  the tonnage capacity of this ship */
     private int tonnageCapacityShip;
 
     /**  the cargo on this ship */
     private BulkCargo cargoOnBoard;
 
-    /** Creates a new bulk carrier with the given IMO number, name, origin port, nautical flag and cargo capacity.
+    /** Creates a new bulk carrier with the given IMO number, name, origin port,
+     * nautical flag and cargo capacity.
      * @param imoNumber - unique identifier, long type
      * @param name - name of the ship, String type
      * @param originFlag - port of origin, String type
@@ -25,8 +24,8 @@ public class BulkCarrier extends Ship
      * @param capacity - the tonnage capacity of this ship, int type
      * @throws IllegalArgumentException - if imoNumber < 0, imoNumber is not 7 digits long or if the tonnage capacity is < than 0
      * */
-    public BulkCarrier(long imoNumber, String name, String originFlag, NauticalFlag flag, int capacity)
-    {
+    public BulkCarrier(long imoNumber, String name, String originFlag,
+                       NauticalFlag flag, int capacity) {
         super(imoNumber, name, originFlag, flag);
         this.tonnageCapacityShip = capacity;
         this.cargoOnBoard = null;
@@ -34,8 +33,7 @@ public class BulkCarrier extends Ship
         // Change long type to String type
         String longAsString = Long.toString(imoNumber);
 
-        if(imoNumber < 0 || longAsString.length() != 7 || capacity < 0)
-        {
+        if (imoNumber < 0 || longAsString.length() != 7 || capacity < 0) {
             throw new IllegalArgumentException ("unique identifier out of range");
         }
     }
@@ -50,9 +48,9 @@ public class BulkCarrier extends Ship
      * @param quay - quay to be checked
      * @return true if the Quay satisfies the conditions else false
      * */
-    public boolean canDock(Quay quay)
-    {
-        if(quay instanceof BulkQuay && ((BulkQuay) quay).getMaxTonnage() >= this.tonnageCapacityShip){
+    public boolean canDock(Quay quay) {
+        if(quay instanceof BulkQuay && ((BulkQuay) quay).getMaxTonnage()
+                >= this.tonnageCapacityShip){
             return true;
         }else{
             return false;
@@ -71,12 +69,11 @@ public class BulkCarrier extends Ship
      * @param cargo - cargo to be loaded
      * @return true if the Cargo satisfies the conditions else false
      * */
-    public boolean canLoad(Cargo cargo)
-    {
-        if(this.cargoOnBoard == null
+    public boolean canLoad(Cargo cargo) {
+        if (this.cargoOnBoard == null
             && cargo instanceof BulkCargo
             && ((BulkCargo) cargo).getTonnage() <= this.tonnageCapacityShip
-            && cargo.getDestination().equals(getOriginalFlag())) {
+            && cargo.getDestination().equals(getOriginFlag())) {
             return true;
         } else {
             return false;
@@ -90,8 +87,7 @@ public class BulkCarrier extends Ship
      * Requires:
      * Cargo given is able to be loaded onto this ship according to canLoad(Cargo)
      * */
-    public void loadCargo(Cargo cargo)
-    {
+    public void loadCargo(Cargo cargo) {
         this.cargoOnBoard = (BulkCargo) cargo;
     }
 
@@ -113,8 +109,7 @@ public class BulkCarrier extends Ship
     /** Return the current cargo onboard this vessel.
      * @return bulk cargo on the vessel
      * */
-    public BulkCargo getCargo()
-    {
+    public BulkCargo getCargo() {
         return this.cargoOnBoard;
     }
 
@@ -126,14 +121,14 @@ public class BulkCarrier extends Ship
      * name is the name of this ship
      * origin is the country of origin of this ship
      * flag is the nautical flag of this ship
-     * cargoType is the type of cargo on board or the literal String nothing if there is no cargo currently on board
+     * cargoType is the type of cargo on board or the literal String
+     * nothing if there is no cargo currently on board
      * For example:
      *  BulkCarrier Evergreen from Australia [BRAVO] carrying OIL
      *  */
     @Override
-    public String toString()
-    {
-        return "BulkCarrier " + super.getName() + " from " + super.getOriginalFlag() + " ["
+    public String toString() {
+        return "BulkCarrier " + super.getName() + " from " + super.getOriginFlag() + " ["
                 + super.getFlag() + "] carrying " + this.cargoOnBoard.getType();
     }
 }

@@ -3,24 +3,22 @@ package portsim.movement;
 import portsim.ship.Ship;
 
 /** The movement of a ship coming into or out of the port.*/
-public class ShipMovement extends Movement
-{
+public class ShipMovement extends Movement {
     /** the ship which that is waiting to move */
     private Ship shipWaitToMove;
 
-    /** Creates a new ship movement with the given action time and direction to be undertaken with the given ship.
+    /** Creates a new ship movement with the given action time and
+     * direction to be undertaken with the given ship.
      * @param time - the time the movement should occur, long type
      * @param direction - the direction of the movement, MovementDirection
      * @param ship - the ship which that is waiting to move, Ship type
      * @throws IllegalArgumentException - if time < 0
      * */
-    public ShipMovement(long time, MovementDirection direction, Ship ship)
-    {
+    public ShipMovement(long time, MovementDirection direction, Ship ship) {
         super(time, direction);
         this.shipWaitToMove = ship;
 
-        if(time < 0)
-        {
+        if (time < 0) {
             throw new IllegalArgumentException();
         }
     }
@@ -28,8 +26,7 @@ public class ShipMovement extends Movement
     /** Returns the ship undertaking the movement.
      * @return movements ship
      * */
-    public Ship getShip()
-    {
+    public Ship getShip() {
         return this.shipWaitToMove;
     }
 
@@ -45,9 +42,9 @@ public class ShipMovement extends Movement
      *  OUTBOUND CargoMovement to occur at 135 involving the ship Voyager
      *  */
     @Override
-    public String toString()
-    {
-        return super.toString() + getDirection() + this.getClass().getName() + "to occur at" + getTime() + "involving the ship " + getShip();
+    public String toString() {
+        return super.toString() + getDirection() + this.getClass().getName() +
+                "to occur at" + getTime() + "involving the ship " + getShip();
     }
 
 }

@@ -1,8 +1,7 @@
 package portsim.cargo;
 
 /** Enum to represent the possible types that Bulk Cargo can be. */
-public enum BulkCargoType
-{
+public enum BulkCargoType {
     /** A combustible black or brownish-black used as a fuel source. */
     COAL,
 

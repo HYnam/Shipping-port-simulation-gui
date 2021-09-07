@@ -1,8 +1,7 @@
 package portsim.cargo;
 
 /** Represents a shipping container, used for holding or transporting something*/
-public class Container extends Cargo
-{
+public class Container extends Cargo {
     /** type of container */
     private ContainerType typeOfContainer;
 
@@ -12,13 +11,11 @@ public class Container extends Cargo
      * @param type - type of container, ContainerType
      * @throws IllegalArgumentException - if ID < 0
      * */
-    public Container(int id, String destination, ContainerType type)
-    {
+    public Container(int id, String destination, ContainerType type) {
         super(id, destination);
         this.typeOfContainer = type;
 
-        if (id < 0)
-        {
+        if (id < 0) {
             throw new IllegalArgumentException();
         }
     }
@@ -26,8 +23,7 @@ public class Container extends Cargo
     /** Returns the type of this container.
      * @return container type
      * */
-    public ContainerType getType()
-    {
+    public ContainerType getType() {
         return this.typeOfContainer;
     }
 
@@ -43,8 +39,7 @@ public class Container extends Cargo
      * Container 42 to Brazil [OTHER]
      * */
     @Override
-    public String toString()
-    {
-        return super.toString() + "Container" + getID()+ "to" + getDestination() + "[" + getType() + "]";
+    public String toString() {
+        return super.toString() + "Container" + getId() + "to" + getDestination() + "[" + getType() + "]";
     }
 }
