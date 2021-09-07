@@ -76,7 +76,7 @@ public class BulkCarrier extends Ship
         if(this.cargoOnBoard == null
             && cargo instanceof BulkCargo
             && ((BulkCargo) cargo).getTonnage() <= this.tonnageCapacityShip
-            && cargo.getDestination() == getOriginalFlag()) {
+            && cargo.getDestination().equals(getOriginalFlag())) {
             return true;
         } else {
             return false;
