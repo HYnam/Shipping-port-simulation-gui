@@ -40,6 +40,7 @@ public class Container extends Cargo {
      * */
     @Override
     public String toString() {
-        return "Container " + super.getId() + " to " + super.getDestination() + " [" + getType() + "]";
+        return "Container " + super.getId() + " to " + super.getDestination()
+                + " [" + getType() + "]";
     }
 }
