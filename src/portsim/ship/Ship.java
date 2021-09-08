@@ -40,9 +40,6 @@ public abstract class Ship extends Object {
         }
     }
 
-    /** Store the ship */
-    public Ship() {}
-
     /** Check if this ship can dock with the specified quay
      * according to the conditions determined by the ships type
      * @param quay - quay to be checked
