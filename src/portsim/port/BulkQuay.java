@@ -42,7 +42,7 @@ public class BulkQuay extends Quay {
      * */
     @Override
     public String toString() {
-        if (dockedShip == null) {
+        if (getShip() == null) {
             return this.getClass().getSimpleName() + " " + getId()
                   + " [Ship: None] - " + this.getMaxTonnage();
         } else {
