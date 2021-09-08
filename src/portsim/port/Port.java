@@ -25,8 +25,8 @@ public class Port extends Object {
      * */
     public Port(String name) {
         this.nameOfPort = name;
-        List<Quay> quaysList = new ArrayList<Quay>();
-        List<Cargo> cargosInPort = new ArrayList<Cargo>();
+        this.quaysList = new ArrayList<Quay>();
+        this.cargosInPort = new ArrayList<Cargo>();
     }
 
     /** Returns the name of this port.
