@@ -53,6 +53,6 @@ public abstract class Cargo extends Object {
      * */
     @Override
     public String toString() {
-        return super.toString() + this.getClass().getName() + getId() + "to" + getDestination();
+        return this.getClass().getName() + " " + " " + getId() + "to" + getDestination();
     }
 }
