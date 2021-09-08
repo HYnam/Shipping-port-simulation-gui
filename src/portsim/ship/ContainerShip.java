@@ -52,7 +52,7 @@ public class ContainerShip extends Ship {
     public boolean canDock(Quay quay) {
         if (quay instanceof ContainerQuay && quay.getShip() == null) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
@@ -85,8 +85,7 @@ public class ContainerShip extends Ship {
      * Requires:
      * Cargo given is able to be loaded onto this ship according to canLoad(Cargo)
      * */
-    public void loadCargo(Cargo cargo)
-    {
+    public void loadCargo(Cargo cargo) {
         containersOnBoard.add((Container) cargo);
     }
 
@@ -129,7 +128,7 @@ public class ContainerShip extends Ship {
      * */
     @Override
     public String toString() {
-        return super.toString() + this.getClass().getName() + getName() +
-                "from" + getOriginFlag() + "[" + getFlag() + "]" + "carrying" + "containers";
+        return super.toString() + this.getClass().getName() + getName()
+               + "from" + getOriginFlag() + "[" + getFlag() + "]" + "carrying" + "containers";
     }
 }

@@ -130,7 +130,7 @@ public class BulkCarrier extends Ship {
      *  */
     @Override
     public String toString() {
-        if(cargoOnBoard == null) {
+        if (cargoOnBoard == null) {
             return "BulkCarrier " + super.getName() + " from " + super.getOriginFlag() + " ["
                     + super.getFlag() + "]";
         } else {

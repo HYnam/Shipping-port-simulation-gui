@@ -40,6 +40,7 @@ public abstract class Ship extends Object {
         }
     }
 
+    /** Store the ship */
     public Ship() {}
 
     /** Check if this ship can dock with the specified quay
