@@ -118,4 +118,24 @@ public class BulkCargo extends Cargo {
             this.type,
             this.tonnage);
     }
+
+    /** Returns the machine-readable string representation of this BulkCargo.
+     * <p>
+     * The format of the string to return is
+     * <pre>BulkCargo:id:destination:type:tonnage</pre>
+     * Where:
+     * <ul>
+     *     <li>{@code id} is the id of this cargo</li>
+     *     <li>{@code destination} is the destination of the cargo</li>
+     *     <li>{@code type} is the bulk cargo type</li>
+     *     <li>{@code tonnage} is the bulk cargo weight in tonnes</li>
+     * </ul>
+     * For example: <pre>BulkCargo:2:Germany:GRAIN:50</pre>
+     * </p>
+     *
+     * @return encoded string representation of this Cargo*/
+    @Override
+    public String encode(){
+
+    }
 }
