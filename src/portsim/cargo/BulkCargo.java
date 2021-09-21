@@ -1,5 +1,7 @@
 package portsim.cargo;
 
+import java.util.Objects;
+
 /**
  * Bulk cargo is commodity cargo that is transported unpacked in large quantities.
  *
@@ -72,6 +74,15 @@ public class BulkCargo extends Cargo {
         else {
             return false;
         }
+    }
+
+    /** Return the hash code of this BulkCargo
+     * Two BulkCargo are equal according to
+     * equals(Object) method should have the same hash code.
+     *
+     * @return hash code of this BulkCargo*/
+    public int hashCode(){
+        return Objects.hash(getId(), getDestination(), getTonnage())
     }
 
     /**
