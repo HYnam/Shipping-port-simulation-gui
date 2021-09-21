@@ -58,6 +58,22 @@ public class BulkCargo extends Cargo {
         return type;
     }
 
+    /** Return true if and only if this BulkCargo is equal to the given BulkCargo
+     * For BulkCargo to be equal, they must have the same ID, destination type and tonnage
+     *
+     * @param o other object to check equality
+     * @return true if equal, false otherwise*/
+    public boolean equals(Object o){
+        if (((BulkCargo) o).getId() == this.getId()
+        && ((BulkCargo) o).getDestination() == this.getDestination()
+        && ((BulkCargo) o).getTonnage() == this.getTonnage()){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     /**
      * Returns the human-readable string representation of this BulkCargo.
      * <p>
