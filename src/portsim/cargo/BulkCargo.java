@@ -66,9 +66,18 @@ public class BulkCargo extends Cargo {
      * @param o other object to check equality
      * @return true if equal, false otherwise*/
     public boolean equals(Object o){
-        if (((BulkCargo) o).getId() == this.getId()
-        && ((BulkCargo) o).getDestination() == this.getDestination()
-        && ((BulkCargo) o).getTonnage() == this.getTonnage()){
+        if (o == null){
+            return false;
+        }
+        if (!(o instanceof BulkCargo)){
+            return false;
+        }
+
+        BulkCargo testEqual = (BulkCargo) o;
+
+        if (this.getId() == testEqual.getId()
+        && this.getDestination().equals(testEqual.getDestination())
+        && this.getTonnage() == testEqual.getTonnage()){
             return true;
         }
         else {
@@ -82,7 +91,7 @@ public class BulkCargo extends Cargo {
      *
      * @return hash code of this BulkCargo*/
     public int hashCode(){
-        return Objects.hash(getId(), getDestination(), getTonnage())
+        return Objects.hash(getId(), getDestination(), getTonnage());
     }
 
     /**
