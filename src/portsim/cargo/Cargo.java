@@ -1,5 +1,7 @@
 package portsim.cargo;
 
+import portsim.util.NoSuchCargoException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +40,7 @@ public abstract class Cargo {
      * @ass1_partial
      */
     public Cargo(int id, String destination) throws IllegalArgumentException {
-        if (id < 0) {
+        if (id < 0 && cargoRegistry.keySet().equals(this.id)) {
             throw new IllegalArgumentException("Cargo ID must be greater than"
                 + " or equal to 0: " + id);
         }
@@ -64,6 +66,40 @@ public abstract class Cargo {
      */
     public String getDestination() {
         return destination;
+    }
+
+    /** Returns the global registry of all pieces of cargo,
+     * as a mapping from cargo IDs to Cargo instances.
+     *
+     * Adding or removing elements from the returned map should not affect the original map.
+     *
+     * @return cargo registry
+     * */
+    public static Map<Integer, Cargo> getCargoRegistry(){
+
+    }
+
+    /** Check if a cargo exists in the simulation using its ID
+     * @param id unique key to identify cargo
+     * @return true if there is a cargo stored in the registry with key id,
+     * false otherwise
+     * */
+    public static boolean cargoExists(int id){
+        return cargoRegistry.containsKey(id);
+    }
+
+    /** Return the cargo specified by the given ID
+     * @param id unique key to identify cargo
+     * @return cargo specified by the id
+     * @throw NoSuchCargoException if the cargo does not exist in the registry
+     * */
+    public static Cargo getCargoById(int id) throws NoSuchCargoException{
+        if (cargoExists(id) == false){
+            throw new NoSuchCargoException();
+        }
+        else {
+            return cargoRegistry.get(id);
+        }
     }
 
     /**
