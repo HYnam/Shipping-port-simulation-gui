@@ -1,63 +1,85 @@
 package portsim.cargo;
 
-/** Bulk cargo is commodity cargo that is transported unpacked in large quantities.*/
+/**
+ * Bulk cargo is commodity cargo that is transported unpacked in large quantities.
+ *
+ * @ass1_partial
+ */
 public class BulkCargo extends Cargo {
+    /**
+     * The weight in tonnes of the bulk cargo
+     */
+    private int tonnage;
 
-    /** the weight of the cargo */
-    private int weight;
+    /**
+     * The type of bulk cargo
+     */
+    private BulkCargoType type;
 
-    /** the type of cargo */
-    private BulkCargoType typeOfCargo;
-
-    /** Constructor: Creates a new Bulk Cargo with the given ID, destination, tonnage and type.
-     * @param id - cargo ID, int type
-     * @param destination - destination port, string type
-     * @param tonnage - the weight of the cargo, int type
-     * @param type - the type of cargo, BulkCargoType
-     * @Throws IllegalArgumentException - if ID < 0 or tonnage < 0
-     * */
-    public BulkCargo(int id, String destination, int tonnage, BulkCargoType type) {
-
-        // Initialise variables
-        super(id, destination);
-        this.weight = tonnage;
-        this.typeOfCargo = type;
-
-        // throw exception
-        if (id < 0 || tonnage < 0) {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    /** Method: Returns the tonnage of this bulk cargo.
-     * @return cargo tonnage, int type
-     * */
-    public int getTonnage() {
-        return this.weight;
-    }
-
-    /** Method: Returns the type of this bulk cargo.
-     * @return cargo type, BulkCargoType
-     * */
-    public BulkCargoType getType() {
-        return this.typeOfCargo;
-    }
-
-    /** Returns the human-readable string representation of this BulkCargo.
-     * The format of the string to return is
+    /**
+     * Creates a new Bulk Cargo with the given ID, destination, tonnage and type.
      *
-     * BulkCargo id to destination [type - tonnage]
+     * @param id          cargo ID
+     * @param destination destination port
+     * @param tonnage     the weight of the cargo
+     * @param type        the type of cargo
+     * @throws IllegalArgumentException if a cargo already exists with the
+     *                                  given ID or ID &lt; 0 or tonnage &lt; 0
+     * @ass1
+     */
+    public BulkCargo(int id, String destination, int tonnage,
+                     BulkCargoType type) throws IllegalArgumentException {
+        super(id, destination);
+        if (tonnage < 0) {
+            throw new IllegalArgumentException("The cargo tonnage "
+                + "must be greater than or equal to 0: " + tonnage);
+        }
+        this.tonnage = tonnage;
+        this.type = type;
+    }
+
+    /**
+     * Returns the weight in tonnes of this bulk cargo.
+     *
+     * @return cargo tonnage
+     * @ass1
+     */
+    public int getTonnage() {
+        return tonnage;
+    }
+
+    /**
+     * Returns the BulkCargoType of this bulk cargo.
+     *
+     * @return cargo type
+     * @ass1
+     */
+    public BulkCargoType getType() {
+        return type;
+    }
+
+    /**
+     * Returns the human-readable string representation of this BulkCargo.
+     * <p>
+     * The format of the string to return is
+     * <pre>BulkCargo id to destination [type - tonnage]</pre>
      * Where:
-     * id is the id of this cargo
-     * destination is the destination of the cargo
-     * type is the type of cargo
-     * tonnage is the tonnage of the cargo
-     * For example:
-     * BulkCargo 42 to Brazil [OIL - 420]
-     * */
+     * <ul>
+     *   <li>{@code id} is the id of this cargo </li>
+     *   <li>{@code destination} is the destination of the cargo </li>
+     *   <li>{@code type} is the type of cargo</li>
+     *   <li>{@code tonnage} is the tonnage of the cargo</li>
+     * </ul>
+     * For example: <pre>BulkCargo 42 to Brazil [OIL - 420]</pre>
+     *
+     * @return string representation of this BulkCargo
+     * @ass1
+     */
     @Override
     public String toString() {
-        return "BulkCargo " + getId() + " to "
-               + getDestination() + " [" + getType() + " - " + getTonnage() + "]";
+        return String.format("%s [%s - %d]",
+            super.toString(),
+            this.type,
+            this.tonnage);
     }
 }

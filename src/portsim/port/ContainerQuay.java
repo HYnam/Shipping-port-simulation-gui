@@ -1,48 +1,66 @@
 package portsim.port;
 
-/** A Container Quay is a type of quay specifically designed for
- *  the unloading of Container Ship vessels. */
+/**
+ * A Container Quay is a type of quay specifically designed for the unloading of
+ * Container Ship vessels.
+ *
+ * @ass1_partial
+ */
 public class ContainerQuay extends Quay {
-    /** maximum number of containers the quay can handle */
-    private int maxContainerQuayHandle;
+    /**
+     * The maximum number of containers that the quay can handle
+     */
+    private int maxContainers;
 
-    /** Creates a new Container Quay with the given ID and maximum number of containers.
-     * @param id - quay ID, int type
-     * @param maxContainers - maximum number of containers the quay can handle, int type
-     * @throws IllegalArgumentException - if ID or maxContainers < 0
-     * */
-    public ContainerQuay(int id, int maxContainers) {
-        super(id); // Get the value id in Quay class
-        this.maxContainerQuayHandle = maxContainers;
-
-        if (id < 0 || maxContainers < 0) {
-            throw new IllegalArgumentException();
+    /**
+     * Creates a new Container Quay with the given ID and maximum number of containers.
+     *
+     * @param id            quay ID
+     * @param maxContainers maximum number of containers the quay can handle
+     * @throws IllegalArgumentException if ID or maxContainers &lt; 0
+     * @ass1
+     */
+    public ContainerQuay(int id, int maxContainers) throws IllegalArgumentException {
+        super(id);
+        if (maxContainers < 0) {
+            throw new IllegalArgumentException("maxContainers must be greater than"
+                + " or equal to 0: " + maxContainers);
         }
+        this.maxContainers = maxContainers;
     }
 
-    /** Returns the maximum number of containers of this quay can process at once.
-     * @return  maxContainers, int type
-     * */
+    /**
+     * Returns the maximum number of containers of this quay can process at once.
+     *
+     * @return maxContainers
+     * @ass1
+     */
     public int getMaxContainers() {
-        return this.maxContainerQuayHandle;
+        return maxContainers;
     }
 
-    /** Returns the human-readable string representation of this ContainerQuay.
+    /**
+     * Returns the human-readable string representation of this ContainerQuay.
+     * <p>
      * The format of the string to return is
-     *
-     * ContainerQuay id [Ship: imoNumber] - maxContainers
+     * <pre>ContainerQuay id [Ship: imoNumber] - maxContainers</pre>
      * Where:
-     * id is the ID of this quay
-     * imoNumber is the IMO number of the ship docked at this
-     * quay, or None if the quay is unoccupied.
-     * maxContainers is the number of containers this quay can take.
-     * For example:
+     * <ul>
+     * <li>{@code id} is the ID of this quay</li>
+     * <li>{@code imoNumber} is the IMO number of the ship docked at this
+     * quay, or {@code None} if the quay is unoccupied.</li>
+     * <li>{@code maxContainers} is the number of containers this quay can
+     * take.</li>
+     * </ul>
+     * <p>
+     * For example: <pre>ContainerQuay 3 [Ship: 2125622] - 32</pre>
      *
-     * ContainerQuay 3 [Ship: 22] - 32
-     * */
+     * @return string representation of this ContainerQuay
+     * @ass1
+     */
     @Override
     public String toString() {
-        return super.toString() + "ContainerQuay " + getId()
-                + "[Ship: " + getShip().getImoNumber() + "] - " + this.getMaxContainers();
+        return super.toString() + " - " + this.maxContainers;
     }
+
 }

@@ -3,108 +3,178 @@ package portsim.ship;
 import portsim.cargo.Cargo;
 import portsim.port.Quay;
 
-/** Represents a ship whose movement is managed by the system
- * Ships store various types of cargo which can be loaded and unloaded at a port*/
-public abstract class Ship extends Object {
-    /** unique identifier */
-    private long identifier;
+import java.util.HashMap;
+import java.util.Map;
 
-    /** name of the ship */
-    private String nameOfShip;
+/**
+ * Represents a ship whose movement is managed by the system.
+ * <p>
+ * Ships store various types of cargo which can be loaded and unloaded at a port.
+ *
+ * @ass1_partial
+ */
+public abstract class Ship {
+    /**
+     * Name of the ship
+     */
+    private String name;
 
-    /** port of origin */
-    private String portOfOrigin;
+    /**
+     * Unique 7 digit identifier to identify this ship (no leading zero's [0])
+     */
+    private long imoNumber;
 
-    /** The nautical flag this ship is flying */
-    private NauticalFlag flagShipFlying;
+    /**
+     * Port of origin of ship
+     */
+    private String originFlag;
 
-    /**Creates a new ship with the given IMO number, name, origin port flag and nautical flag
-     * @param imoNumber - unique identifier, long type
-     * @param name - name of the ship, String type
-     * @param originFlag - port of origin, String type
-     * @param flag - the nautical flag this ship is flying, NauticalFlag
-     * @throws IllegalArgumentException - if imoNumber < 0 or
-     * imoNumber is not 7 digits long (no leading zero's [0])
-     * */
-    public Ship(long imoNumber, String name, String originFlag, NauticalFlag flag) {
-        this.identifier = imoNumber;
-        this.nameOfShip = name;
-        this.portOfOrigin = originFlag;
-        this.flagShipFlying = flag;
+    /**
+     * Maritime flag designated for use on this ship
+     */
+    private NauticalFlag flag;
 
-        // Change long type to String type
-        String longAsString = Long.toString(imoNumber);
+    /**
+     * Database of all ships currently active in the simulation
+     */
+    private static Map<Long, Ship> shipRegistry = new HashMap<>();
 
-        if (imoNumber < 0 || longAsString.length() != 7) {
-            throw new IllegalArgumentException();
+    /**
+     * Creates a new ship with the given
+     * <a href="https://en.wikipedia.org/wiki/IMO_number">IMO number</a>,
+     * name, origin port flag and nautical flag.
+     * <p>
+     * Finally, the ship should be added to the ship registry with the
+     * IMO number as the key.
+     *
+     * @param imoNumber  unique identifier
+     * @param name       name of the ship
+     * @param originFlag port of origin
+     * @param flag       the nautical flag this ship is flying
+     * @throws IllegalArgumentException if a ship already exists with the given
+     *                                  imoNumber, imoNumber &lt; 0 or imoNumber is not 7 digits
+     *                                  long (no leading zero's [0])
+     * @ass1_partial
+     */
+    public Ship(long imoNumber, String name, String originFlag,
+                NauticalFlag flag) throws IllegalArgumentException {
+        if (imoNumber < 0) {
+            throw new IllegalArgumentException("The imoNumber of the ship "
+                + "must be positive: " + imoNumber);
         }
+        if (String.valueOf(imoNumber).length() != 7 || String.valueOf(imoNumber).startsWith("0")) {
+            throw new IllegalArgumentException("The imoNumber of the ship "
+                + "must have 7 digits (no leading zero's [0]): " + imoNumber);
+        }
+        this.imoNumber = imoNumber;
+        this.name = name;
+        this.originFlag = originFlag;
+        this.flag = flag;
     }
 
-    /** Check if this ship can dock with the specified quay
-     * according to the conditions determined by the ships type
-     * @param quay - quay to be checked
+    /**
+     * Check if this ship can dock with the specified quay according
+     * to the conditions determined by the ships type.
+     *
+     * @param quay quay to be checked
      * @return true if the Quay satisfies the conditions else false
-     * */
+     * @ass1
+     */
     public abstract boolean canDock(Quay quay);
 
-    /** Checks if the specified cargo can be loaded onto the ship
-     * according to the conditions determined by the ships type
-     * @param cargo - cargo to be loaded
+    /**
+     * Checks if the specified cargo can be loaded onto the ship according
+     * to the conditions determined by the ships type and contents.
+     *
+     * @param cargo cargo to be loaded
      * @return true if the Cargo satisfies the conditions else false
-     * */
+     * @ass1
+     */
     public abstract boolean canLoad(Cargo cargo);
 
-    /** Loads the specified cargo onto the ship
-     * @param cargo - cargo to be loaded
-     * Requires:
-     * Cargo given is able to be loaded onto this ship according to the
-     *              implementation of canLoad(Cargo)
-     * */
+    /**
+     * Loads the specified cargo onto the ship.
+     *
+     * @param cargo cargo to be loaded
+     * @require Cargo given is able to be loaded onto this ship according to
+     * the implementation of {@link Ship#canLoad(Cargo)}
+     * @ass1
+     */
     public abstract void loadCargo(Cargo cargo);
 
-    /** Return this ship's name.
-     * @return name, String type
-     * */
-    public String getName() {
-        return this.nameOfShip;
-    }
-
-    /** Return this ship's IMO number
-     * @return imoNumber, long type
-     * */
-    public long getImoNumber() {
-        return this.identifier;
-    }
-
-    /** Returns this ship's flag denoting its origin.
-     * @return originFlag, String type
-     * */
-    public String getOriginFlag() {
-        return this.portOfOrigin;
-    }
-
-    /** Returns the nautical flag the ship is flying
-     * @return flag, NauticalFlag
-     * */
-    public NauticalFlag getFlag() {
-        return this.flagShipFlying;
-    }
-
-    /**Returns the human-readable string representation of this Ship.
-     * The format of the string to return is
+    /**
+     * Returns this ship's name.
      *
-     * ShipClass name from origin [flag]
+     * @return name
+     * @ass1
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Returns this ship's IMO number.
+     *
+     * @return imoNumber
+     * @ass1
+     */
+    public long getImoNumber() {
+        return this.imoNumber;
+    }
+
+    /**
+     * Returns this ship's flag denoting its origin.
+     *
+     * @return originFlag
+     * @ass1
+     */
+    public String getOriginFlag() {
+        return this.originFlag;
+    }
+
+    /**
+     * Returns the nautical flag the ship is flying.
+     *
+     * @return flag
+     * @ass1
+     */
+    public NauticalFlag getFlag() {
+        return this.flag;
+    }
+
+    /**
+     * Returns the human-readable string representation of this Ship.
+     * <p>
+     * The format of the string to return is
+     * <pre>ShipClass name from origin [flag]</pre>
      * Where:
-     * ShipClass is the Ship class
-     * name is the name of this ship
-     * origin is the country of origin of this ship
-     * flag is the nautical flag of this ship
-     * For example:
-     * Ship Evergreen from Australia [BRAVO]
-     * */
+     * <ul>
+     *   <li>{@code ShipClass} is the Ship class</li>
+     *   <li>{@code name} is the name of this ship</li>
+     *   <li>{@code origin} is the country of origin of this ship</li>
+     *   <li>{@code flag} is the nautical flag of this ship</li>
+     * </ul>
+     * For example: <pre>BulkCarrier Evergreen from Australia [BRAVO]</pre>
+     *
+     * @return string representation of this Ship
+     * @ass1
+     */
     @Override
     public String toString() {
-        return super.toString() + this.getClass().getName() + this.getName()
-                + "from " + this.getOriginFlag() + "[" + this.getFlag() + "]";
+        return String.format("%s %s from %s [%s]",
+            this.getClass().getSimpleName(),
+            this.name,
+            this.originFlag,
+            this.flag);
+    }
+
+    /**
+     * Resets the global ship registry.
+     * This utility method is for the testing suite.
+     *
+     * @given
+     */
+    public static void resetShipRegistry() {
+        Ship.shipRegistry = new HashMap<>();
     }
 }

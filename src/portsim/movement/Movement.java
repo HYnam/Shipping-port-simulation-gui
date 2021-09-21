@@ -1,55 +1,82 @@
 package portsim.movement;
 
-/** The movement of ships or cargo coming into or out of the port from land or sea.*/
-public abstract class Movement extends Object {
-    /** the time the movement should occur */
-    private long timeOfMoveOccur;
+/**
+ * The movement of ships or cargo coming into or out of the port from land or
+ * sea.
+ *
+ * @ass1_partial
+ */
+public abstract class Movement {
 
-    /** the direction of the movement */
-    private MovementDirection directionToMove;
+    /**
+     * The time in minutes that the movement should be completed
+     */
+    private long time;
 
-    /** Creates a new movement with the given action time and direction
-     * @param time - the time the movement should occur, long type
-     * @param direction - the direction of the movement, MovementDirection
-     * @throws IllegalArgumentException - if time < 0
-     * */
-    public Movement(long time, MovementDirection direction) {
-        this.timeOfMoveOccur = time;
-        this.directionToMove = direction;
+    /**
+     * The direction of the movement in relation to the port
+     */
+    private MovementDirection direction;
 
-        if (time < 0) {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    /** Returns the time the movement should be actioned
-     * @return movement time, long type
-     * */
-    public long getTime() {
-        return this.timeOfMoveOccur;
-    }
-
-    /** Returns the direction of the movement.
-     * @return movement direction, MovementDirection
-     * */
-    public MovementDirection getDirection() {
-        return this.directionToMove;
-    }
-
-    /** Returns the human-readable string representation of this Movement.
-     * The format of the string to return is
+    /**
+     * Creates a new movement with the given action time and direction.
      *
-     * DIRECTION MovementClass to occur at time
+     * @param time      the time the movement should occur
+     * @param direction the direction of the movement
+     * @throws IllegalArgumentException if time &lt; 0
+     * @ass1
+     */
+    public Movement(long time, MovementDirection direction) throws IllegalArgumentException {
+        if (time < 0) {
+            throw new IllegalArgumentException("Time must be greater than"
+                + " or equal to 0: " + time);
+        }
+        this.time = time;
+        this.direction = direction;
+    }
+
+    /**
+     * Returns the time the movement should be actioned.
+     *
+     * @return movement time
+     * @ass1
+     */
+    public long getTime() {
+        return time;
+    }
+
+    /**
+     * Returns the direction of the movement.
+     *
+     * @return movement direction
+     * @ass1
+     */
+    public MovementDirection getDirection() {
+        return direction;
+    }
+
+    /**
+     * Returns the human-readable string representation of this Movement.
+     * <p>
+     * The format of the string to return is
+     * <pre>DIRECTION MovementClass to occur at time</pre>
      * Where:
-     * DIRECTION is the direction of the movement
-     * MovementClass is the Movement class name
-     * time is the time the movement is meant to occur
-     * For example:
-     * INBOUND Movement to occur at 120
-     * */
+     * <ul>
+     *   <li>{@code DIRECTION} is the direction of the movement </li>
+     *   <li>{@code MovementClass} is the Movement class name</li>
+     *   <li>{@code time} is the time the movement is meant to occur </li>
+     * </ul>
+     * For example: <pre>INBOUND Movement to occur at 120</pre>
+     *
+     * @return string representation of this Movement
+     * @ass1
+     */
     @Override
     public String toString() {
-        return super.toString() + getDirection()
-                + this.getClass().getName() + "to occur at " + getTime();
+        return String.format("%s %s to occur at %d",
+            this.direction,
+            this.getClass().getSimpleName(),
+            this.time);
     }
+
 }
