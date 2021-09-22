@@ -200,7 +200,10 @@ public abstract class Cargo implements Encodable{
      * @throws BadEncodingException if the format of the given string is invalid according to the rules above
      * */
     public static Cargo fromString(String string) throws BadEncodingException{
-
+        if ((string.chars().filter(num -> num == ':').count() < 3 || string.chars().filter(num -> num == ':').count() > 3)
+        && ){
+            throw new BadEncodingException();
+        }
     }
 
     /**
