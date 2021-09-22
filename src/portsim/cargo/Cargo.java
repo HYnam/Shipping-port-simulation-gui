@@ -1,9 +1,11 @@
 package portsim.cargo;
 
+import portsim.util.BadEncodingException;
 import portsim.util.NoSuchCargoException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Denotes a cargo whose function is to be transported via a Ship or land
@@ -102,6 +104,31 @@ public abstract class Cargo {
         }
     }
 
+    /** Return true if and only if this cargo is equal to the other given cargo
+     * For two cargo to be equal, they must have the same ID and destination
+     *
+     * @param o other object to check equality
+     * @return true if equal, false otherwise
+     * */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cargo cargo = (Cargo) o;
+        return id == cargo.id && Objects.equals(destination, cargo.destination);
+    }
+
+    /** Return the hash code of this cargo
+     *
+     * Two cargo are equal according to equals(Object) method
+     * should have the same hash code
+     *
+     * @return hash code of this cargo*/
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, destination);
+    }
+
     /**
      * Returns the human-readable string representation of this cargo.
      * <p>
@@ -125,6 +152,32 @@ public abstract class Cargo {
             this.getClass().getSimpleName(),
             this.id,
             this.destination);
+    }
+
+    /** Return the machine-readable string representation of this Cargo
+     * The format of the string to return is
+     * <pre>CargoClass:id:destination</pre>
+     * Where:
+     * <ul>
+     *      <li>{@code CargoClass} is the Cargo class name</li>
+     *      <li>{@code id} is the id of this cargo</li>
+     *      <li>{@code destination} is the destination of this cargo</li>
+     * </ul>
+     * For example: <pre>Container:3:Australia</pre>
+     * OR
+     * <pre>BulkCargo:2:France</pre>
+     * </p>
+     *
+     * @return encoded string representation of this Cargo*/
+    public String encode(){
+        return String.format("%s:%d:%s",
+                this.getClass().getSimpleName(),
+                this.id,
+                this.destination);
+    }
+
+    public static Cargo fromString(String string) throws BadEncodingException{
+
     }
 
     /**
