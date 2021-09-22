@@ -1,6 +1,7 @@
 package portsim.cargo;
 
 import portsim.util.BadEncodingException;
+import portsim.util.Encodable;
 import portsim.util.NoSuchCargoException;
 
 import java.util.HashMap;
@@ -15,7 +16,7 @@ import java.util.Objects;
  *
  * @ass1_partial
  */
-public abstract class Cargo {
+public abstract class Cargo implements Encodable{
     /**
      * The ID of the cargo instance
      */
@@ -78,7 +79,9 @@ public abstract class Cargo {
      * @return cargo registry
      * */
     public static Map<Integer, Cargo> getCargoRegistry(){
-
+        Map<Integer, Cargo> result = new HashMap<>();   //Add new Map
+        result.putAll(cargoRegistry);   //Copying to new Map
+        return result;
     }
 
     /** Check if a cargo exists in the simulation using its ID
@@ -176,6 +179,26 @@ public abstract class Cargo {
                 this.destination);
     }
 
+    /** Reads a piece of cargo from its encoded representation in the given string
+     *
+     * The format of the given string should match the encoded representation of a Cargo,
+     * as described in encode()
+     *
+     * The encoded string is invalid if any of the following conditions are ture:
+     * <ul>
+     *     <li>The number of colons(:) detected was more/fewer than expected</li>
+     *     <li>The cargo id is not an integer (i.e. cannot be parse by {@code Integer.parseInt(String)})</li>
+     *     <li>The cargo id is less than 1</li>
+     *     <li>A piece of cargo with the specified ID already exists</li>
+     *     <li>If the cargo type is a BulkCargo:</li>
+     *          <li>1. The cargo weight in tonnes is not an integer</li>
+     *          <li>2. The cargo weight in tonnes is less than 1</li>
+     * </ul>
+     *
+     * @param string string containing the encoded cargo
+     * @return decoded cargo instance
+     * @throws BadEncodingException if the format of the given string is invalid according to the rules above
+     * */
     public static Cargo fromString(String string) throws BadEncodingException{
 
     }
