@@ -71,4 +71,15 @@ public class CargoMovement extends Movement {
             super.toString(),
             this.cargo.size());
     }
+
+    /** Return the machine-readable string representation of this movement
+     * The format of the string to return is
+     * <pre>CargoMovement:time:direction:numCargo:ID1,ID2,...</pre>
+     * Where:
+     * <ul>
+     *     <li></li>
+     * </ul>*/
+    public String encode(){
+
+    }
 }
