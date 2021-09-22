@@ -1,5 +1,7 @@
 package portsim.cargo;
 
+import java.util.Objects;
+
 /**
  * Represents a shipping container, used for holding or transporting something.
  *
@@ -38,6 +40,40 @@ public class Container extends Cargo {
         return type;
     }
 
+    /** Return true if and only if this Container is equal to the other given Container
+     *
+     * For two Containers to be equal, they must have the same ID, destination and type
+     *
+     * @param o other object to check equality
+     * @return true if equal, false otherwise
+     * */
+    public boolean equals(Object o){
+        if (o == null){
+            return false;
+        }
+        if (!(o instanceof Container)){
+            return false;
+        }
+
+        Container testEqual = (Container) o;
+
+        if (this.getId() == testEqual.getId()
+                && this.getDestination().equals(testEqual.getDestination())
+                && this.getType() == testEqual.getType()){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /** Return the hash code of this Container
+     * Two Containers that are equal according to the equals(Object) method should have the same hash code
+     * */
+    public int hashCode(){
+        return Objects.hash(getId(), getDestination(), getType());
+    }
+
     /**
      * Returns the human-readable string representation of this Container.
      * <p>
@@ -59,6 +95,27 @@ public class Container extends Cargo {
         return String.format("%s [%s]",
             super.toString(),
             this.type);
+    }
+
+    /** Returns the machine-readable string representation of this Container.
+     * <p>
+     * The format of the string to return is
+     * <pre>Container:id:destination:type</pre>
+     * Where:
+     * <ul>
+     *     <li>{@code id} is the id of this cargo</li>
+     *     <li>{@code destination} is the destination of the cargo</li>
+     *     <li>{@code type} is the container type</li>
+     * </ul>
+     * For example: <pre>Container:3:Australia:OPEN_TOP</pre>
+     * </p>
+     *
+     * @return encoded string representation of this Cargo
+     * */
+    public String encode(){
+        return String.format(":%s",
+                super.encode(),
+                this.type);
     }
 
 }
