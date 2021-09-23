@@ -1,6 +1,7 @@
 package portsim.movement;
 
 import portsim.cargo.Cargo;
+import portsim.util.BadEncodingException;
 
 
 import java.util.ArrayList;
@@ -95,5 +96,34 @@ public class CargoMovement extends Movement {
                 String.join(",", (CharSequence) this.cargo));
     }
 
-
+    /** Creates a cargo movement from a string encoding
+     *
+     * The format of the string should match the encoded representation of a cargo
+     * movement, as described in encode().
+     *
+     * The encoded string is invalid if any of the following conditions are ture:
+     * <ul>
+     *     <li>The number of colons (:) detected was more/fewer than expected</li>
+     *     <li>The given string is not a CargoMovement encoding</li>
+     *     <li>The time is not a long (i.e. cannot be parsed by {@code Long.parseLong(String)}</li>
+     *     <li>The time is less than zero</li>
+     *     <li>The movementDirection is not one of the valid directions</li>
+     *     <li>The number of ids is not a int (i.e. cannot be parsed by {@code Integer.parseInt(String)}</li>
+     *     <li>The number of ids is less than one</li>
+     *     <li>An id is not a int (i.e. cannot be parsed by {@code Integer.parseInt(String)}</li>
+     *     <li>An id is less than zero</li>
+     *     <li>There is no cargo that exists with a specified id</li>
+     * </ul>
+     *
+     * @param string containing the encoded CargoMovement
+     * @return decoded CargoMovement instance
+     * @throws BadEncodingException if the format of the given string is invalid according to the
+     * rules above.
+     * */
+    public static CargoMovement fromString(String string) throws BadEncodingException{
+        if ((string.chars().filter(num -> num == ':').count() < 4 || string.chars().filter(num -> num == ':').count() > 4)
+                || ){
+            throw new BadEncodingException();
+        }
+    }
 }
