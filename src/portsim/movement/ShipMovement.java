@@ -1,6 +1,7 @@
 package portsim.movement;
 
 import portsim.ship.Ship;
+import portsim.util.BadEncodingException;
 
 /**
  * The movement of a ship coming into or out of the port.
@@ -84,5 +85,33 @@ public class ShipMovement extends Movement {
         return String.format(":%d",
                 super.encode(),
                 this.ship.getImoNumber());
+    }
+
+    /** Creates a ship movement from a string encoding
+     *
+     * The format of the string should match the encoded representation of a ship
+     * movement, as described in encode().
+     *
+     * The encoded string is invalid if any of the following conditions are ture:
+     * <ul>
+     *     <li>The number of colon(:) detected was more/fewer than expected</li>
+     *     <li>The time is not a long (i.e. cannot be parsed by {@code Long.parseLong(String)}</li>
+     *     <li>The time is less than zero</li>
+     *     <li>The movementDirection is not one of the valid direction</li>
+     *     <li>The imoNumber is not long (i.e. cannot be parsed by {@code Long.parseLong(String)}</li>
+     *     <li>The imoNumber is less than zero</li>
+     *     <li>There is no ship that exists with the specific imoNumber</li>
+     * </ul>
+     *
+     * @param string string containing the encoded ShipMovement
+     * @return decoded ShipMovement instance
+     * @throws BadEncodingException if the format of the given string is invalid according to the
+     * rules above
+     * */
+    public static ShipMovement fromString(String string) throws BadEncodingException{
+        if ((string.chars().filter(num -> num == ':').count() < 3 || string.chars().filter(num -> num == ':').count() > 3)
+                || string.valueOf(this.getTime()) < 0 ){
+            throw new BadEncodingException();
+        }
     }
 }
