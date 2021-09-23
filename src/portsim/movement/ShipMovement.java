@@ -66,4 +66,23 @@ public class ShipMovement extends Movement {
             this.ship.getName());
     }
 
+    /** Returns the machine-readable string representation of this ship movement
+     * The format of the string to return is
+     * <pre>ShipMovement:time:direction:imoNumber</pre>
+     * Where:
+     * <ul>
+     *     <li>{@code time} is the time that the movement will be actioned</li>
+     *     <li>{@code direction} is the direction of the movement</li>
+     *     <li>{@code imoNumber} is the imoNumber of the ship that is moving</li>
+     * </ul>
+     * For example:
+     * <pre>ShipMovement:120:INBOUND:1258691</pre>
+     *
+     * @return encoded string representation of this movement
+     * */
+    public String encode(){
+        return String.format(":%d",
+                super.encode(),
+                this.ship.getImoNumber());
+    }
 }
