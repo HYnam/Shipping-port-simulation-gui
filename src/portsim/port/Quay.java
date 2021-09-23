@@ -1,6 +1,9 @@
 package portsim.port;
 
 import portsim.ship.Ship;
+import portsim.util.BadEncodingException;
+
+import java.util.Objects;
 
 
 /**
@@ -89,6 +92,44 @@ public abstract class Quay {
         return ship;
     }
 
+    /** Returns true if and only if this Quay is equal to the other given Quay.
+     *
+     * For two Quays to be equal, they must have the same ID and ship docked status (must
+     * either both be empty or both be occupied).
+     *
+     * @param o other object to check equality
+     * @return true if equal, false otherwise
+     * */
+    public boolean equals(Object o){
+        if (o == null){
+            return false;
+        }
+        if (!(o instanceof Quay)){
+            return false;
+        }
+
+        Quay testEqual = (Quay) o;
+
+        if (this.getId() == testEqual.getId()
+                && this.isEmpty() == testEqual.isEmpty()){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /** Returns the hash code of this quay.
+     *
+     * Two quays that are equal according to equals(Object) method should have the same
+     * hash code.
+     *
+     * @return hash code of this quay
+     * */
+    public int hashCode(){
+        return Objects.hash(getId(), isEmpty());
+    }
+
     /**
      * Returns the human-readable string representation of this quay.
      * <p>
@@ -115,4 +156,57 @@ public abstract class Quay {
             (this.ship != null ? this.ship.getImoNumber() : "None"));
     }
 
+    /** Returns the machine-readable string representation of this Quay.
+     *  The format of the string to return is
+     *  <pre>QuayClass:id:imoNumber</pre>
+     *
+     *  Where:
+     *  <ul>
+     *      <li>{@code QuayClass} is the Quay class name</li>
+     *      <li>{@code id} is the ID of this quay</li>
+     *      <li>{@code imoNumber} is the IMO number of the ship docked at this quay, or None if the
+     *      quay is unoccupied</li>
+     *  </ul>
+     *  For example:
+     *  <pre>BulkQuay:3:1258691</pre>
+     *  or
+     *  <pre>ContainerQuay:3:None</pre>
+     *
+     *  @return encoded string representation of this quay
+     *  */
+    public String encode(){
+        return String.format("%s:%d:%s",
+                this.getClass().getSimpleName(),
+                this.id,
+                (this.ship != null ? this.ship.getImoNumber() : "None"));
+    }
+
+    /** Reads a Quay from its encoded representation in the given string.
+     *
+     * The format of the string should match the encoded representation of a Quay, as
+     * described in encode()
+     *
+     * The encoded string is invalid if any of the following conditions are true:
+     * <ul>
+     *     <li>The number of colons (:) detected was more/fewer than expected.</li>
+     *     <li>The quay id is not a long (i.e. cannot be parsed by {@code Long.parseLong(String)}).</li>
+     *     <li>The quay id is less than one (1).</li>
+     *     <li>The quay type specified is not one of BulkQuay or ContainerQuay</li>
+     *
+     *     <li>If the encoded ship is not None then the ship must exist and the imoNumber
+     *     specified must be an integer (i.e. can be parsed by
+     *     {@code Integer.parseInt(String)}</li>
+     *
+     *     <li>The quay capacity is not an integer (i.e. cannot be parsed by
+     *     {@code Integer.parseInt(String)}</li>
+     * </ul>
+     *
+     * @param string string containing the encoded Quay
+     * @return decoded Quay instance
+     * @throws BadEncodingException if the format of the given string is invalid according to the
+     * rules above
+     * */
+    public static Quay fromString(String string) throws BadEncodingException{
+
+    }
 }

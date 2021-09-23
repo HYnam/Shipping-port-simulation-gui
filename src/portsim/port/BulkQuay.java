@@ -1,5 +1,9 @@
 package portsim.port;
 
+import portsim.cargo.BulkCargo;
+
+import java.util.Objects;
+
 /**
  * A Bulk Quay is a type of quay specifically designed for the unloading of
  * Bulk Carrier vessels.
@@ -39,6 +43,45 @@ public class BulkQuay extends Quay {
         return maxTonnage;
     }
 
+    /** Returns true if and only if this BulkQuay is equal to the other given BulkQuay.
+     *
+     *  For two BulkQuays to be equal, they must have the same ID, ship docked status (must
+     *  either both be empty or both be occupied) and same tonnage capacity.
+     *
+     *  @param o other object to check equality
+     *  @return true if equal, false otherwise
+     *  */
+    public boolean equals(Object o){
+        if (o == null){
+            return false;
+        }
+        if (!(o instanceof BulkQuay)){
+            return false;
+        }
+
+        BulkQuay testEqual = (BulkQuay) o;
+
+        if (this.getId() == testEqual.getId()
+                && this.isEmpty() == testEqual.isEmpty()
+                && this.getMaxTonnage() == testEqual.getMaxTonnage()){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /** Returns the hash code of this BulkQuay.
+     *
+     *  Two BulkQuays that are equal according to equals(Object) should have the same
+     *  hash code.
+     *
+     *  @return hash code of this quay
+     *  */
+    public int hashCode(){
+        return Objects.hash(getId(), isEmpty(), getMaxTonnage());
+    }
+
     /**
      * Returns the human-readable string representation of this BulkQuay.
      * <p>
@@ -60,6 +103,27 @@ public class BulkQuay extends Quay {
     @Override
     public String toString() {
         return super.toString() + " - " + this.maxTonnage;
+    }
+
+    /** Returns the machine-readable string representation of this BulkQuay.
+     *  The format of the string to return is
+     *  <pre>BulkQuay:id:imoNumber:maxTonnage</pre>
+     *  Where:
+     *  <ul>
+     *      <li>{@code id} is the ID of this quay</li>
+     *      <li>{@code imoNumber} is the IMO number of the ship docked at this quay, or None if the
+     *      quay is unoccupied.</li>
+     *      <li>{@code maxTonnage} is the maximum tonnage this quay can handle</li>
+     *  </ul>
+     *  For example:
+     *  <pre>BulkQuay:3:1258691:120</pre>
+     *  or
+     *  <pre>BulkQuay:3:None:120</pre>
+     *
+     *  @return encoded string representation of this quay
+     *  */
+    public String encode(){
+        return super.encode() + ":" + this.maxTonnage;
     }
 
 }
