@@ -77,9 +77,23 @@ public class CargoMovement extends Movement {
      * <pre>CargoMovement:time:direction:numCargo:ID1,ID2,...</pre>
      * Where:
      * <ul>
-     *     <li></li>
-     * </ul>*/
+     *     <li>{@code time} is the time that the movement will be actioned</li>
+     *     <li>{@code direction} is the direction of the movement</li>
+     *     <li>{@code numCargo} is the number of the cargo in the movement</li>
+     *     <li>ID1, ID2,... are the IDs of the cargo in the movement separated by a comma
+     *     ','. There should be no trailing comma after the last ID.</li>
+     * </ul>
+     * For example:
+     * <pre>CargoMovement:120:INBOUND:3:22,23,12</pre>
+     *
+     * @return encoded string representation of this movement
+     * */
     public String encode(){
-
+        return String.format("%d:%d",
+                super.encode(),
+                this.cargo.size(),
+                String.join(",", (CharSequence) this.cargo));
     }
+
+
 }
