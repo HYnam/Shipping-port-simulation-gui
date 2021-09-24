@@ -35,4 +35,23 @@ public class NoSuchCargoException extends Exception {
         super(message);
     }
 
+    /** Constructs a NoSuchCargoException that stores the underlying cause of the exception.
+     * @param cause throwable that caused this exception
+     * @see Exception(Throwable)
+     * */
+    public NoSuchCargoException(Throwable cause){
+        super(cause);
+    }
+
+    /** Constructs a NoSuchCargoException that contains a helpful detail message explaining
+     * why the exception occurred and the underlying cause of the exception.
+     *
+     * @param message detail message
+     * @param cause throwable that caused this exception
+     * @see Exception(String, Throwable)
+     * */
+    public NoSuchCargoException(String message, Throwable cause){
+        super(message, cause);
+    }
+
 }
