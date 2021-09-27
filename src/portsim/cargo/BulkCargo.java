@@ -136,7 +136,7 @@ public class BulkCargo extends Cargo {
      * @return encoded string representation of this Cargo*/
     @Override
     public String encode(){
-        return String.format(":%s:%d",
+        return String.format("%s:%s:%d",
                 super.encode(),
                 this.type,
                 this.tonnage);
