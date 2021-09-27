@@ -25,9 +25,11 @@ public class ShipMovement extends Movement {
      * @throws IllegalArgumentException if time &lt; 0
      * @ass1
      */
-    public ShipMovement(long time, MovementDirection direction, Ship ship)
-        throws IllegalArgumentException {
+    public ShipMovement(long time, MovementDirection direction, Ship ship) throws IllegalArgumentException {
         super(time, direction);
+        if (time < 0){
+            throw new IllegalArgumentException();
+        }
         this.ship = ship;
     }
 
@@ -82,7 +84,7 @@ public class ShipMovement extends Movement {
      * @return encoded string representation of this movement
      * */
     public String encode(){
-        return String.format(":%d",
+        return String.format("%s:%d",
                 super.encode(),
                 this.ship.getImoNumber());
     }
