@@ -24,7 +24,7 @@ public class ContainerQuay extends Quay {
      */
     public ContainerQuay(int id, int maxContainers) throws IllegalArgumentException {
         super(id);
-        if (maxContainers < 0) {
+        if (maxContainers < 0 || id < 0) {
             throw new IllegalArgumentException("maxContainers must be greater than"
                 + " or equal to 0: " + maxContainers);
         }
