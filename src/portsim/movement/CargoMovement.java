@@ -90,7 +90,7 @@ public class CargoMovement extends Movement {
      * @return encoded string representation of this movement
      * */
     public String encode(){
-        return String.format("%d:%d",
+        return String.format("%s:%d:%d",
                 super.encode(),
                 this.cargo.size(),
                 String.join(",", (CharSequence) this.cargo));
