@@ -26,7 +26,7 @@ public class BulkQuay extends Quay {
      */
     public BulkQuay(int id, int maxTonnage) throws IllegalArgumentException {
         super(id);
-        if (maxTonnage < 0) {
+        if (maxTonnage < 0 || id < 0) {
             throw new IllegalArgumentException("maxTonnage must be greater than"
                 + " or equal to 0: " + maxTonnage);
         }
