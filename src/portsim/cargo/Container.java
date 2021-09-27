@@ -113,7 +113,7 @@ public class Container extends Cargo {
      * @return encoded string representation of this Cargo
      * */
     public String encode(){
-        return String.format(":%s",
+        return String.format("%s:%s",
                 super.encode(),
                 this.type);
     }
