@@ -9,6 +9,7 @@ import portsim.util.NoSuchCargoException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a ship capable of carrying shipping containers.
@@ -144,6 +145,48 @@ public class ContainerShip extends Ship {
         return new ArrayList<>(containers);
     }
 
+    /** Returns true if and only if this ContainerShip is equal to the other given
+     * ContainerShip.
+     *
+     * For two ContainerShips to be equal, they must have the same name, flag, origin flag,
+     * IMO number, and container capacity.
+     *
+     * @param o other object to check equality
+     * @return true if equal, false otherwise
+     * */
+    public boolean equals(Object o){
+        if (o == null){
+            return false;
+        }
+        if (!(o instanceof ContainerShip)){
+            return false;
+        }
+
+        ContainerShip testEqual = (ContainerShip) o;
+
+        if (this.getName() == testEqual.getName()
+                && this.getFlag().equals(testEqual.getFlag())
+                && this.getOriginFlag() == testEqual.getOriginFlag()
+                && this.getImoNumber() == testEqual.getImoNumber()
+                && this.containerCapacity == testEqual.containerCapacity){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /** Returns the hash code of this ContainerShip.
+     *
+     * Two ContainerShips that are equal according to equals(Object) method should have
+     * the same hash code.
+     *
+     * @return hash code of this ContainerShip
+     * */
+    public int hashCode(){
+        return Objects.hash(getName(), getFlag(), getOriginFlag(), getImoNumber(), this.containerCapacity);
+    }
+
     /**
      * Returns the human-readable string representation of this ContainerShip.
      * <p>
@@ -168,5 +211,36 @@ public class ContainerShip extends Ship {
         return String.format("%s carrying %d containers",
             super.toString(),
             this.containers.size());
+    }
+
+    /** Returns the machine-readable string representation of this ContainerShip.
+     * The format of the string to return is
+     * <pre> ContainerShip:imoNumber:name:origin:flag:capacity:cargoNum:[ID1,ID2,...]</pre>
+     * Where:
+     * <ul>
+     *     <li>imoNumber is the IMO number of the ship</li>
+     *     <li>name is the name of this ship</li>
+     *     <li>origin is the country of origin of this ship</li>
+     *     <li>flag is the nautical flag of this ship</li>
+     *     <li>capacity is the container capacity of this ship</li>
+     *     <li>cargoNum is the number of containers currently on board</li>
+     *
+     *     <li>ID1,ID2,... are the IDs of the cargo on the ship separated with a comma or an
+     *     empty string "" if there are none</li>
+     * </ul>
+     *
+     * For example:
+     * <pre>ContainerShip:1338622:Columbus:Unknown:HOTEL:200:3:23,1,51</pre>
+     * or, if the ship has been unloaded
+     * <pre>ContainerShip:1338622:Columbus:Unknown:HOTEL:200:0:</pre>
+     *
+     * @return encoded string representation of this Ship
+     * */
+    public String encode(){
+        return String.format("%s:%d:%d:%s",
+                super.encode(),
+                this.containerCapacity,
+                this.containers.size(),
+                (this.containers.size() != 0 ? this.containers.cargoID() : ""));
     }
 }
