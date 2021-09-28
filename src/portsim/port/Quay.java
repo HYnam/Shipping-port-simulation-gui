@@ -2,6 +2,7 @@ package portsim.port;
 
 import portsim.ship.Ship;
 import portsim.util.BadEncodingException;
+import portsim.util.Encodable;
 
 import java.util.Objects;
 
@@ -12,7 +13,7 @@ import java.util.Objects;
  *
  * @ass1_partial
  */
-public abstract class Quay {
+public abstract class Quay implements Encodable {
     /**
      * The ID of the quay
      */
