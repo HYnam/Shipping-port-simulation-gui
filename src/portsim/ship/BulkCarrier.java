@@ -6,6 +6,8 @@ import portsim.port.BulkQuay;
 import portsim.port.Quay;
 import portsim.util.NoSuchCargoException;
 
+import java.util.Objects;
+
 /**
  * Represents a ship capable of carrying bulk cargo.
  *
@@ -140,6 +142,47 @@ public class BulkCarrier extends Ship {
         return cargo;
     }
 
+    /** Returns true if and only if this BulkCarrier is equal to the other given BulkCarrier.
+     *
+     * For two BulkCarriers to be equal, they must have the same name, flag, origin flag, IMO
+     * number, and tonnage capacity.
+     *
+     * @param o other object to check equality
+     * @return true if equal, false otherwise
+     * */
+    public boolean equals(Object o){
+        if (o == null){
+            return false;
+        }
+        if (!(o instanceof BulkCarrier)){
+            return false;
+        }
+
+        BulkCarrier testEqual = (BulkCarrier) o;
+
+        if (this.getName() == testEqual.getName()
+                && this.getFlag().equals(testEqual.getFlag())
+                && this.getOriginFlag() == testEqual.getOriginFlag()
+                && this.getImoNumber() == testEqual.getImoNumber()
+                && this.tonnageCapacity == testEqual.tonnageCapacity){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /** Returns the hash code of this BulkCarrier.
+     *
+     * Two BulkCarriers that are equal according to equals(Object) method should have
+     * the same hash code.
+     *
+     * @return hash code of this BulkCarrier
+     * */
+    public int hashCode(){
+        return Objects.hash(getName(), getFlag(), getOriginFlag(), getImoNumber(), this.tonnageCapacity);
+    }
+
     /**
      * Returns the human-readable string representation of this BulkCarrier.
      * <p>
@@ -166,7 +209,30 @@ public class BulkCarrier extends Ship {
         String base = super.toString() + " carrying ";
         return this.cargo != null ? base + this.cargo.getType() : base
             + "nothing";
+    }
 
-
+    /** Returns the machine-readable string representation of this BulkCarrier.
+     * The format of the string to return is
+     * <pre>BulkCarrier:imoNumber:name:origin:flag:capacity:id</pre>
+     * Where:
+     * <ul>
+     *     <li>imoNumber is the IMO number of the ship</li>
+     *     <li>name is the name of this ship</li>
+     *     <li>origin is the country of origin of this ship</li>
+     *     <li>flag is the nautical flag of this ship</li>
+     *     <li>capacity is the container capacity of this ship</li>
+     *     <li>id is the ID of the cargo on the ship or an empty string "" if there is none</li>
+     * </ul>
+     * For example:
+     * <pre>BulkCarrier:1248691:Voyager:New Zealand:HOTEL:200:3</pre>
+     * or
+     * <pre>BulkCarrier:1248291:Searcher:Australia:BRAVO:220:</pre>
+     * @return encoded string representation of this Ship
+     * */
+    public String encode(){
+        return String.format("%s:%s:%d:%s",
+                super.encode(),
+                this.tonnageCapacity,
+                this.cargo != null ? this.cargo.getId() : "");
     }
 }
