@@ -1,10 +1,15 @@
 package portsim.ship;
 
 import portsim.cargo.Cargo;
+import portsim.cargo.Container;
 import portsim.port.Quay;
+import portsim.util.BadEncodingException;
+import portsim.util.Encodable;
+import portsim.util.NoSuchShipException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Represents a ship whose movement is managed by the system.
@@ -13,7 +18,7 @@ import java.util.Map;
  *
  * @ass1_partial
  */
-public abstract class Ship {
+public abstract class Ship implements Encodable {
     /**
      * Name of the ship
      */
@@ -37,7 +42,7 @@ public abstract class Ship {
     /**
      * Database of all ships currently active in the simulation
      */
-    private static Map<Long, Ship> shipRegistry = new HashMap<>();
+    private static Map<Long, Ship> shipRegistry;
 
     /**
      * Creates a new ship with the given
@@ -70,7 +75,37 @@ public abstract class Ship {
         this.name = name;
         this.originFlag = originFlag;
         this.flag = flag;
+        shipRegistry = new HashMap<>();
     }
+
+    /** Checks if a ship exists in the simulation using its IMO number.
+     * @param imoNumber unique key to identify ship
+     * @return true if there is a ship with key imoNumber else false
+     * */
+    public static boolean shipExists(long imoNumber){
+        if (shipRegistry.containsKey(imoNumber)){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /** Returns the ship specified by the IMO number.
+     * @param imoNumber unique key to identify ship
+     * @return Ship specified by the given IMO number
+     * @throws NoSuchShipException if the ship does not exist
+     * */
+    public static Ship getShipByImoNumber(long imoNumber) throws NoSuchShipException{
+        if (shipExists(imoNumber) == true) {
+            return shipRegistry.get(imoNumber);
+        }
+        else {
+            throw new NoSuchShipException();
+        }
+    }
+
+
 
     /**
      * Check if this ship can dock with the specified quay according
@@ -142,6 +177,60 @@ public abstract class Ship {
         return this.flag;
     }
 
+    /** Returns the database of ships currently active in the simulation as a mapping from the
+     *  ship's IMO number to its Ship instance.
+     *
+     * Adding or removing elements from the returned map should not affect the original
+     * map
+     *
+     * @return ship registry database
+     * */
+    public static Map<Long, Ship> getShipRegistry(){
+        Map<Long, Ship> results = new HashMap<>();
+        results.putAll(shipRegistry);   //Copying to new Map
+        return results;
+    }
+
+    /** Returns true if and only if this ship is equal to the other given ship.
+     *
+     * For two ships to be equal, they must have the same name, flag, origin port, and IMO
+     * number
+     *
+     * @param o other object to check equality
+     * @return true if equal, false otherwise
+     * */
+    public boolean equals(Object o){
+        if (o == null){
+            return false;
+        }
+        if (!(o instanceof Ship)){
+            return false;
+        }
+
+        Ship testEqual = (Ship) o;
+
+        if (this.getName() == testEqual.getName()
+                && this.getFlag().equals(testEqual.getFlag())
+                && this.getOriginFlag() == testEqual.getOriginFlag()
+                && this.getImoNumber() == testEqual.getImoNumber()){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /** Returns the hash code of this ship.
+     *
+     * Two ships that are equal according to the equals(Object) method should have the
+     * same hash code
+     *
+     * @return hash code of this ship
+     * */
+    public int hashCode(){
+        return Objects.hash(getName(), getFlag(), getOriginFlag(), getImoNumber());
+    }
+
     /**
      * Returns the human-readable string representation of this Ship.
      * <p>
@@ -166,6 +255,63 @@ public abstract class Ship {
             this.name,
             this.originFlag,
             this.flag);
+    }
+
+    /** Returns the machine-readable string representation of this Ship.
+     * The format of the string to return is
+     * <pre>ShipClass:imoNumber:name:origin:flag</pre>
+     * Where:
+     * <ul>
+     *     <li>ShipClass is the Ship class name</li>
+     *     <li>imoNumber is the IMO number of the ship</li>
+     *     <li>name is the name of this ship</li>
+     *     <li>origin is the country of origin of this ship</li>
+     *     <li>flag is the nautical flag of this ship</li>
+     * </ul>
+     * For example:
+     * <pre>Ship:1258691:Evergreen:Australia:BRAVO</pre>
+     * @return encoded string representation of this Ship
+     * */
+    public String encode(){
+        return String.format("%s:%d:%s:%s:%s",
+                this.getClass().getSimpleName(),
+                this.imoNumber,
+                this.name,
+                this.originFlag,
+                this.flag);
+    }
+
+    /** Reads a Ship from its encoded representation in the given string.
+     *
+     * The format of the string should match the encoded representation of a Ship, as
+     * described in encode() (and subclasses).
+     *
+     * The encoded string is invalid if any of the following conditions are true:
+     * <ul>
+     *     <li>The number of colons (:) detected was more/fewer than expected</li>
+     *
+     *     <li>The ship's IMO number is not a long (i.e. cannot be parsed by
+     *     Long.parseLong(String))</li>
+     *
+     *     <li>The ship's IMO number is invalid according to the constructor</li>
+     *     <li>The ship's type specified is not one of ContainerShip or BulkCarrier</li>
+     *     <li>The encoded Nautical flag is not one of NauticalFlag.values()</li>
+     *
+     *     <li>The encoded cargo to add does not exist in the simulation according to
+     *     Cargo.cargoExists(int)</li>
+     *
+     *     <li>The encoded cargo can not be added to the ship according to canLoad(Cargo)
+     *     NOTE: Keep this in mind when making your own save files</li>
+     *
+     *     <li>Any of the parsed values given to a subclass constructor causes an
+     *     IllegalArgumentException.</li>
+     * </ul>
+     * @param string string containing the encoded Ship
+     * @return decoded ship instance
+     * @throws BadEncodingException if the format of the given string is invalid according to the rules above
+     * */
+    public static Ship fromString(String string) throws BadEncodingException{
+
     }
 
     /**
