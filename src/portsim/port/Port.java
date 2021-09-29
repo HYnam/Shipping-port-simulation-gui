@@ -44,7 +44,7 @@ public class Port implements Tickable, Encodable {
     private ShipQueue shipQueue;
 
     /** To store movements ordered by the time of the movement */
-    private Queue<Movement> priorityQueue;
+    private PriorityQueue<Movement> priorityQueue;
 
     /** Store the statistics Evaluator of the port's operation */
     private List<StatisticsEvaluator> statisticsEvaluatorList;
@@ -165,7 +165,11 @@ public class Port implements Tickable, Encodable {
      * @param eval statistics evaluator to add to the port
      * */
     public void addStatisticsEvaluator(StatisticsEvaluator eval){
-
+        if (this.statisticsEvaluatorList.contains(eval)){
+            // No action should be taken
+        } else {
+            this.statisticsEvaluatorList.add(eval); // Add eval to list
+        }
     }
 
     /**
