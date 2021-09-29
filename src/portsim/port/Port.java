@@ -245,13 +245,114 @@ public class Port implements Tickable, Encodable {
         this.quays.add(quay);
     }
 
-
+    /** Advances the simulation by one minute.
+     *
+     * On each call to elapseOneMinute(), the following actions should be completed by the
+     * port in order:
+     * <ul>
+     *     <li>1. Advance the simulation time by 1</li>
+     *
+     *     <li>2. If the time is a multiple of 10, attempt to bring a ship from the ship queue to any
+     *     empty quay that matches the requirements from Ship.canDock(Quay). The
+     *     ship should only be docked to one quay.</li>
+     *
+     *     <li>3. If the time is a multiple of 5, all quays must unload the cargo from ships docked
+     *     (if any) and add it to warehouses at the port (the Port's list of stored cargo)</li>
+     *
+     *     <li>4. All movements stored in the queue whose action time is equal to the current
+     *     time should be processed by processMovement(Movement)</li>
+     *
+     *     <li>5. Call StatisticsEvaluator.elapseOneMinute() on all statistics evaluators</li>
+     * </ul>*/
     public void elapseOneMinute(){
+        this.timeSimulationStarted ++;
+        if (this.timeSimulationStarted % 10 == 0) { // Check if time multiple of 10
 
+        } else if (this.timeSimulationStarted % 5 == 0){    // Check if time multiple of 5
+
+        }
     }
 
+    /** Returns the machine-readable string representation of this Port.
+     * The format of the string to return is
+     * <pre>
+     *    Name
+     *    Time
+     *    numCargo
+     *    EncodedCargo
+     *    EncodedCargo...
+     *    numShips
+     *    EncodedShip
+     *    EncodedShip...
+     *    numQuays
+     *    EncodedQuay
+     *    EncodedQuay...
+     *    ShipQueue:numShipsInQueue:shipID,shipID,...
+     *    StoredCargo:numCargo:cargoID,cargoID,...
+     *    Movements:numMovements
+     *    EncodedMovement
+     *    EncodedMovement...
+     *    Evaluators:numEvaluators:EvaluatorSimpleName,EvaluatorSimpleName,...
+     * </pre>
+     * Where:
+     * <ul>
+     *     <li>Name is the name of the Port</li>
+     *     <li>Time is the time elapsed since the simulation started</li>
+     *     <li>numCargo is the total number of cargo in the simulation</li>
+     *
+     *     <li>If present (numCargo > 0): EncodedCargo is the encoded representation of each
+     *     individual cargo in the simulation</li>
+     *
+     *     <li>numShips is the total number of ships in the simulation</li>
+     *
+     *     <li>If present (numShips > 0): EncodedShip is the encoded representation of each
+     *     individual ship encoding in the simulation</li>
+     *
+     *     <li>numQuays is the total number of quays in the Port</li>
+     *
+     *     <li>If present (numQuays > 0): EncodedQuay is the encoded representation of each
+     *     individual quay in the simulation</li>
+     *
+     *     <li>numShipsInQueue is the total number of ships in the ship queue in the port</li>
+     *
+     *     <li>If present (numShipsInQueue > 0): shipID is each ship's ID in the
+     *     aforementioned queue</li>
+     *
+     *     <li>numCargo is the total amount of stored cargo in the Port</li>
+     *
+     *     <li>If present (numCargo > 0): cargoID is each cargo's ID in the stored cargo list of
+     *     Port</li>
+     *
+     *     <li>numMovements is the number of movements in the list of movements in Port</li>
+     *
+     *     <li>If present (numMovements > 0): EncodedMovement is the encoded
+     *     representation of each individual Movement in the aforementioned list</li>
+     *
+     *     <li>numEvaluators is the number of statistics evaluators in the Port evaluators list</li>
+     *
+     *     <li>If present (numEvaluators > 0): EvaluatorSimpleName is the name given by
+     *     Class.getSimpleName() for each evaluator in the aforementioned list
+     *     separated by a comma</li>
+     *
+     *     <li>Each line is separated by a System.lineSeparator()</li>
+     * </ul>
+     * For example the minimum/ default encoding would be:
+     * <pre>
+     *     PortName
+     *     0
+     *     0
+     *     0
+     *     0
+     *     ShipQueue:0:
+     *     StoredCargo:0:
+     *     Movements:0
+     *     Evaluators:0:
+     * </pre>
+     * @return encoded string representation of this Port
+     * */
     public String encode(){
-
+        return getName() + System.lineSeparator() + getTime() + System.lineSeparator()
+                + getCargo().size() + System.lineSeparator() ;
     }
 
     public static Port initialisePort(Reader reader) throws
