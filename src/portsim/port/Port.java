@@ -2,7 +2,10 @@ package portsim.port;
 
 import portsim.cargo.Cargo;
 import portsim.evaluators.StatisticsEvaluator;
+import portsim.movement.CargoMovement;
 import portsim.movement.Movement;
+import portsim.movement.MovementDirection;
+import portsim.movement.ShipMovement;
 import portsim.util.BadEncodingException;
 import portsim.util.Encodable;
 import portsim.util.Tickable;
@@ -142,7 +145,19 @@ public class Port implements Tickable, Encodable {
      *
      * @param movement movement to execute*/
     public void processMovement(Movement movement){
+        if (movement == ShipMovement){
+            if (movement.getDirection() == MovementDirection.INBOUND){
+                this.shipQueue.add(ship);
+            } else if (movement.getDirection() == MovementDirection.OUTBOUND){
 
+            }
+        } else if (movement == CargoMovement){
+            if (movement.getDirection() == MovementDirection.INBOUND){
+                this.storedCargo.add();
+            } else if (movement.getDirection() == MovementDirection.OUTBOUND){
+                this.storedCargo.remove(Cargo.getCargoById(id));
+            }
+        }
     }
 
     /** Adds the given statistics evaluator to the port's list of evaluators.
