@@ -232,9 +232,7 @@ public class Port implements Tickable, Encodable {
      * @return the ports evaluators
      * */
     public List<StatisticsEvaluator> getEvaluators(){
-        List<StatisticsEvaluator> result = new ArrayList<>();   // Add new List
-        result.addAll(statisticsEvaluatorList); //Copy to new list
-        return result;
+        return new ArrayList<>(this.statisticsEvaluatorList);
     }
 
     /**
