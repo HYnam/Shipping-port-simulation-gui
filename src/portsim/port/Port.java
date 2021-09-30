@@ -355,6 +355,107 @@ public class Port implements Tickable, Encodable {
                 + getCargo().size() + System.lineSeparator() ;
     }
 
+    /** Creates a port instance by reading various ship, quay, cargo, movement and evaluator
+     * entities from the given reader.
+     *
+     * The provided file should be in the format:
+     * <pre>
+     *    Name
+     *    Time
+     *    numCargo
+     *    EncodedCargo
+     *    EncodedCargo...
+     *    numShips
+     *    EncodedShip
+     *    EncodedShip...
+     *    numQuays
+     *    EncodedQuay
+     *    EncodedQuay...
+     *    ShipQueue:NumShipsInQueue:shipID,shipId
+     *    StoredCargo:numCargo:cargoID,cargoID
+     *    Movements:numMovements
+     *    EncodedMovement
+     *    EncodedMovement...
+     *    Evaluators:numEvaluators:EvaluatorSimpleName, EvaluatorSimpleName
+     * </pre>
+     * As specified by encode()
+     * The encoded string is invalid if any of the following conditions are true:
+     * <ul>
+     *     <li>The time is not a valid long (i.e. cannot be parsed by
+     *     Long.parseLong(String)).</li>
+     *
+     *     <li>The number of cargo is not an integer (i.e. cannot be parsed by
+     *     Integer.parseInt(String)).</li>
+     *
+     *     <li>The number of cargo to be read in does not match the number specified above.
+     *     (ie. too many / few encoded cargo following the number)</li>
+     *
+     *     <li>An encoded cargo line throws a BadEncodingException</li>
+     *     <li>The number of ships is not an integer (i.e. cannot be parsed by
+     *     Integer.parseInt(String))</li>
+     *
+     *     <li>The number of ship to be read in does not match the number specified above.
+     *     (ie. too many / few encoded ships following the number)</li>
+     *
+     *     <li>An encoded ship line throws a BadEncodingException</li>
+     *     <li>The number of quays is not an integer (i.e. cannot be parsed by
+     *     Integer.parseInt(String)).</li>
+     *
+     *     <li>The number of quays to be read in does not match the number specified above.
+     *     (ie. too many / few encoded quays following the number)</li>
+     *
+     *     <li>An encoded quay line throws a BadEncodingException</li>
+     *     <li>The shipQueue does not follow the last encoded quay</li>
+     *     <li>The number of ships in the shipQueue is not an integer (i.e. cannot be parsed by
+     *     Integer.parseInt(String)).</li>
+     *
+     *     <li>The imoNumber of the ships in the shipQueue are not valid longs. (i.e. cannot
+     *     be parsed by Long.parseLong(String)).</li>
+     *
+     *     <li>Any imoNumber read does not correspond to a valid ship in the simulation</li>
+     *     <li>The storedCargo does not follow the encoded shipQueue</li>
+     *     <li>The number of cargo in the storedCargo is not an integer (i.e. cannot be parsed
+     *     by Integer.parseInt(String)).</li>
+     *
+     *     <li>The id of the cargo in the storedCargo are not valid Integers. (i.e. cannot be
+     *     parsed by Integer.parseInt(String)).</li>
+     *
+     *     <li>Any cargo id read does not correspond to a valid cargo in the simulation</li>
+     *     <li>The movements do not follow the encoded storedCargo</li>
+     *     <li>The number of movements is not an integer (i.e. cannot be parsed by
+     *     Integer.parseInt(String)).</li>
+     *
+     *     <li>The number of movements to be read in does not match the number specified
+     *     above. (ie. too many / few encoded movements following the number)</li>
+     *
+     *     <li>An encoded movement line throws a BadEncodingException</li>
+     *     <li>The evaluators do not follow the encoded movements</li>
+     *     <li>The number of evaluators is not an integer (i.e. cannot be parsed by
+     *     Integer.parseInt(String)).</li>
+     *
+     *     <li>The number of evaluators to be read in does not match the number specified
+     *     above. (ie. too many / few encoded evaluators following the number)</li>
+     *
+     *     <li>An encoded evaluator name does not match any of the possible evaluator classes</li>
+     *     <li>If any of the following lines are missing:</li>
+     *          <ul>
+     *              Name
+     *              Time
+     *              Number of Cargo
+     *              Number of Ships
+     *              Number of Quays
+     *              ShipQueue
+     *              StoredCargo
+     *              Movements
+     *              Evaluators
+     *          </ul>
+     * </ul>
+     * @param reader reader from which to load all info
+     * @return port created by reading from given reader
+     * @throws IOException if an IOException is encountered when reading from the reader
+     * @throws BadEncodingException if the reader reads a line that does not adhere to the rules
+     * above indicating that the contents of the reader are invalid
+     * */
     public static Port initialisePort(Reader reader) throws
             IOException, BadEncodingException{
 
