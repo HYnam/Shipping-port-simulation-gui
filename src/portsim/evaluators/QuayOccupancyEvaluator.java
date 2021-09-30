@@ -7,7 +7,10 @@ import portsim.port.Quay;
 /** Evaluator to monitor hwo many quays are currently occupied at the port */
 public class QuayOccupancyEvaluator extends StatisticsEvaluator {
 
+    /** Port to monitor quays */
     private Port portMonitorQuay;
+
+    private Quay quayOccupied;
 
     /** Constructs a new QuayOccupancyEvaluator
      * @param port port to monitor quays
@@ -21,8 +24,8 @@ public class QuayOccupancyEvaluator extends StatisticsEvaluator {
      * @returns number of quays
      * */
     public int getQuaysOccupied(){
-        if (Quay.isEmpty() == false){
-            return ;
+        if (this.quayOccupied.isEmpty() == false){
+            return this.quayOccupied;
         }
         else {
             return 0;
