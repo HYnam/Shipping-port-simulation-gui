@@ -1,6 +1,7 @@
 package portsim.evaluators;
 
 import portsim.movement.Movement;
+import portsim.movement.MovementDirection;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,20 +14,18 @@ import java.util.Map;
 public class ShipFlagEvaluator extends StatisticsEvaluator {
 
     /** Flag distribution at this port */
-    Map<String, Integer> flagDistribution = new HashMap<>();
-
-
+    Map<String, Integer> flagDistribution;
 
     /** Constructs a new ShipFlagEvaluator */
     public ShipFlagEvaluator(){
-
+        this.flagDistribution = new HashMap<>();
     }
 
     /** Return the flag distribution seen at this port
      * @return flag distribution
      * */
     public Map<String, Integer> getFlagDistribution(){
-
+        return flagDistribution;
     }
 
     /** Return the number of times the given flag has been seen at the port.
@@ -61,6 +60,16 @@ public class ShipFlagEvaluator extends StatisticsEvaluator {
      * @param movement movement to read
      * */
     public void onProcessMovement(Movement movement){
+        if (movement.getDirection() != MovementDirection.INBOUND){
 
+        } else if (movement.getDirection() != MovementDirection.OUTBOUND){
+
+        } else if (movement.getDirection() == MovementDirection.INBOUND){
+            if (getFlagStatistics(flag) > 0){
+                getFlagStatistics(flag) ++;
+            } else {
+                this.flagDistribution.put(flag, 1);
+            }
+        }
     }
 }
