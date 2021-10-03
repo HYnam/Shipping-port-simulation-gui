@@ -79,8 +79,7 @@ public abstract class Cargo implements Encodable{
      * @return cargo registry
      * */
     public static Map<Integer, Cargo> getCargoRegistry(){
-        Map<Integer, Cargo> result = new HashMap<>();   //Add new Map
-        result.putAll(cargoRegistry);   //Copying to new Map
+        Map<Integer, Cargo> result = new HashMap<Integer, Cargo>(cargoRegistry);
         return result;
     }
 
