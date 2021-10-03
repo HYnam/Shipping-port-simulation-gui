@@ -94,12 +94,19 @@ public class ShipQueue implements Encodable {
 
         ShipQueue testEqual = (ShipQueue) o;
 
-        if (this.ships == testEqual.ships){
-            return true;
-        }
-        else {
+        int lengthOfTestEqual = testEqual.getShipQueue().size();
+        int lengthOfThisQueue = this.getShipQueue().size();
+
+        if(lengthOfTestEqual != lengthOfThisQueue)
             return false;
+
+        for (int i = 0; i<lengthOfTestEqual; i++){
+            if(testEqual.getShipQueue().get(i) != this.getShipQueue().get(i))
+                return false;
         }
+
+        return true;
+
     }
 
     /** Returns the hash code of this ship queue.
@@ -109,7 +116,7 @@ public class ShipQueue implements Encodable {
      * @return hash code of this ship queue
      * */
     public int hashCode(){
-        return Objects.hash(ships);
+        return Objects.hash(this.getShipQueue());
     }
 
     /** Return the machine-readable string representation of this ShipQueue
