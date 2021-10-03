@@ -237,10 +237,16 @@ public class ContainerShip extends Ship {
      * @return encoded string representation of this Ship
      * */
     public String encode(){
+        String idList = "";
+        for (Container c : this.containers){
+            idList += (c.getId() + ","); // Adding with comma
+        }
+        // Removing last comma because it will be added
+        idList = idList.substring(0, idList.length() - 1);
         return String.format("%s:%d:%d:%s",
                 super.encode(),
                 this.containerCapacity,
                 this.containers.size(),
-                (this.containers.size() != 0 ? this.containers.cargoID() : ""));
+                idList);
     }
 }
