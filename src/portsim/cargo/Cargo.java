@@ -199,8 +199,14 @@ public abstract class Cargo implements Encodable{
      * @throws BadEncodingException if the format of the given string is invalid according to the rules above
      * */
     public static Cargo fromString(String string) throws BadEncodingException{
-        if ((string.chars().filter(num -> num == ':').count() < 3 || string.chars().filter(num -> num == ':').count() > 3)
-        && ){
+        String[] listOfStrings = string.split(":"); // Split wherever we see ":"
+        if (listOfStrings.length != 3){ // If it's not split properly, we will see not 3 strings in the list
+            throw new BadEncodingException();
+        }
+        try{ // Try to convert String to int in the middle (index 1) of the list
+            Integer.parseInt(listOfStrings[1]);
+        }
+        catch(Exception ignored){ // If it doesn't work, we throw an exception
             throw new BadEncodingException();
         }
     }
