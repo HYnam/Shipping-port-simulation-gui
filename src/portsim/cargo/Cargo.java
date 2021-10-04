@@ -4,6 +4,7 @@ import portsim.util.BadEncodingException;
 import portsim.util.Encodable;
 import portsim.util.NoSuchCargoException;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -125,7 +126,8 @@ public abstract class Cargo implements Encodable{
      * Two cargo are equal according to equals(Object) method
      * should have the same hash code
      *
-     * @return hash code of this cargo*/
+     * @return hash code of this cargo
+     * */
     @Override
     public int hashCode() {
         return Objects.hash(id, destination);
@@ -170,7 +172,8 @@ public abstract class Cargo implements Encodable{
      * <pre>BulkCargo:2:France</pre>
      * </p>
      *
-     * @return encoded string representation of this Cargo*/
+     * @return encoded string representation of this Cargo
+     * */
     public String encode(){
         return String.format("%s:%d:%s",
                 this.getClass().getSimpleName(),
@@ -185,13 +188,15 @@ public abstract class Cargo implements Encodable{
      *
      * The encoded string is invalid if any of the following conditions are ture:
      * <ul>
-     *     <li>The number of colons(:) detected was more/fewer than expected</li>
-     *     <li>The cargo id is not an integer (i.e. cannot be parse by {@code Integer.parseInt(String)})</li>
-     *     <li>The cargo id is less than 1</li>
-     *     <li>A piece of cargo with the specified ID already exists</li>
+     *     d<li>The number of colons(:) detected was more/fewer than expected</li>
+     *     d<li>The cargo's type specified is not one of Container or BulkCargo</li>
+     *     d<li>The cargo id is not an integer (i.e. cannot be parse by {@code Integer.parseInt(String)})</li>
+     *     d<li>The cargo id is less than 0</li>
+     *     d<li>A piece of cargo with the specified ID already exists</li>
+     *     d<li>The cargo type specified is not one of BulkCargoType or ContainerType</li>
      *     <li>If the cargo type is a BulkCargo:</li>
      *          <li>1. The cargo weight in tonnes is not an integer</li>
-     *          <li>2. The cargo weight in tonnes is less than 1</li>
+     *          <li>2. The cargo weight in tonnes is less than 0</li>
      * </ul>
      *
      * @param string string containing the encoded cargo
@@ -200,6 +205,8 @@ public abstract class Cargo implements Encodable{
      * */
     public static Cargo fromString(String string) throws BadEncodingException{
         String[] listOfStrings = string.split(":"); // Split wherever we see ":"
+        int cargoIdParsed = Integer.parseInt(listOfStrings[1]);
+
         if (listOfStrings.length != 3){ // If it's not split properly, we will see not 3 strings in the list
             throw new BadEncodingException();
         }
@@ -209,6 +216,24 @@ public abstract class Cargo implements Encodable{
         catch(Exception ignored){ // If it doesn't work, we throw an exception
             throw new BadEncodingException();
         }
+        if (cargoIdParsed < 0 ||
+                cargoRegistry.keySet().equals(cargoIdParsed) ||   // Check if cargo exist with the map
+                (listOfStrings[0] != Container.class.getSimpleName() // Check cargo class name != container
+                || listOfStrings[0] != BulkCargo.class.getSimpleName())){    // Check cargo class name != BulkCargo
+            throw new BadEncodingException();
+        } else if (Arrays.toString(ContainerType.values()) != listOfStrings[0] ||   // Cargo type is not ContainerType
+                Arrays.toString(BulkCargoType.values()) != listOfStrings[0]){   // Cargo type is not BulkCargoType
+            throw new BadEncodingException();
+        }
+
+        if (Arrays.toString(BulkCargoType.values()) == listOfStrings[0])
+        try {
+
+        } catch (Exception e){
+            throw new BadEncodingException();
+        }
+
+        return Cargo.fromString(listOfStrings[0]);
     }
 
     /**
