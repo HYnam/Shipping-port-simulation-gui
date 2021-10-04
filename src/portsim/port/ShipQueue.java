@@ -116,7 +116,7 @@ public class ShipQueue implements Encodable {
      * @return hash code of this ship queue
      * */
     public int hashCode(){
-        return Objects.hash(this.getShipQueue());
+        return Objects.hash(getShipQueue());
     }
 
     /** Return the machine-readable string representation of this ShipQueue
