@@ -10,6 +10,7 @@ public class QuayOccupancyEvaluator extends StatisticsEvaluator {
     /** Port to monitor quays */
     private Port portMonitorQuay;
 
+    /** Quay is occupied in Port */
     private Quay quayOccupied;
 
     /** Constructs a new QuayOccupancyEvaluator
@@ -25,7 +26,7 @@ public class QuayOccupancyEvaluator extends StatisticsEvaluator {
      * */
     public int getQuaysOccupied(){
         if (this.quayOccupied.isEmpty() == false){
-            return this.quayOccupied;
+            return this.portMonitorQuay.getQuays().size();
         }
         else {
             return 0;
