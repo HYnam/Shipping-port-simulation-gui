@@ -10,7 +10,8 @@ import java.time.Instant;
  * */
 public abstract class StatisticsEvaluator implements Tickable {
 
-    long timeEvaluatorCreated;
+    /** the time since the evaluator was created */
+    private long timeEvaluatorCreated;
 
     /** Creates a statistics evaluator and initialises the time since the evaluator was created to
      * zero
