@@ -28,8 +28,7 @@ public class ShipQueue implements Encodable {
      *  @return next ship to dock
      *  */
     public Ship poll(){
-        Ship removed = ships.remove();  // Remove the ship in the head of queue
-        return removed;
+        return ships.remove();
     }
 
     /** Returns the next ship waiting to enter the port. The queue should not change.
@@ -136,10 +135,16 @@ public class ShipQueue implements Encodable {
      * @return encoded string representation of this ShipQueue
      * */
     public String encode(){
+        String shipId = "";
+        for (Ship s : getShipQueue()){
+            shipId += (s.getImoNumber() + ","); // adding with commas
+        }
+        shipId = shipId.substring(0, shipId.length() - 1);  // Removing last comma because it will be added
+
         return String.format("%s:$d:%s",
                 this.getClass().getSimpleName(),
                 ships.size(),
-                (ships.size() != 0 ? this.ships.getImoNumber() : ""));  // How to get ImoNumber of ships in queue
+                shipId);
     }
 
     /** Creates a ship queue from a string encoding.
