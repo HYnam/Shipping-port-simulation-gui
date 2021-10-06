@@ -14,7 +14,7 @@ import java.util.Map;
 public class ShipFlagEvaluator extends StatisticsEvaluator {
 
     /** Flag distribution at this port */
-    Map<String, Integer> flagDistribution;
+    private Map<String, Integer> flagDistribution;
 
     /** Constructs a new ShipFlagEvaluator */
     public ShipFlagEvaluator(){
@@ -35,8 +35,7 @@ public class ShipFlagEvaluator extends StatisticsEvaluator {
     public int getFlagStatistics(String flag){
         if (getFlagDistribution().containsKey(flag)){
             return getFlagDistribution().get(flag);
-        }
-        else {
+        } else {
             return 0;
         }
     }
@@ -61,10 +60,13 @@ public class ShipFlagEvaluator extends StatisticsEvaluator {
      * */
     public void onProcessMovement(Movement movement){
         if (movement.getDirection() != MovementDirection.INBOUND){
+            // take no action
+        } else if ((movement.getDirection() != MovementDirection.OUTBOUND)
+            || (movement.getDirection() != MovementDirection.INBOUND)){
+            // take no action if movement is not a ShipMovement
+        }
 
-        } else if (movement.getDirection() != MovementDirection.OUTBOUND){
-
-        } else if (movement.getDirection() == MovementDirection.INBOUND){
+        if (movement.getDirection() == MovementDirection.INBOUND){
             if (getFlagStatistics(flag) > 0){
                 getFlagStatistics(flag) ++;
             } else {
