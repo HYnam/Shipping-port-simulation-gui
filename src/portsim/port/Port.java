@@ -148,13 +148,13 @@ public class Port implements Tickable, Encodable {
      *
      * @param movement movement to execute*/
     public void processMovement(Movement movement){
-        if (movement == ShipMovement){
+        if (movement.getDirection() == ShipMovement().super.getDirection()){
             if (movement.getDirection() == MovementDirection.INBOUND){
                 this.shipQueue.add(ship);
             } else if (movement.getDirection() == MovementDirection.OUTBOUND){
 
             }
-        } else if (movement == CargoMovement){
+        } else if (movement.getDirection() == new Movement.CargoMovement()){
             if (movement.getDirection() == MovementDirection.INBOUND){
                 this.storedCargo.add();
             } else if (movement.getDirection() == MovementDirection.OUTBOUND){
