@@ -118,6 +118,9 @@ public class Port implements Tickable, Encodable {
             IllegalArgumentException{
         this.priorityQueue.add(movement);
         // How to throw exception!!
+        if (movement.getTime() < getTime()){
+            throw new IllegalArgumentException();
+        }
     }
 
     /** Processes a movement.
