@@ -3,8 +3,8 @@ package portsim.movement;
 import portsim.cargo.Cargo;
 import portsim.util.BadEncodingException;
 
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -90,7 +90,7 @@ public class CargoMovement extends Movement {
      * @return encoded string representation of this movement
      * */
     public String encode(){
-        return String.format("%s:%d:%d",
+        return String.format("%s:%d:%s",
                 super.encode(),
                 this.cargo.size(),
                 String.join(",", (CharSequence) this.cargo));
@@ -121,9 +121,41 @@ public class CargoMovement extends Movement {
      * rules above.
      * */
     public static CargoMovement fromString(String string) throws BadEncodingException{
-        if ((string.chars().filter(num -> num == ':').count() < 4 || string.chars().filter(num -> num == ':').count() > 4)
-                || ){
+        String[] listOfStrings = string.split(":"); // Split wherever we see ":"
+        if (listOfStrings.length != 5) {
             throw new BadEncodingException();
         }
+        if (!listOfStrings[0].equals("CargoMovement")){
+            throw new BadEncodingException();
+        }
+        try{
+            Long.parseLong(listOfStrings[1]);
+        } catch (Exception e){
+            throw new BadEncodingException();
+        }
+        if (Long.parseLong(listOfStrings[1]) < 0){
+            throw new BadEncodingException();
+        } else if (Arrays.toString(MovementDirection.values()) != listOfStrings[2]) {
+            throw new BadEncodingException();
+        }
+        try{
+            Integer.parseInt(String.valueOf(listOfStrings[4].length()));
+        } catch (Exception i){
+            throw new BadEncodingException();
+        }
+        if (Integer.parseInt(String.valueOf(listOfStrings[4].length())) < 0) {
+            throw new BadEncodingException();
+        }
+        try{
+            Integer.parseInt(listOfStrings[4]);
+        } catch (Exception j){
+            throw new BadEncodingException();
+        }
+        if (Integer.parseInt(listOfStrings[4]) < 0) {
+            throw new BadEncodingException();
+        } else if (Cargo.cargoExists(Integer.parseInt(listOfStrings[4]))){
+            throw new BadEncodingException();
+        }
+        return CargoMovement.fromString(listOfStrings[0]);
     }
 }
