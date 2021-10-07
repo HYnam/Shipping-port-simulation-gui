@@ -99,7 +99,7 @@ public abstract class Ship implements Encodable {
      * @throws NoSuchShipException if the ship does not exist
      * */
     public static Ship getShipByImoNumber(long imoNumber) throws NoSuchShipException{
-        if (shipExists(imoNumber) == true) {
+        if (shipExists(imoNumber)) {
             return shipRegistry.get(imoNumber);
         }
         else {
