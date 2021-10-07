@@ -76,6 +76,8 @@ public abstract class Ship implements Encodable {
         this.originFlag = originFlag;
         this.flag = flag;
         shipRegistry = new HashMap<>();
+
+        shipRegistry.put(imoNumber, this);
     }
 
     /** Checks if a ship exists in the simulation using its IMO number.
