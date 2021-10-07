@@ -3,6 +3,8 @@ package portsim.movement;
 import portsim.ship.Ship;
 import portsim.util.BadEncodingException;
 
+import java.util.Arrays;
+
 /**
  * The movement of a ship coming into or out of the port.
  *
@@ -111,9 +113,31 @@ public class ShipMovement extends Movement {
      * rules above
      * */
     public static ShipMovement fromString(String string) throws BadEncodingException{
-        if ((string.chars().filter(num -> num == ':').count() < 3 || string.chars().filter(num -> num == ':').count() > 3)
-                || string.valueOf(this.getTime()) < 0 ){
+        String[] listOfStrings = string.split(":"); // Split wherever we see ":"
+        if (listOfStrings.length != 4) {
             throw new BadEncodingException();
         }
+        try{    // Try convert String to long for the time
+            Long.parseLong(listOfStrings[1]);
+        } catch (Exception e){
+            throw new BadEncodingException();
+        }
+        if (Long.parseLong(listOfStrings[1]) < 0){
+            throw new BadEncodingException();
+        } else if (Arrays.toString(MovementDirection.values()) != listOfStrings[2]) {
+            throw new BadEncodingException();
+        }
+        try{
+            Long.parseLong(listOfStrings[3]);
+        } catch (Exception i){
+            throw new BadEncodingException();
+        }
+        if (Long.parseLong(listOfStrings[3]) < 0){
+            throw new BadEncodingException();
+        } else if (Ship.shipExists(Long.parseLong(listOfStrings[3]))){
+            throw new BadEncodingException();
+        }
+
+        return ShipMovement.fromString(listOfStrings[0]);
     }
 }
