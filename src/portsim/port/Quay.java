@@ -1,5 +1,6 @@
 package portsim.port;
 
+import portsim.movement.CargoMovement;
 import portsim.ship.Ship;
 import portsim.util.BadEncodingException;
 import portsim.util.Encodable;
@@ -208,6 +209,32 @@ public abstract class Quay implements Encodable {
      * rules above
      * */
     public static Quay fromString(String string) throws BadEncodingException{
-
+        String[] listOfStrings = string.split(":"); // Split wherever we see ":"
+        if (listOfStrings.length != 3) {
+            throw new BadEncodingException();
+        }
+        try {
+            Long.parseLong(listOfStrings[1]);
+        } catch (Exception i){
+            throw new BadEncodingException();
+        }
+        if (Long.parseLong(listOfStrings[1]) < 0){
+            throw new BadEncodingException();
+        }
+        if (!listOfStrings[0].equals("BulkQuay") || !listOfStrings[0].equals("ContainerQuay")){
+            throw new BadEncodingException();
+        }
+        if (listOfStrings[2] != null)
+            try{
+                Integer.parseInt(listOfStrings[2]);
+            } catch (Exception e){
+                throw new BadEncodingException();
+            }
+        try{
+            Integer.parseInt();
+        } catch (Exception j){
+            throw new BadEncodingException();
+        }
+        return Quay.fromString(listOfStrings[0]);
     }
 }
