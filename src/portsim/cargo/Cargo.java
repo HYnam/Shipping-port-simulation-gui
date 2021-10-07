@@ -80,8 +80,7 @@ public abstract class Cargo implements Encodable{
      * @return cargo registry
      * */
     public static Map<Integer, Cargo> getCargoRegistry(){
-        Map<Integer, Cargo> result = new HashMap<Integer, Cargo>(cargoRegistry);
-        return result;
+        return new HashMap<Integer, Cargo>(cargoRegistry);
     }
 
     /** Check if a cargo exists in the simulation using its ID
@@ -99,7 +98,7 @@ public abstract class Cargo implements Encodable{
      * @throw NoSuchCargoException if the cargo does not exist in the registry
      * */
     public static Cargo getCargoById(int id) throws NoSuchCargoException{
-        if (cargoExists(id) == false){
+        if (!cargoExists(id)){
             throw new NoSuchCargoException();
         }
         else {
@@ -226,7 +225,7 @@ public abstract class Cargo implements Encodable{
             throw new BadEncodingException();
         }
 
-        if (Arrays.toString(BulkCargoType.values()) == listOfStrings[0])
+        if (Arrays.toString(BulkCargoType.values()).equals(listOfStrings[0]))
         try {
 
         } catch (Exception e){
