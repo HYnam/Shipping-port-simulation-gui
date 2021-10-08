@@ -55,7 +55,16 @@ public class ShipQueue implements Encodable {
      * @return next ship in queue
      * */
     public Ship peek(){
+        Queue<Ship> newShips = new LinkedList<Ship>(ships);     // Make a copy of the queue and change here
 
+        if (){
+
+        }else {
+            return poll(); // ship that was added to the queue first
+        }
+        if (newShips.isEmpty()){
+            return null;
+        }
     }
 
     /** Adds the specified ship to the queue
