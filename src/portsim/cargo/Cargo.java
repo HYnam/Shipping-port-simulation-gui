@@ -205,7 +205,6 @@ public abstract class Cargo implements Encodable{
     public static Cargo fromString(String string) throws BadEncodingException{
         String[] listOfStrings = string.split(":"); // Split wherever we see ":"
         int cargoIdParsed = Integer.parseInt(listOfStrings[1]);
-
         if (listOfStrings.length != 3){ // If it's not split properly, we will see not 3 strings in the list
             throw new BadEncodingException();
         }
@@ -215,23 +214,26 @@ public abstract class Cargo implements Encodable{
         catch(Exception ignored){ // If it doesn't work, we throw an exception
             throw new BadEncodingException();
         }
-        if (cargoIdParsed < 0 ||
-                cargoRegistry.keySet().equals(cargoIdParsed) ||   // Check if cargo exist with the map
-                (listOfStrings[0] != Container.class.getSimpleName() // Check cargo class name != container
-                || listOfStrings[0] != BulkCargo.class.getSimpleName())){    // Check cargo class name != BulkCargo
+        if (cargoIdParsed < 0){
             throw new BadEncodingException();
-        } else if (Arrays.toString(ContainerType.values()) != listOfStrings[0] ||   // Cargo type is not ContainerType
-                Arrays.toString(BulkCargoType.values()) != listOfStrings[0]){   // Cargo type is not BulkCargoType
+        } else if (cargoRegistry.keySet().equals(cargoIdParsed)) {  // Check if cargo exist with the map
+            throw new BadEncodingException();
+        }  else if (!listOfStrings[0].equals(Container.class.getSimpleName()) // Check cargo class name != container
+                || !listOfStrings[0].equals(BulkCargo.class.getSimpleName())){    // Check cargo class name != BulkCargo
+            throw new BadEncodingException();
+        } else if (!Arrays.toString(ContainerType.values()).equals(listOfStrings[0]) ||   // Cargo type is not ContainerType
+                !Arrays.toString(BulkCargoType.values()).equals(listOfStrings[0])){   // Cargo type is not BulkCargoType
             throw new BadEncodingException();
         }
-
         if (Arrays.toString(BulkCargoType.values()).equals(listOfStrings[0]))
-        try {
-
-        } catch (Exception e){
-            throw new BadEncodingException();
-        }
-
+            try {
+                Integer.parseInt(listOfStrings[4]); // Cargo weight is int or not
+            } catch (Exception e){
+             throw new BadEncodingException();
+            }
+            if (Integer.parseInt(listOfStrings[4]) < 0){
+                throw new BadEncodingException();
+            }
         return Cargo.fromString(listOfStrings[0]);
     }
 
