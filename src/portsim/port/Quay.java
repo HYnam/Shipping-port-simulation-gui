@@ -231,7 +231,7 @@ public abstract class Quay implements Encodable {
                 throw new BadEncodingException();
             }
         try{
-            Integer.parseInt();
+            Integer.parseInt(listOfStrings[3]); // Check Quay capacity is integer or not
         } catch (Exception j){
             throw new BadEncodingException();
         }
