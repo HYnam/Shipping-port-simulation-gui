@@ -141,7 +141,7 @@ public class ShipQueue implements Encodable {
         }
         shipId = shipId.substring(0, shipId.length() - 1);  // Removing last comma because it will be added
 
-        return String.format("%s:$d:%s",
+        return String.format("%s:%d:%s",
                 this.getClass().getSimpleName(),
                 ships.size(),
                 shipId);
@@ -172,6 +172,28 @@ public class ShipQueue implements Encodable {
      * @throws BadEncodingException if the format of the given string is invalid according to the rules above
      * */
     public static ShipQueue fromString(String string) throws BadEncodingException{
-
+        String[] listOfStrings = string.split(":"); // Split wherever we see ":"
+        if (listOfStrings.length != 3) {
+            throw new BadEncodingException();
+        } else if (!listOfStrings[0].equals("ShipQueue")){
+            throw new BadEncodingException();
+        }
+        try{
+            Integer.parseInt(listOfStrings[1]);
+        } catch (Exception e){
+            throw new BadEncodingException();
+        }
+        if (Integer.parseInt(listOfStrings[1]) != listOfStrings[2].length()) {
+            throw new BadEncodingException();
+        }
+        try{
+            Long.parseLong(listOfStrings[2]);
+        } catch (Exception i){
+            throw new BadEncodingException();
+        }
+        if (Ship.shipExists(Long.parseLong(listOfStrings[2]))){
+            throw new BadEncodingException();
+        }
+        return ShipQueue.fromString(listOfStrings[0]);
     }
 }
