@@ -1,12 +1,15 @@
 package portsim.ship;
 
+import com.sun.source.tree.BreakTree;
 import portsim.cargo.Cargo;
 import portsim.cargo.Container;
 import portsim.port.Quay;
+import portsim.port.ShipQueue;
 import portsim.util.BadEncodingException;
 import portsim.util.Encodable;
 import portsim.util.NoSuchShipException;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -313,7 +316,26 @@ public abstract class Ship implements Encodable {
      * @throws BadEncodingException if the format of the given string is invalid according to the rules above
      * */
     public static Ship fromString(String string) throws BadEncodingException{
+        String[] listOfStrings = string.split(":"); // Split wherever we see ":"
+        if (listOfStrings.length != 5) {
+            throw new BadEncodingException();
+        }
+        try{
+            Long.parseLong(listOfStrings[1]);
+        } catch (Exception i){
+            throw new BadEncodingException();
+        }
+        if (Long.parseLong(listOfStrings[1]) < 0 ||
+                String.valueOf(listOfStrings[1]).length() != 7 ||
+                String.valueOf(listOfStrings[1]).startsWith("0")) {
+            throw new BadEncodingException();
+        } else if (!listOfStrings[0].equals("ContainerShip") || !listOfStrings[0].equals("BulkCarrier")) {
+            throw new BadEncodingException();
+        } else if (!listOfStrings[4].equals(Arrays.toString(NauticalFlag.values()))) {
+            throw new BadEncodingException();
+        } else if
 
+        return Ship.fromString(listOfStrings[0]);
     }
 
     /**
