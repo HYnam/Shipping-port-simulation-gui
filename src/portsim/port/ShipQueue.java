@@ -1,13 +1,11 @@
 package portsim.port;
 
+import portsim.ship.NauticalFlag;
 import portsim.ship.Ship;
 import portsim.util.BadEncodingException;
 import portsim.util.Encodable;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Queue;
+import java.util.*;
 
 /** Queue of ships waiting to enter a Quay at the port. Ships are chosen based on their priority. */
 public class ShipQueue implements Encodable {
@@ -54,15 +52,23 @@ public class ShipQueue implements Encodable {
      * </ul>
      * @return next ship in queue
      * */
-    public Ship peek(){
+    public Ship peek() {
         Queue<Ship> newShips = new LinkedList<Ship>(ships);     // Make a copy of the queue and change here
 
-        if (){
-
-        }else {
-            return poll(); // ship that was added to the queue first
+        for (Ship s : newShips) {
+            if (s.getFlag() == NauticalFlag.BRAVO) {
+                return s;
+            } else if (s.getFlag() == NauticalFlag.WHISKEY) {
+                return s;
+            } else if (s.getFlag() == NauticalFlag.HOTEL) {
+                return s;
+            } else if (s.getName() == "ContainerShip") {
+                return s;
+            } else {
+                return poll(); // ship that was added to the queue first
+            }
         }
-        if (newShips.isEmpty()){
+        if (newShips.isEmpty()) {
             return null;
         }
     }
