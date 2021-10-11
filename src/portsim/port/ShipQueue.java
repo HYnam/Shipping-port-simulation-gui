@@ -29,6 +29,16 @@ public class ShipQueue implements Encodable {
         return ships.remove();
     }
 
+    /** A method implemented by myself
+     * To show the ship that have the NauticalFlag and return the first elements of the queue
+     * @param newShips Queue of the ships
+     * @param flag NauticalFlag of the ship
+     * @return Optional<Ship>
+     **/
+    private Optional<Ship> findFirstShip(Queue<Ship> newShips, NauticalFlag flag) {
+        return newShips.stream().filter(ship -> ship.getFlag() == flag).findFirst();
+    }
+
     /** Returns the next ship waiting to enter the port. The queue should not change.
      *
      * The rules for determining which ship in the queue should be returned next are as
@@ -53,24 +63,16 @@ public class ShipQueue implements Encodable {
      * @return next ship in queue
      * */
     public Ship peek() {
-        Queue<Ship> newShips = new LinkedList<Ship>(ships);     // Make a copy of the queue and change here
+        Queue<Ship> newShips = new LinkedList<>(ships);     // Make a copy of the queue and change here
 
-        for (Ship s : newShips) {
-            if (s.getFlag() == NauticalFlag.BRAVO) {
-                return s;
-            } else if (s.getFlag() == NauticalFlag.WHISKEY) {
-                return s;
-            } else if (s.getFlag() == NauticalFlag.HOTEL) {
-                return s;
-            } else if (s.getName() == "ContainerShip") {
-                return s;
-            } else {
-                return poll(); // ship that was added to the queue first
-            }
-        }
-        if (newShips.isEmpty()) {
+        if (newShips.isEmpty()){
             return null;
         }
+
+        return findFirstShip(newShips, NauticalFlag.BRAVO)
+                .orElse(findFirstShip(newShips, NauticalFlag.WHISKEY)
+                        .orElse(findFirstShip(newShips, NauticalFlag.HOTEL)
+                                .orElseGet(newShips::poll)));
     }
 
     /** Adds the specified ship to the queue
