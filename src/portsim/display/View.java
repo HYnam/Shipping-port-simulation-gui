@@ -3,8 +3,6 @@ package portsim.display;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -28,7 +26,6 @@ import portsim.ship.Ship;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 import java.util.*;
 
 /**
@@ -92,162 +89,6 @@ public class View {
 
         Scene rootScene = new Scene(createWindow());
         stage.setScene(rootScene);
-
-    }
-
-    /** Returns an event handler for when the "Dump Cargo Manifest" button is clicked.
-     *
-     * The overall purpose of this event handler is to update the cargoManifestText
-     * string property with the string representation of the cargo on the currently selected
-     * ship, as returned by BulkCarrier.getCargo() or ContainerShip.getCargo().
-     *
-     * The event handler should perform the following actions:
-     * <ul>
-     *     <li>1. If no ship is currently selected (i.e. getSelectedShip() ()} is storing null),
-     *     then the event handler should return immediately without taking any further
-     *     action.</li>
-     *
-     *     <li>2. If calling BulkCarrier.getCargo() or ContainerShip.getCargo() for the
-     *     currently selected ship returns a value indicating there is no cargo on board ,
-     *     then the cargoManifestText property should be set to "No cargo on
-     *     board. "</li>
-     *
-     *     <li>3. If the ship currently selected is a BulkCarrier, the cargoManifestText
-     *     property should be set to the BulkCargo.toString() representation of the
-     *     cargo onboard.</li>
-     *     For example:
-     *          <pre>BulkCargo 42 to Brazil [OIL - 420]</pre>
-     *
-     *     <li>4. If the ship currently selected is a ContainerShip, the cargoManifestText
-     *     property should be set to a String containing the Container.toString()
-     *     representation of each of the cargo onboard separated by a comma and
-     *     System.lineSeparator().</li>
-     *     Note: The last line should not have a trailing comma
-     *     For example:
-     *          <pre>Container 43 to Australia [OTHER],</pre>
-     *          <pre>Container 66 to Australia [OPEN_TOP],</pre>
-     *          <pre>Container 92 to Australia [OPEN_TOP]</pre>
-     * </ul>
-     * @return event handler for "Show Cargo Manifest for Selected Ship" button
-     * */
-    public EventHandler<ActionEvent> getShipContentsHandler(){
-
-    }
-
-    /** The purpose of this method is to update the evaluatorsText string. Called each
-     * elapseOneMinute()
-     *
-     * The string should be set to the following with each line separated by
-     * System.lineSeparator().
-     *
-     * <ul>
-     *     <li>If there are no evaluators at the port then the evaluatorsText should be set to
-     *     "No Evaluators Present".</li>
-     *
-     *     <li>If there are evaluators present their contents should be added in the order
-     *     that they appear in the list of evaluator in port (Port.getEvaluators()).
-     *     The contents of each evaluator is as follows with each bullet point indicating a
-     *     new line.</li>
-     *          <li>1. If the port has a QuayOccupancyEvaluator:</li>
-     *                  The name of the evaluator
-     *
-     *                  The current number of Quay's occupied should be printed as the
-     *                  following format
-     *                  <pre>num Quay(s) currently occupied</pre>
-     *                  Where num is the number of occupied quays
-     *
-     *           <li>2. If the port has a ShipFlagEvaluator:</li>
-     *                  The name of the evaluator
-     *
-     *                  For each unique Country flag that the evaluator has seen it
-     *                  should print that statistic in the following format
-     *                  <pre>country : num</pre>
-     *                  Where country is the name of the country flag and num is the
-     *                  number of times that flag has been seen
-     *
-     *           <li>3. If the port has a ShipThroughputEvaluator:</li>
-     *                  The name of the evaluator
-     *
-     *                  The current number of ships that have passed through the port
-     *                  in the last hour should be printed as the following format
-     *                  <pre>num Ships passed in the last hour</pre>
-     *                  where num is the number of ships through the port in the last
-     *                  hour
-     *
-     *           <li>4. If the port has a CargoDecompositionEvaluator:</li>
-     *                  The name of the evaluator
-     *
-     *                  For each unique cargo type that the evaluator has seen it should
-     *                  print that statistic in the following format
-     *                  <pre>cargo : num</pre>
-     *                  where cargo is the name of the cargo class and num is the
-     *                  number of times that flag has been seen.
-     *
-     * For example:
-     * <pre>
-     *    QuayOccupancyEvaluator
-     *    4 Quay(s) currently occupied
-     *    ShipFlagEvaluator
-     *    New Zealand : 2
-     *    Australia : 4
-     *    ShipThroughputEvaluator
-     *    2 Ships passed in the last hour
-     *    CargoDecompositionEvaluator
-     *    Container : 7
-     *    BulkCargo : 12
-     * </pre>
-     * </ul>
-     * */
-    public void updateEvaluatorText(){
-
-    }
-
-    /** Saves the current state of the port simulation to the given writer.
-     * The writer should be written to in the following format:
-     *
-     * <pre>
-     *     Name
-     *    Time
-     *    numCargo
-     *    EncodedCargo
-     *    EncodedCargo...
-     *    numShips
-     *    EncodedShip
-     *    EncodedShip...
-     *    numQuays
-     *    EncodedQuay
-     *    EncodedQuay...
-     *    ShipQueue:numShipsInQueue:shipID,shipID,...
-     *    StoredCargo:numCargo:cargoID,cargoID,...
-     *    Movements:numMovements
-     *    EncodedMovement
-     *    EncodedMovement...
-     *    Evaluators:numEvaluators:EvaluatorSimpleName,EvaluatorSimpleName,...
-     * </pre>
-     * Where:
-     * Name is the name of the Port
-     * Time is the time elapsed since the simulation started
-     * numCargo is the total number of cargo in the simulation
-     * EncodedCargo is the encoded representation of each individual cargo in the simulation
-     * numShips is the total number of ships in the simulation
-     * EncodedShip is the encoded representation of each individual ship encoding in the simulation
-     * numQuays is the total number of quays in the Port
-     * EncodedQuay is the encoded representation of each individual quay in the simulation
-     * numShipsInQueue is the total number of ships in the ship queue in the port
-     * shipID is each ship's ID in the aforementioned queue
-     * numCargo is the total amount of stored cargo in the Port
-     * cargoID is each cargo's ID in the stored cargo list of Port
-     * numMovements is the number of movements in the queue of movements in Port
-     * EncodedMovement is the encoded representation of each individual Movement in the aforementioned list
-     * numEvaluators is the number of statistics evaluators in the Port
-     * EvaluatorSimpleName is the name given by Class.getSimpleName() for each evaluator in the aforementioned list
-     *
-     * After all the data has been written, the writer should be closed
-     *
-     * @param portWriter writer to which the port will be written
-     * @throws IOException if an IOException occurs when writing to the writer
-     * */
-    public void saveAs(Writer portWriter) throws IOException{
 
     }
 
