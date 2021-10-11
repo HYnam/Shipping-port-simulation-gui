@@ -329,11 +329,15 @@ public abstract class Ship implements Encodable {
                 String.valueOf(listOfStrings[1]).length() != 7 ||
                 String.valueOf(listOfStrings[1]).startsWith("0")) {
             throw new BadEncodingException();
-        } else if (!listOfStrings[0].equals("ContainerShip") || !listOfStrings[0].equals("BulkCarrier")) {
+        } else if (!listOfStrings[0].equals("ContainerShip") || !listOfStrings[0].equals("BulkCarrier")){
             throw new BadEncodingException();
         } else if (!listOfStrings[4].equals(Arrays.toString(NauticalFlag.values()))) {
             throw new BadEncodingException();
-        } else if
+        } else if (!Cargo.cargoExists(Cargo.getCargoRegistry().hashCode())){ // cargo to add does not exists
+            throw new BadEncodingException();
+        } else if (!Cargo.getCargoRegistry()){  //encoded cargo cannot be added?
+            throw new BadEncodingException();
+        }
 
         return Ship.fromString(listOfStrings[0]);
     }
