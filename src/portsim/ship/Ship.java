@@ -214,9 +214,9 @@ public abstract class Ship implements Encodable {
 
         Ship testEqual = (Ship) o;
 
-        if (this.getName() == testEqual.getName()
+        if (this.getName().equals(testEqual.getName())
                 && this.getFlag().equals(testEqual.getFlag())
-                && this.getOriginFlag() == testEqual.getOriginFlag()
+                && this.getOriginFlag().equals(testEqual.getOriginFlag())
                 && this.getImoNumber() == testEqual.getImoNumber()){
             return true;
         }
@@ -333,9 +333,12 @@ public abstract class Ship implements Encodable {
             throw new BadEncodingException();
         } else if (!listOfStrings[4].equals(Arrays.toString(NauticalFlag.values()))) {
             throw new BadEncodingException();
-        } else if (!Cargo.cargoExists(Cargo.getCargoRegistry().hashCode())){ // cargo to add does not exists
+        } else if (!(Cargo.cargoExists(Cargo.fromString(listOfStrings[1]).getId()))){
+            // cargo to add does not exists
             throw new BadEncodingException();
-        } else if (!Cargo.getCargoRegistry()){  //encoded cargo cannot be added?
+        }
+        Ship ships = null;
+        if (ships.canLoad(Cargo.fromString(listOfStrings[0]))){  //encoded cargo cannot be added?
             throw new BadEncodingException();
         }
 
