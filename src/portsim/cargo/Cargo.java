@@ -80,7 +80,7 @@ public abstract class Cargo implements Encodable{
      * @return cargo registry
      * */
     public static Map<Integer, Cargo> getCargoRegistry(){
-        return new HashMap<Integer, Cargo>(cargoRegistry);
+        return new HashMap<>(cargoRegistry);
     }
 
     /** Check if a cargo exists in the simulation using its ID
