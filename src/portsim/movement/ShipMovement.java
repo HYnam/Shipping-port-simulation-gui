@@ -124,7 +124,7 @@ public class ShipMovement extends Movement {
         }
         if (Long.parseLong(listOfStrings[1]) < 0){
             throw new BadEncodingException();
-        } else if (Arrays.toString(MovementDirection.values()) != listOfStrings[2]) {
+        } else if (!Arrays.toString(MovementDirection.values()).equals(listOfStrings[2])) {
             throw new BadEncodingException();
         }
         try{
