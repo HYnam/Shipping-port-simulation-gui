@@ -1,10 +1,7 @@
 package portsim.ship;
 
-import com.sun.source.tree.BreakTree;
 import portsim.cargo.Cargo;
-import portsim.cargo.Container;
 import portsim.port.Quay;
-import portsim.port.ShipQueue;
 import portsim.util.BadEncodingException;
 import portsim.util.Encodable;
 import portsim.util.NoSuchShipException;
