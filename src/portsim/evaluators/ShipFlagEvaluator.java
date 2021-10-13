@@ -2,6 +2,8 @@ package portsim.evaluators;
 
 import portsim.movement.Movement;
 import portsim.movement.MovementDirection;
+import portsim.movement.ShipMovement;
+import portsim.util.BadEncodingException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,11 +35,7 @@ public class ShipFlagEvaluator extends StatisticsEvaluator {
      * @return number of times flag seen or 0 if not seen
      * */
     public int getFlagStatistics(String flag){
-        if (getFlagDistribution().containsKey(flag)){
-            return getFlagDistribution().get(flag);
-        } else {
-            return 0;
-        }
+        return getFlagDistribution().getOrDefault(flag, 0);
     }
 
     /** Updates the internal mapping of ship country flags using the given movement.
@@ -61,17 +59,17 @@ public class ShipFlagEvaluator extends StatisticsEvaluator {
     public void onProcessMovement(Movement movement){
         if (movement.getDirection() != MovementDirection.INBOUND){
             // take no action
-        } else if ((movement.getDirection() != MovementDirection.OUTBOUND)
-            || (movement.getDirection() != MovementDirection.INBOUND)){
+        } else if ((movement.getDirection() != MovementDirection.OUTBOUND)){
             // take no action if movement is not a ShipMovement
         }
 
+        int flagInt = getFlagStatistics(getFlagDistribution().toString());
         if (movement.getDirection() == MovementDirection.INBOUND){
-            if (getFlagStatistics(flag) > 0){
-                getFlagStatistics(flag) ++;
-            } else {
-                this.flagDistribution.put(flag, 1);
-            }
+                if (getFlagStatistics(getFlagDistribution().toString()) > 0){
+                    flagInt ++;
+                } else {
+                    this.flagDistribution.put(this.flagDistribution.toString(), 1);
+                }
         }
     }
 }
