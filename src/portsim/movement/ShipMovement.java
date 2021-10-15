@@ -1,5 +1,8 @@
 package portsim.movement;
 
+import portsim.cargo.Cargo;
+import portsim.port.Quay;
+import portsim.ship.NauticalFlag;
 import portsim.ship.Ship;
 import portsim.util.BadEncodingException;
 
@@ -119,25 +122,32 @@ public class ShipMovement extends Movement {
         }
         try{    // Try convert String to long for the time
             Long.parseLong(listOfStrings[1]);
+            Long.parseLong(listOfStrings[3]);
         } catch (Exception e){
             throw new BadEncodingException();
         }
-        if (Long.parseLong(listOfStrings[1]) < 0){
+        if (!Ship.shipExists(Long.parseLong(listOfStrings[3]))){
+            throw new BadEncodingException();
+        }
+        if (Long.parseLong(listOfStrings[1]) < 0 || Long.parseLong(listOfStrings[3]) < 0){
             throw new BadEncodingException();
         } else if (!Arrays.toString(MovementDirection.values()).equals(listOfStrings[2])) {
             throw new BadEncodingException();
         }
-        try{
-            Long.parseLong(listOfStrings[3]);
-        } catch (Exception i){
-            throw new BadEncodingException();
-        }
-        if (Long.parseLong(listOfStrings[3]) < 0){
-            throw new BadEncodingException();
-        } else if (Ship.shipExists(Long.parseLong(listOfStrings[3]))){
-            throw new BadEncodingException();
-        }
 
-        return ShipMovement.fromString(listOfStrings[0]);
+        return new ShipMovement(130, MovementDirection.OUTBOUND,
+                new Ship(1234567, "Peter", "Hong Kong", NauticalFlag.HOTEL) {
+            @Override
+            public boolean canDock(Quay quay) {
+                return false;
+            }
+            @Override
+            public boolean canLoad(Cargo cargo) {
+                return false;
+            }
+            @Override
+            public void loadCargo(Cargo cargo) {
+            }
+        });
     }
 }
