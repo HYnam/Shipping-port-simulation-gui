@@ -1,6 +1,5 @@
 package portsim.port;
 
-import portsim.movement.CargoMovement;
 import portsim.ship.Ship;
 import portsim.util.BadEncodingException;
 import portsim.util.Encodable;
@@ -215,13 +214,16 @@ public abstract class Quay implements Encodable {
         }
         try {
             Long.parseLong(listOfStrings[1]);
+            Integer.parseInt(listOfStrings[3]);
         } catch (Exception i){
             throw new BadEncodingException();
         }
         if (Long.parseLong(listOfStrings[1]) < 0){
             throw new BadEncodingException();
         }
-        if (!listOfStrings[0].equals("BulkQuay") || !listOfStrings[0].equals("ContainerQuay")){
+        if (!listOfStrings[0].equals("BulkQuay")){
+            throw new BadEncodingException();
+        } else if (!listOfStrings[0].equals("ContainerQuay")) {
             throw new BadEncodingException();
         }
         if (listOfStrings[2] != null)
@@ -230,11 +232,11 @@ public abstract class Quay implements Encodable {
             } catch (Exception e){
                 throw new BadEncodingException();
             }
-        try{
-            Integer.parseInt(listOfStrings[3]); // Check Quay capacity is integer or not
-        } catch (Exception j){
-            throw new BadEncodingException();
-        }
-        return Quay.fromString(listOfStrings[0]);
+        return new Quay(1) {
+            @Override
+            public int getId() {
+                return super.getId();
+            }
+        };
     }
 }
