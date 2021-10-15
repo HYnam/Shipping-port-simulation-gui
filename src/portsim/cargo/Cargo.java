@@ -44,7 +44,7 @@ public abstract class Cargo implements Encodable{
      * @ass1_partial
      */
     public Cargo(int id, String destination) throws IllegalArgumentException {
-        if (id < 0 && cargoRegistry.keySet().equals(this.id)) {
+        if (id < 0 && cargoRegistry.containsKey(this.id)) {
             throw new IllegalArgumentException("Cargo ID must be greater than"
                 + " or equal to 0: " + id);
         }
@@ -216,10 +216,11 @@ public abstract class Cargo implements Encodable{
         }
         if (cargoIdParsed < 0){
             throw new BadEncodingException();
-        } else if (cargoRegistry.keySet().equals(cargoIdParsed)) {  // Check if cargo exist with the map
+        } else if (cargoRegistry.containsKey(cargoIdParsed)) {  // Check if cargo exist with the map
             throw new BadEncodingException();
-        }  else if (!listOfStrings[0].equals(Container.class.getSimpleName()) // Check cargo class name != container
-                || !listOfStrings[0].equals(BulkCargo.class.getSimpleName())){    // Check cargo class name != BulkCargo
+        }  else if (!listOfStrings[0].equals("Container")) {    // Check cargo class name != BulkCargo
+            throw new BadEncodingException();
+        } else if (!listOfStrings[0].equals("BulkCargo")){
             throw new BadEncodingException();
         } else if (!Arrays.toString(ContainerType.values()).equals(listOfStrings[0]) ||   // Cargo type is not ContainerType
                 !Arrays.toString(BulkCargoType.values()).equals(listOfStrings[0])){   // Cargo type is not BulkCargoType
@@ -234,7 +235,12 @@ public abstract class Cargo implements Encodable{
             if (Integer.parseInt(listOfStrings[4]) < 0){
                 throw new BadEncodingException();
             }
-        return Cargo.fromString(listOfStrings[0]);
+        return new Cargo(2, "Australia") {
+            @Override
+            public int getId() {
+                return super.getId();
+            }
+        };
     }
 
     /**

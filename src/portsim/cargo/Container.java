@@ -57,14 +57,9 @@ public class Container extends Cargo {
 
         Container testEqual = (Container) o;
 
-        if (this.getId() == testEqual.getId()
+        return this.getId() == testEqual.getId()
                 && this.getDestination().equals(testEqual.getDestination())
-                && this.getType() == testEqual.getType()){
-            return true;
-        }
-        else {
-            return false;
-        }
+                && this.getType() == testEqual.getType();
     }
 
     /** Return the hash code of this Container
