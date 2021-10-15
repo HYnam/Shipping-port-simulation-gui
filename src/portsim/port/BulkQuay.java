@@ -1,7 +1,5 @@
 package portsim.port;
 
-import portsim.cargo.BulkCargo;
-
 import java.util.Objects;
 
 /**
@@ -61,14 +59,9 @@ public class BulkQuay extends Quay {
 
         BulkQuay testEqual = (BulkQuay) o;
 
-        if (this.getId() == testEqual.getId()
+        return this.getId() == testEqual.getId()
                 && this.isEmpty() == testEqual.isEmpty()
-                && this.getMaxTonnage() == testEqual.getMaxTonnage()){
-            return true;
-        }
-        else {
-            return false;
-        }
+                && this.getMaxTonnage() == testEqual.getMaxTonnage();
     }
 
     /** Returns the hash code of this BulkQuay.
