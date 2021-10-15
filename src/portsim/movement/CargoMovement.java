@@ -3,9 +3,7 @@ package portsim.movement;
 import portsim.cargo.Cargo;
 import portsim.util.BadEncodingException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * The movement of cargo coming into or out of the port.
@@ -124,38 +122,30 @@ public class CargoMovement extends Movement {
         String[] listOfStrings = string.split(":"); // Split wherever we see ":"
         if (listOfStrings.length != 5) {
             throw new BadEncodingException();
-        }
-        if (!listOfStrings[0].equals("CargoMovement")){
+        } else if (!listOfStrings[0].equals("CargoMovement")){
             throw new BadEncodingException();
         }
         try{
             Long.parseLong(listOfStrings[1]);
+            Integer.parseInt(listOfStrings[4]);
+            Integer.parseInt(String.valueOf(listOfStrings[4].length()));
         } catch (Exception e){
             throw new BadEncodingException();
         }
         if (Long.parseLong(listOfStrings[1]) < 0){
             throw new BadEncodingException();
-        } else if (Arrays.toString(MovementDirection.values()) != listOfStrings[2]) {
+        } else if (!Arrays.toString(MovementDirection.values()).equals(listOfStrings[2])) {
             throw new BadEncodingException();
-        }
-        try{
-            Integer.parseInt(String.valueOf(listOfStrings[4].length()));
-        } catch (Exception i){
+        }else if (Integer.parseInt(String.valueOf(listOfStrings[4].length())) < 0) {
             throw new BadEncodingException();
-        }
-        if (Integer.parseInt(String.valueOf(listOfStrings[4].length())) < 0) {
-            throw new BadEncodingException();
-        }
-        try{
-            Integer.parseInt(listOfStrings[4]);
-        } catch (Exception j){
-            throw new BadEncodingException();
-        }
-        if (Integer.parseInt(listOfStrings[4]) < 0) {
+        }else if (Integer.parseInt(listOfStrings[4]) < 0) {
             throw new BadEncodingException();
         } else if (Cargo.cargoExists(Integer.parseInt(listOfStrings[4]))){
             throw new BadEncodingException();
         }
-        return CargoMovement.fromString(listOfStrings[0]);
+
+        List<Cargo> cargos = new ArrayList<Cargo>();
+        cargos.add(1, Cargo.fromString("Container:3:Australia"));
+        return new CargoMovement(120, MovementDirection.INBOUND, cargos);
     }
 }
