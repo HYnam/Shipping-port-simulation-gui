@@ -6,6 +6,8 @@ import portsim.movement.CargoMovement;
 import portsim.movement.Movement;
 import portsim.movement.MovementDirection;
 import portsim.movement.ShipMovement;
+import portsim.ship.NauticalFlag;
+import portsim.ship.Ship;
 import portsim.util.BadEncodingException;
 import portsim.util.Encodable;
 import portsim.util.Tickable;
@@ -117,7 +119,6 @@ public class Port implements Tickable, Encodable {
     public void addMovement(Movement movement) throws
             IllegalArgumentException{
         this.priorityQueue.add(movement);
-        // How to throw exception!!
         if (movement.getTime() < getTime()){
             throw new IllegalArgumentException();
         }
@@ -148,13 +149,27 @@ public class Port implements Tickable, Encodable {
      *
      * @param movement movement to execute*/
     public void processMovement(Movement movement){
-        if (movement.getDirection() == ShipMovement().super.getDirection()){
+        ShipMovement directionShip = new ShipMovement(120, MovementDirection.INBOUND,
+                new Ship(1258691, "Evergreen", "Australia", NauticalFlag.BRAVO) {
+            @Override
+            public boolean canDock(Quay quay) {
+                return false;
+            }
+            @Override
+            public boolean canLoad(Cargo cargo) {
+                return false;
+            }
+            @Override
+            public void loadCargo(Cargo cargo) {
+            }
+        });
+        if (movement.getDirection() instanceof directionShip.getDirection()){
             if (movement.getDirection() == MovementDirection.INBOUND){
                 this.shipQueue.add(ship);
             } else if (movement.getDirection() == MovementDirection.OUTBOUND){
 
             }
-        } else if (movement.getDirection() == new Movement.CargoMovement()){
+        } else if (movement.getDirection() == new CargoMovement()){
             if (movement.getDirection() == MovementDirection.INBOUND){
                 this.storedCargo.add();
             } else if (movement.getDirection() == MovementDirection.OUTBOUND){
