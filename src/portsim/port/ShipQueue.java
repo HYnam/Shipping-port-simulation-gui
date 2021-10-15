@@ -91,8 +91,7 @@ public class ShipQueue implements Encodable {
      * @return ships in queue
      * */
     public List<Ship> getShipQueue(){
-        List<Ship> results = new LinkedList<Ship>(ships);
-        return results;
+        return new LinkedList<Ship>(ships);
     }
 
     /** Returns true if and only if this ship queue is equal to the other given ship queue.
