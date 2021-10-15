@@ -211,15 +211,10 @@ public abstract class Ship implements Encodable {
 
         Ship testEqual = (Ship) o;
 
-        if (this.getName().equals(testEqual.getName())
+        return this.getName().equals(testEqual.getName())
                 && this.getFlag().equals(testEqual.getFlag())
                 && this.getOriginFlag().equals(testEqual.getOriginFlag())
-                && this.getImoNumber() == testEqual.getImoNumber()){
-            return true;
-        }
-        else {
-            return false;
-        }
+                && this.getImoNumber() == testEqual.getImoNumber();
     }
 
     /** Returns the hash code of this ship.
