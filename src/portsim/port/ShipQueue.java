@@ -196,20 +196,16 @@ public class ShipQueue implements Encodable {
         }
         try{
             Integer.parseInt(listOfStrings[1]);
+            Long.parseLong(listOfStrings[2]);
         } catch (Exception e){
             throw new BadEncodingException();
         }
         if (Integer.parseInt(listOfStrings[1]) != listOfStrings[2].length()) {
             throw new BadEncodingException();
         }
-        try{
-            Long.parseLong(listOfStrings[2]);
-        } catch (Exception i){
-            throw new BadEncodingException();
-        }
         if (Ship.shipExists(Long.parseLong(listOfStrings[2]))){
             throw new BadEncodingException();
         }
-        return ShipQueue.fromString(listOfStrings[0]);
+        return new ShipQueue();
     }
 }
