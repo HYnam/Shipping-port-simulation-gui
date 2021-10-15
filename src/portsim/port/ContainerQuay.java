@@ -60,14 +60,9 @@ public class ContainerQuay extends Quay {
 
         ContainerQuay testEqual = (ContainerQuay) o;
 
-        if (this.getId() == testEqual.getId()
+        return this.getId() == testEqual.getId()
                 && this.isEmpty() == testEqual.isEmpty()
-                && this.getMaxContainers() == testEqual.getMaxContainers()){
-            return true;
-        }
-        else {
-            return false;
-        }
+                && this.getMaxContainers() == testEqual.getMaxContainers();
     }
 
     /** Returns the hash code of this ContainerQuay.

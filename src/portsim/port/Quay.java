@@ -111,13 +111,8 @@ public abstract class Quay implements Encodable {
 
         Quay testEqual = (Quay) o;
 
-        if (this.getId() == testEqual.getId()
-                && this.isEmpty() == testEqual.isEmpty()){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return this.getId() == testEqual.getId()
+                && this.isEmpty() == testEqual.isEmpty();
     }
 
     /** Returns the hash code of this quay.
