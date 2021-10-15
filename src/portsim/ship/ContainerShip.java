@@ -164,9 +164,9 @@ public class ContainerShip extends Ship {
 
         ContainerShip testEqual = (ContainerShip) o;
 
-        if (this.getName() == testEqual.getName()
+        if (this.getName().equals(testEqual.getName())
                 && this.getFlag().equals(testEqual.getFlag())
-                && this.getOriginFlag() == testEqual.getOriginFlag()
+                && this.getOriginFlag().equals(testEqual.getOriginFlag())
                 && this.getImoNumber() == testEqual.getImoNumber()
                 && this.containerCapacity == testEqual.containerCapacity){
             return true;
