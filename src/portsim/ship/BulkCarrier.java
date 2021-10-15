@@ -160,16 +160,11 @@ public class BulkCarrier extends Ship {
 
         BulkCarrier testEqual = (BulkCarrier) o;
 
-        if (this.getName() == testEqual.getName()
+        return this.getName().equals(testEqual.getName())
                 && this.getFlag().equals(testEqual.getFlag())
-                && this.getOriginFlag() == testEqual.getOriginFlag()
+                && this.getOriginFlag().equals(testEqual.getOriginFlag())
                 && this.getImoNumber() == testEqual.getImoNumber()
-                && this.tonnageCapacity == testEqual.tonnageCapacity){
-            return true;
-        }
-        else {
-            return false;
-        }
+                && this.tonnageCapacity == testEqual.tonnageCapacity;
     }
 
     /** Returns the hash code of this BulkCarrier.
@@ -230,7 +225,7 @@ public class BulkCarrier extends Ship {
      * @return encoded string representation of this Ship
      * */
     public String encode(){
-        return String.format("%s:%s:%d:%s",
+        return String.format("%s:%d:%s",
                 super.encode(),
                 this.tonnageCapacity,
                 this.cargo != null ? this.cargo.getId() : "");

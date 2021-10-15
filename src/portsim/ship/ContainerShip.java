@@ -164,16 +164,11 @@ public class ContainerShip extends Ship {
 
         ContainerShip testEqual = (ContainerShip) o;
 
-        if (this.getName().equals(testEqual.getName())
+        return this.getName().equals(testEqual.getName())
                 && this.getFlag().equals(testEqual.getFlag())
                 && this.getOriginFlag().equals(testEqual.getOriginFlag())
                 && this.getImoNumber() == testEqual.getImoNumber()
-                && this.containerCapacity == testEqual.containerCapacity){
-            return true;
-        }
-        else {
-            return false;
-        }
+                && this.containerCapacity == testEqual.containerCapacity;
     }
 
     /** Returns the hash code of this ContainerShip.
