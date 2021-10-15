@@ -75,14 +75,9 @@ public class BulkCargo extends Cargo {
 
         BulkCargo testEqual = (BulkCargo) o;
 
-        if (this.getId() == testEqual.getId()
-        && this.getDestination().equals(testEqual.getDestination())
-        && this.getTonnage() == testEqual.getTonnage()){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return this.getId() == testEqual.getId()
+                && this.getDestination().equals(testEqual.getDestination())
+                && this.getTonnage() == testEqual.getTonnage();
     }
 
     /** Return the hash code of this BulkCargo
