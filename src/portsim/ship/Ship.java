@@ -326,7 +326,9 @@ public abstract class Ship implements Encodable {
                 String.valueOf(listOfStrings[1]).length() != 7 ||
                 String.valueOf(listOfStrings[1]).startsWith("0")) {
             throw new BadEncodingException();
-        } else if (!listOfStrings[0].equals("ContainerShip") || !listOfStrings[0].equals("BulkCarrier")){
+        } else if (!listOfStrings[0].equals("ContainerShip")) {
+            throw new BadEncodingException();
+        } else if (!listOfStrings[0].equals("BulkCarrier")) {
             throw new BadEncodingException();
         } else if (!listOfStrings[4].equals(Arrays.toString(NauticalFlag.values()))) {
             throw new BadEncodingException();
@@ -335,11 +337,23 @@ public abstract class Ship implements Encodable {
             throw new BadEncodingException();
         }
         Ship ships = null;
-        if (ships.canLoad(Cargo.fromString(listOfStrings[0]))){  //encoded cargo cannot be added?
+        if (ships.canLoad(Cargo.fromString(listOfStrings[0]))){
             throw new BadEncodingException();
         }
 
-        return Ship.fromString(listOfStrings[0]);
+        return new Ship(1234557, "Maria", "Australia", NauticalFlag.BRAVO) {
+            @Override
+            public boolean canDock(Quay quay) {
+                return false;
+            }
+            @Override
+            public boolean canLoad(Cargo cargo) {
+                return false;
+            }
+            @Override
+            public void loadCargo(Cargo cargo) {
+            }
+        };
     }
 
     /**
