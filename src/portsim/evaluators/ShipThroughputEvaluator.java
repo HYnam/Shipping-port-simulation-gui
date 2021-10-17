@@ -42,11 +42,13 @@ public class ShipThroughputEvaluator extends StatisticsEvaluator {
      * @param movement movement to read
      * */
     public void onProcessMovement(Movement movement){
+        /**
         if (movement.getDirection() != MovementDirection.OUTBOUND){
 
         } else {
             getThroughputPerHour() ++;
         }
+         **/
     }
 
     /** Simulate a minute passing. The time since the evaluator was created should be
@@ -56,6 +58,8 @@ public class ShipThroughputEvaluator extends StatisticsEvaluator {
      * counted towards the count returned by getThroughputPerHour().
      * */
     public void elapseOneMinute(){
+        /**
         if (elapseOneMinute() > Instant.now().plusSeconds(60)*60)
+         **/
     }
 }

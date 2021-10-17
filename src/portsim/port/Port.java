@@ -149,6 +149,7 @@ public class Port implements Tickable, Encodable {
      *
      * @param movement movement to execute*/
     public void processMovement(Movement movement){
+        /**
         ShipMovement directionShip = new ShipMovement(120, MovementDirection.INBOUND,
                 new Ship(1258691, "Evergreen", "Australia", NauticalFlag.BRAVO) {
             @Override
@@ -163,7 +164,7 @@ public class Port implements Tickable, Encodable {
             public void loadCargo(Cargo cargo) {
             }
         });
-        if (movement.getDirection() instanceof directionShip.getDirection()){
+        if (movement instanceof directionShip.){
             if (movement.getDirection() == MovementDirection.INBOUND){
                 this.shipQueue.add(ship);
             } else if (movement.getDirection() == MovementDirection.OUTBOUND){
@@ -176,6 +177,7 @@ public class Port implements Tickable, Encodable {
                 this.storedCargo.remove(Cargo.getCargoById(id));
             }
         }
+         **/
     }
 
     /** Adds the given statistics evaluator to the port's list of evaluators.
@@ -476,7 +478,7 @@ public class Port implements Tickable, Encodable {
      * */
     public static Port initialisePort(Reader reader) throws
             IOException, BadEncodingException{
-
+        return null;
     }
 
 }
