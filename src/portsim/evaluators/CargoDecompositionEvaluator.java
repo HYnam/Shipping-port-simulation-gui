@@ -1,8 +1,13 @@
 package portsim.evaluators;
 
 import portsim.cargo.BulkCargo;
+import portsim.cargo.BulkCargoType;
 import portsim.cargo.Container;
+import portsim.cargo.ContainerType;
+import portsim.movement.CargoMovement;
 import portsim.movement.Movement;
+import portsim.movement.MovementDirection;
+import portsim.movement.ShipMovement;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,10 +25,10 @@ public class CargoDecompositionEvaluator extends StatisticsEvaluator {
     private Map<String, Integer> cargoDistribution;
 
     /** To store the number of distribution on BulkCargo type entered the port */
-    private Map<BulkCargo,Integer> bulkCargoDistribution;
+    private Map<BulkCargoType,Integer> bulkCargoDistribution;
 
     /** To store the number of distribution on Container type entered the port */
-    private Map<Container, Integer> containerDistribution;
+    private Map<ContainerType, Integer> containerDistribution;
 
     /** Constructs a new CargoDecompositionEvaluator */
     public CargoDecompositionEvaluator(){
@@ -42,18 +47,19 @@ public class CargoDecompositionEvaluator extends StatisticsEvaluator {
     /** Return the distribution of bulk cargo types that have entered the port
      * @return bulk cargo distribution map
      * */
-    public Map<BulkCargo, Integer> getBulkCargoDistribution(){
+    public Map<BulkCargoType, Integer> getBulkCargoDistribution(){
         return this.bulkCargoDistribution;
     }
 
     /** Return the distribution of container cargo types that have entered the port
      * @return container distribution map
      * */
-    public Map<Container, Integer> getContainerDistribution(){
+    public Map<ContainerType, Integer> getContainerDistribution(){
         return this.containerDistribution;
     }
 
     /** Updates the internal distributions of cargo types using the given movement
+     *
      * If the movement is not an {@code INBOUND} movement, this method return immediately
      * without taking any action
      *
@@ -82,6 +88,17 @@ public class CargoDecompositionEvaluator extends StatisticsEvaluator {
      * @param movement movement to read
      * */
     public void onProcessMovement(Movement movement){
-        if ()
+        if (movement.getDirection() == MovementDirection.INBOUND) {
+            MovementDirection direction = MovementDirection.valueOf("INBOUND, OUTBOUND");
+            if (movement.getDirection() == direction) {
+                getCargoDistribution().merge("Container", 1, Integer::sum);
+                getCargoDistribution().merge("BulkCargo", 1, Integer::sum);
+
+                getBulkCargoDistribution().merge(BulkCargoType.valueOf("GRAIN, MINERALS, COAL, OIL, OTHER")
+                        , 1, Integer::sum);
+                getContainerDistribution().merge(ContainerType.valueOf("OTHER, TANKER, REEFER, OPEN_TOP, STANDARD")
+                        , 1, Integer::sum);
+            }
+        }
     }
 }
