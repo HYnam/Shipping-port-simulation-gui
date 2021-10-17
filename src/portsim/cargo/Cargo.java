@@ -44,7 +44,7 @@ public abstract class Cargo implements Encodable{
      * @ass1_partial
      */
     public Cargo(int id, String destination) throws IllegalArgumentException {
-        if (id < 0 && cargoRegistry.containsKey(this.id)) {
+        if (id < 0 || cargoRegistry.containsKey(this.id)) {
             throw new IllegalArgumentException("Cargo ID must be greater than"
                 + " or equal to 0: " + id);
         }
