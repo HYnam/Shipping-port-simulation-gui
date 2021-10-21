@@ -428,8 +428,56 @@ public class Port implements Tickable, Encodable {
      * @return encoded string representation of this Port
      * */
     public String encode(){
-        return getName() + System.lineSeparator() + getTime() + System.lineSeparator()
-                + getCargo().size() + System.lineSeparator() ;
+        StringBuilder result = new StringBuilder();
+        result.append(name).append(System.lineSeparator()); //Name
+        result.append(timeSimulationStarted).append(System.lineSeparator()); // Time
+        result.append(storedCargo.size()).append(System.lineSeparator()); // numCargo
+        for (Cargo cargo : storedCargo) { // EncodedCargo
+            result.append(cargo.encode()).append(System.lineSeparator());
+        }
+        int numOfShip = 0; // numShips
+        for (Quay quay : quays) {
+            if (!quay.isEmpty()) {
+                numOfShip++;
+            }
+        }
+        numOfShip += shipQueue.getShipQueue().size();
+        result.append((char) numOfShip).append(System.lineSeparator());
+        for (Quay quay : quays) { // EncodedShip
+            if (!quay.isEmpty()) {
+                result.append(quay.getShip().encode()).append(System.lineSeparator());
+            }
+        }
+        for (Ship ship : shipQueue.getShipQueue()) {
+            result.append(ship.encode()).append(System.lineSeparator());
+        }
+        result.append((char) quays.size()).append(System.lineSeparator()); // numQuays
+        for (Quay quay : quays) { // EncodedQuay
+            result.append(quay.encode()).append(System.lineSeparator());
+        }
+        StringBuilder txt = new StringBuilder("ShipQueue:");
+        txt.append(shipQueue.getShipQueue().size()).append(":");
+        for (Ship ship : shipQueue.getShipQueue()) {
+            txt.append(ship.getImoNumber()).append(",");
+        }
+        result.append(txt.substring(0, txt.length() - 1)).append(System.lineSeparator());
+        txt = new StringBuilder("StoredCargo:");
+        txt.append(storedCargo.size()).append(":");
+        for (Cargo cargo : storedCargo) {
+            txt.append(cargo.getId()).append(",");
+        }
+        result.append(txt.substring(0, txt.length() - 1)).append(System.lineSeparator());
+        result.append("Movements:").append((char) priorityQueue.size()).append(System.lineSeparator());
+        for (Movement movement : priorityQueue) {
+            result.append(movement.encode()).append(System.lineSeparator());
+        }
+        txt = new StringBuilder("Evaluators:");
+        txt.append(statisticsEvaluatorList.size()).append(":");
+        for (StatisticsEvaluator evaluator : statisticsEvaluatorList) {
+            txt.append(evaluator.getClass().getSimpleName()).append(",");
+        }
+        result.append(txt.substring(0, txt.length() - 1)).append(System.lineSeparator());
+        return result.toString();
     }
 
     /** Creates a port instance by reading various ship, quay, cargo, movement and evaluator
