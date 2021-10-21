@@ -8,7 +8,10 @@ import javafx.scene.control.Alert;
 import portsim.cargo.BulkCargoType;
 import portsim.cargo.Cargo;
 import portsim.evaluators.*;
+import portsim.movement.Movement;
 import portsim.port.Port;
+import portsim.port.Quay;
+import portsim.port.ShipQueue;
 import portsim.ship.BulkCarrier;
 import portsim.ship.ContainerShip;
 import portsim.ship.Ship;
@@ -156,6 +159,30 @@ public class ViewModel {
      * @ass2
      */
     public EventHandler<ActionEvent> getShipContentsHandler() {
+        if (getSelectedShip() != null) {
+            Ship ship = selectedShip.get();
+            if (ship instanceof BulkCarrier) {
+                if (((BulkCarrier) ship).getCargo() == null) {
+                    cargoManifestText.set("No cargo on board.");
+                } else {
+                    cargoManifestText.set(((BulkCarrier) ship).getCargo().toString());
+                }
+            } else if (ship instanceof ContainerShip) {
+                if (((ContainerShip) ship).getCargo().size() == 0) {
+                    cargoManifestText.set("No cargo on board.");
+                } else {
+                    String txt = "";
+                    for (int i=0; i<((ContainerShip) ship).getCargo().size(); i++) {
+                        if (i < ((ContainerShip) ship).getCargo().size() - 1) {
+                            txt += ((ContainerShip) ship).getCargo().get(i).toString() + "," + System.lineSeparator();
+                        } else {
+                            txt += ((ContainerShip) ship).getCargo().get(i).toString();
+                        }
+                    }
+                    cargoManifestText.set(txt);
+                }
+            }
+        }
         return null; // TODO implement for assignment 2
     }
 
@@ -222,6 +249,29 @@ public class ViewModel {
      */
     public void updateEvaluatorText() {
         // TODO implement for assignment 2
+        if (port.getEvaluators().size() == 0) {
+            evaluatorsText.set("No Evaluators Present");
+        } else {
+            StringBuilder txt = new StringBuilder();
+            for (StatisticsEvaluator statisticsEvaluator : port.getEvaluators()) {
+                if (statisticsEvaluator instanceof QuayOccupancyEvaluator) {
+                    txt.append("QuayOccupancyEvaluator").append(System.lineSeparator());
+                    txt.append(((QuayOccupancyEvaluator) statisticsEvaluator).getQuaysOccupied()).append(" Quay(s) currently occupied").append(System.lineSeparator());
+                } else if (statisticsEvaluator instanceof ShipFlagEvaluator) {
+                    txt.append("ShipFlagEvaluator").append(System.lineSeparator());
+                    Map<String, Integer> distribution = ((ShipFlagEvaluator) statisticsEvaluator).getFlagDistribution();
+                    distribution.forEach((key, value) -> txt.append(key).append(":").append(value).append(System.lineSeparator()));
+                } else if (statisticsEvaluator instanceof ShipThroughputEvaluator) {
+                    txt.append("ShipThroughputEvaluator").append(System.lineSeparator());
+                    txt.append(((ShipThroughputEvaluator) statisticsEvaluator).getThroughputPerHour()).append("  Ships passed in the last hour").append(System.lineSeparator());
+                } else if (statisticsEvaluator instanceof CargoDecompositionEvaluator) {
+                    txt.append("CargoDecompositionEvaluator").append(System.lineSeparator());
+                    Map<String, Integer> distribution = ((CargoDecompositionEvaluator) statisticsEvaluator).getCargoDistribution();
+                    distribution.forEach((key, value) -> txt.append(key).append(":").append(value).append(System.lineSeparator()));
+                }
+            }
+            evaluatorsText.set(txt.toString());
+        }
     }
 
     /**
@@ -283,6 +333,55 @@ public class ViewModel {
      */
     public void saveAs(Writer portWriter) throws IOException {
         // TODO implement for assignment 2
+        portWriter.append(port.getName()).append(System.lineSeparator()); //Name
+        portWriter.append((char) port.getTime()).append(System.lineSeparator()); // Time
+        portWriter.append((char) port.getCargo().size()).append(System.lineSeparator()); // numCargo
+        for (Cargo cargo : port.getCargo()) { // EncodedCargo
+            portWriter.append(cargo.encode()).append(System.lineSeparator());
+        }
+        int numOfShip = 0; // numShips
+        for (Quay quay : port.getQuays()) {
+            if (!quay.isEmpty()) {
+                numOfShip++;
+            }
+        }
+        numOfShip += port.getShipQueue().getShipQueue().size();
+        portWriter.append((char) numOfShip).append(System.lineSeparator());
+        for (Quay quay : port.getQuays()) { // EncodedShip
+            if (!quay.isEmpty()) {
+                portWriter.append(quay.getShip().encode()).append(System.lineSeparator());
+            }
+        }
+        for (Ship ship : port.getShipQueue().getShipQueue()) {
+            portWriter.append(ship.encode()).append(System.lineSeparator());
+        }
+        portWriter.append((char) port.getQuays().size()).append(System.lineSeparator()); // numQuays
+        for (Quay quay : port.getQuays()) { // EncodedQuay
+            portWriter.append(quay.encode()).append(System.lineSeparator());
+        }
+        StringBuilder txt = new StringBuilder("ShipQueue:");
+        txt.append(port.getShipQueue().getShipQueue().size()).append(":");
+        for (Ship ship : port.getShipQueue().getShipQueue()) {
+            txt.append(ship.getImoNumber()).append(",");
+        }
+        portWriter.append(txt.substring(0, txt.length() - 1)).append(System.lineSeparator());
+        txt = new StringBuilder("StoredCargo:");
+        txt.append(port.getCargo().size()).append(":");
+        for (Cargo cargo : port.getCargo()) {
+            txt.append(cargo.getId()).append(",");
+        }
+        portWriter.append(txt.substring(0, txt.length() - 1)).append(System.lineSeparator());
+        portWriter.append("Movements:").append((char) port.getMovements().size()).append(System.lineSeparator());
+        for (Movement movement : port.getMovements()) {
+            portWriter.append(movement.encode()).append(System.lineSeparator());
+        }
+        txt = new StringBuilder("Evaluators:");
+        txt.append(port.getEvaluators().size()).append(":");
+        for (StatisticsEvaluator evaluator : port.getEvaluators()) {
+            txt.append(evaluator.getClass().getSimpleName()).append(",");
+        }
+        portWriter.append(txt.substring(0, txt.length() - 1)).append(System.lineSeparator());
+        portWriter.close();
     }
 
     /**
