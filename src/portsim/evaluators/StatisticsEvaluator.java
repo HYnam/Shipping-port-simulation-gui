@@ -34,8 +34,9 @@ public abstract class StatisticsEvaluator implements Tickable {
      * increment by one
      * */
     public void elapseOneMinute(){
-        for (Instant.now().plusSeconds(60);;){  //Count 1 minute
-            this.timeEvaluatorCreated ++;
-        }
+        this.timeEvaluatorCreated++;
+//        for (Instant.now().plusSeconds(60);;){  //Count 1 minute
+//            this.timeEvaluatorCreated ++;
+//        }
     }
 }
