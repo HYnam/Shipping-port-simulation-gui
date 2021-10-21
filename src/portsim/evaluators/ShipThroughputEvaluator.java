@@ -4,6 +4,8 @@ import portsim.movement.Movement;
 import portsim.movement.MovementDirection;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 /** Gathers data on how many ships pass through the port over time.
  *
@@ -12,20 +14,23 @@ import java.time.Instant;
  * */
 public class ShipThroughputEvaluator extends StatisticsEvaluator {
 
+    private int numOfShip;
+    private List<Long> shipsArriveTimeList;
     /** Constructs a new ShipThroughputEvaluator
      *
      * Immediately after creating a new ShipThroughputEvaluator,
      * getThroughputPerHour() should return 0
      * */
     public ShipThroughputEvaluator(){
-
+        this.numOfShip = 0;
+        this.shipsArriveTimeList = new ArrayList<>();
     }
 
     /** Return the number of ships that have passed through the port in the last 60 minutes.
      * @return ships throughput
      * */
     public int getThroughputPerHour(){
-        return 0;
+        return shipsArriveTimeList.size();
     }
 
     /** Updates the internal count of ships that have passed through the port using the given
@@ -42,6 +47,9 @@ public class ShipThroughputEvaluator extends StatisticsEvaluator {
      * @param movement movement to read
      * */
     public void onProcessMovement(Movement movement){
+        if (movement.getDirection() == MovementDirection.OUTBOUND) {
+            shipsArriveTimeList.add(super.getTime());
+        }
         /**
         if (movement.getDirection() != MovementDirection.OUTBOUND){
 
@@ -58,8 +66,11 @@ public class ShipThroughputEvaluator extends StatisticsEvaluator {
      * counted towards the count returned by getThroughputPerHour().
      * */
     public void elapseOneMinute(){
-        /**
-        if (elapseOneMinute() > Instant.now().plusSeconds(60)*60)
-         **/
+        super.elapseOneMinute();
+        for (int i=0; i<shipsArriveTimeList.size(); i++) {
+            if(super.getTime() - shipsArriveTimeList.get(i) > 60) {
+                shipsArriveTimeList.remove(i);
+            }
+        }
     }
 }
