@@ -57,19 +57,13 @@ public class ShipFlagEvaluator extends StatisticsEvaluator {
      * @param movement movement to read
      * */
     public void onProcessMovement(Movement movement){
-        if (movement.getDirection() != MovementDirection.INBOUND){
-            // take no action
-        } else if ((movement.getDirection() != MovementDirection.OUTBOUND)){
-            // take no action if movement is not a ShipMovement
-        }
-
-        int flagInt = getFlagStatistics(getFlagDistribution().toString());
-        if (movement.getDirection() == MovementDirection.INBOUND){
-                if (getFlagStatistics(getFlagDistribution().toString()) > 0){
-                    flagInt ++;
-                } else {
-                    this.flagDistribution.put(this.flagDistribution.toString(), 1);
-                }
+        if (movement.getDirection() == MovementDirection.INBOUND && movement instanceof ShipMovement){
+            String key = ((ShipMovement) movement).getShip().getOriginFlag();
+            if (flagDistribution.containsKey(key)) {
+                flagDistribution.put(key, flagDistribution.get(key) + 1);
+            } else {
+                flagDistribution.put(key, 1);
+            }
         }
     }
 }
