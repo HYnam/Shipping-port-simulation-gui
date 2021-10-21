@@ -1,7 +1,6 @@
 package portsim.port;
 
-import portsim.cargo.Cargo;
-import portsim.cargo.Container;
+import portsim.cargo.*;
 import portsim.evaluators.StatisticsEvaluator;
 import portsim.movement.CargoMovement;
 import portsim.movement.Movement;
@@ -583,6 +582,84 @@ public class Port implements Tickable, Encodable {
      * */
     public static Port initialisePort(Reader reader) throws
             IOException, BadEncodingException{
+        int data = reader.read();
+        StringBuilder txt = new StringBuilder();
+        while (data != -1) {
+            txt.append((char) data);
+            data = reader.read();
+        }
+        reader.close();
+
+        String[] txtArr = txt.toString().split(System.lineSeparator());
+
+        int counter = 0;
+        String name = txtArr[counter]; // name
+        counter++;
+        Long time = Long.parseLong(txtArr[counter]); //time
+        counter++;
+        int numCargo = Integer.parseInt(txtArr[counter]); //numCargo
+        counter++;
+        List<Cargo> cargoList = new ArrayList<>(); // CargoList
+        for (int i=counter; i<counter+numCargo;i++) {
+            String[] arr = txtArr[i].split(":");
+            if (arr[0].equals("BulkCargo")) {
+                int id = Integer.parseInt(arr[1]);
+                String destination = arr[2];
+                String type = arr[3];
+                int tonnage = Integer.parseInt(arr[4]);
+                cargoList.add(new BulkCargo(id, destination, tonnage, BulkCargoType.valueOf(type)));
+            } else if (arr[0].equals("Container")) {
+                int id = Integer.parseInt(arr[1]);
+                String destination = arr[2];
+                String type = arr[3];
+                cargoList.add(new Container(id, destination, ContainerType.valueOf(type)));
+            }
+        }
+        counter += numCargo;
+        int numShip = Integer.parseInt(txtArr[counter]); // numShip
+        counter++;
+        List<Ship> shipList = new ArrayList<>(); // shipList
+        for (int i=counter; i<counter+numShip; i++) {
+            String[] arr = txtArr[i].split(":");
+            if (arr[0].equals("ContainerShip")) {
+                int id = Integer.parseInt(arr[1]);
+                String shipName = arr[2];
+                String originFlag = arr[3];
+                NauticalFlag flag = NauticalFlag.valueOf(arr[4]);
+                int capacity = Integer.parseInt(arr[5]);
+                int numOfCargo = Integer.parseInt(arr[6]);
+            } else if (arr[0].equals("BulkCarrier")) {
+                int id = Integer.parseInt(arr[1]);
+                String shipName = arr[2];
+                String originFlag = arr[3];
+                NauticalFlag flag = NauticalFlag.valueOf(arr[4]);
+                int capacity = Integer.parseInt(arr[5]);
+            }
+        }
+        counter += numShip;
+        int numQuays = Integer.parseInt(txtArr[counter]); // numQuays
+        counter++;
+        for (int i=counter; i<counter+numQuays; i++) { // QuaysList
+            String[] arr = txtArr[i].split(":");
+        }
+        counter += numQuays;
+        List<Ship> shipQueue = new ArrayList<>(); // shipQueue
+        String[] sqArr = txtArr[counter].split(":"); //ship id
+        counter++;
+        String[] moveArr = txtArr[counter].split(":");
+        int numMovement = Integer.parseInt(moveArr[1]); // movement
+        for (int i=0; i<counter+numMovement; i++) { // movementList
+            String[] arr = txtArr[i].split(":");
+            if (arr[0].equals("ShipMovement")) {
+
+            } else if (arr[0].equals("CargoMovement")) {
+
+            }
+        }
+        counter += numMovement;
+        String[] evaluatorsArr = txtArr[counter].split(":"); // evaluators
+        int numEvaluators = Integer.parseInt(evaluatorsArr[1]);
+        List<StatisticsEvaluator> evaluators = new ArrayList<>(); // evaluators list
         return null;
     }
 
