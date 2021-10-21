@@ -5,17 +5,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import portsim.cargo.BulkCargo;
-import portsim.cargo.BulkCargoType;
-import portsim.cargo.Cargo;
-import portsim.cargo.Container;
 import portsim.ship.BulkCarrier;
 import portsim.ship.ContainerShip;
 import portsim.ship.NauticalFlag;
 import portsim.ship.Ship;
 import portsim.util.BadEncodingException;
-
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
