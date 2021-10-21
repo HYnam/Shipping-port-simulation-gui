@@ -333,54 +333,7 @@ public class ViewModel {
      */
     public void saveAs(Writer portWriter) throws IOException {
         // TODO implement for assignment 2
-        portWriter.append(port.getName()).append(System.lineSeparator()); //Name
-        portWriter.append((char) port.getTime()).append(System.lineSeparator()); // Time
-        portWriter.append((char) port.getCargo().size()).append(System.lineSeparator()); // numCargo
-        for (Cargo cargo : port.getCargo()) { // EncodedCargo
-            portWriter.append(cargo.encode()).append(System.lineSeparator());
-        }
-        int numOfShip = 0; // numShips
-        for (Quay quay : port.getQuays()) {
-            if (!quay.isEmpty()) {
-                numOfShip++;
-            }
-        }
-        numOfShip += port.getShipQueue().getShipQueue().size();
-        portWriter.append((char) numOfShip).append(System.lineSeparator());
-        for (Quay quay : port.getQuays()) { // EncodedShip
-            if (!quay.isEmpty()) {
-                portWriter.append(quay.getShip().encode()).append(System.lineSeparator());
-            }
-        }
-        for (Ship ship : port.getShipQueue().getShipQueue()) {
-            portWriter.append(ship.encode()).append(System.lineSeparator());
-        }
-        portWriter.append((char) port.getQuays().size()).append(System.lineSeparator()); // numQuays
-        for (Quay quay : port.getQuays()) { // EncodedQuay
-            portWriter.append(quay.encode()).append(System.lineSeparator());
-        }
-        StringBuilder txt = new StringBuilder("ShipQueue:");
-        txt.append(port.getShipQueue().getShipQueue().size()).append(":");
-        for (Ship ship : port.getShipQueue().getShipQueue()) {
-            txt.append(ship.getImoNumber()).append(",");
-        }
-        portWriter.append(txt.substring(0, txt.length() - 1)).append(System.lineSeparator());
-        txt = new StringBuilder("StoredCargo:");
-        txt.append(port.getCargo().size()).append(":");
-        for (Cargo cargo : port.getCargo()) {
-            txt.append(cargo.getId()).append(",");
-        }
-        portWriter.append(txt.substring(0, txt.length() - 1)).append(System.lineSeparator());
-        portWriter.append("Movements:").append((char) port.getMovements().size()).append(System.lineSeparator());
-        for (Movement movement : port.getMovements()) {
-            portWriter.append(movement.encode()).append(System.lineSeparator());
-        }
-        txt = new StringBuilder("Evaluators:");
-        txt.append(port.getEvaluators().size()).append(":");
-        for (StatisticsEvaluator evaluator : port.getEvaluators()) {
-            txt.append(evaluator.getClass().getSimpleName()).append(",");
-        }
-        portWriter.append(txt.substring(0, txt.length() - 1)).append(System.lineSeparator());
+        portWriter.write(port.encode());
         portWriter.close();
     }
 
