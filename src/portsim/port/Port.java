@@ -1,15 +1,19 @@
 package portsim.port;
 
 import portsim.cargo.Cargo;
+import portsim.cargo.Container;
 import portsim.evaluators.StatisticsEvaluator;
 import portsim.movement.CargoMovement;
 import portsim.movement.Movement;
 import portsim.movement.MovementDirection;
 import portsim.movement.ShipMovement;
+import portsim.ship.BulkCarrier;
+import portsim.ship.ContainerShip;
 import portsim.ship.NauticalFlag;
 import portsim.ship.Ship;
 import portsim.util.BadEncodingException;
 import portsim.util.Encodable;
+import portsim.util.NoSuchCargoException;
 import portsim.util.Tickable;
 
 import java.io.IOException;
@@ -149,6 +153,29 @@ public class Port implements Tickable, Encodable {
      *
      * @param movement movement to execute*/
     public void processMovement(Movement movement){
+        if (movement instanceof ShipMovement) {
+            if (movement.getDirection() == MovementDirection.INBOUND) {
+                this.shipQueue.add(((ShipMovement) movement).getShip());
+            } else if (movement.getDirection() == MovementDirection.OUTBOUND){
+                for (int i=0; i<this.storedCargo.size(); i++) {
+                    if (((ShipMovement) movement).getShip().canLoad(this.storedCargo.get(i))) {
+                        ((ShipMovement) movement).getShip().loadCargo(this.storedCargo.get(i));
+                    }
+                }
+            }
+        }
+        if (movement instanceof CargoMovement) {
+            if (movement.getDirection() == MovementDirection.INBOUND) {
+                this.storedCargo.addAll(((CargoMovement) movement).getCargo());
+            } else if (movement.getDirection() == MovementDirection.OUTBOUND){
+                for (Cargo cargo : ((CargoMovement) movement).getCargo()) {
+                    this.storedCargo.removeIf(p -> p.getId() == cargo.getId());
+                }
+            }
+        }
+        for (StatisticsEvaluator statisticsEvaluator : statisticsEvaluatorList) {
+            statisticsEvaluator.onProcessMovement(movement);
+        }
         /**
         ShipMovement directionShip = new ShipMovement(120, MovementDirection.INBOUND,
                 new Ship(1258691, "Evergreen", "Australia", NauticalFlag.BRAVO) {
@@ -284,12 +311,42 @@ public class Port implements Tickable, Encodable {
      *
      *     <li>5. Call StatisticsEvaluator.elapseOneMinute() on all statistics evaluators</li>
      * </ul>*/
-    public void elapseOneMinute(){
-        this.timeSimulationStarted ++;
+    public void elapseOneMinute() {
+        this.timeSimulationStarted++;
         if (this.timeSimulationStarted % 10 == 0) { // Check if time multiple of 10
-
-        } else if (this.timeSimulationStarted % 5 == 0){    // Check if time multiple of 5
-
+            Ship ship = shipQueue.poll();
+            for (Quay quay : quays) { // Bring a ship to an empty quay
+                if (ship.canDock(quay)) {
+                    quay.shipArrives(ship);
+                    break;
+                }
+            }
+        } else if (this.timeSimulationStarted % 5 == 0) {    // Check if time multiple of 5
+            for (Quay quay : quays) {
+                if (!quay.isEmpty()) {
+                    if (quay.getShip() instanceof BulkCarrier) {
+                        try {
+                            storedCargo.add(((BulkCarrier) quay.getShip()).unloadCargo());
+                        } catch (NoSuchCargoException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (quay.getShip() instanceof ContainerShip) {
+                        try {
+                            storedCargo.addAll(((ContainerShip) quay.getShip()).unloadCargo());
+                        } catch (NoSuchCargoException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+        for (Movement movement : priorityQueue) { // Process movement
+            if (movement.getTime() == this.timeSimulationStarted) {
+                processMovement(movement);
+            }
+        }
+        for (StatisticsEvaluator statisticsEvaluator : statisticsEvaluatorList) { // Call elapseOneMinute() on all statisticsEvaluator
+            statisticsEvaluator.elapseOneMinute();
         }
     }
 
